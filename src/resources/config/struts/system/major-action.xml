@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_MAJOR config end********************************  -->
+
+<package name="QasDMajor" extends="default"
+		namespace="/system/major">
+		<action name="getTree" class="qasDMajorAction" method="getTree">
+		</action>
+		
+		<action name="queryInfo" class="qasDMajorAction" method="queryInfo">
+			<result name="select">/pages/system/major/QasDMajorInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDMajorAction" method="queryList">
+			<result name="list">/pages/system/major/QasDMajorList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDMajorAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDMajorAction" method="toEdit">
+			<result name="toEdit">/pages/system/major/QasDMajorEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDMajorAction" method="save">
+			<result name="save" type="redirect">
+			/system/major/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_MAJOR config end********************************  -->
+</struts>

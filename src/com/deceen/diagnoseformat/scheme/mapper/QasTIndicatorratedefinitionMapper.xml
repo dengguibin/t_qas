@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.diagnoseformat.scheme.mapper.QasTIndicatorratedefinitionMapper">
+<!--  ********************************QAS_T_INDICATORRATEDEFINITION config begnin********************************  -->
+
+<select id="select" resultType="QasTIndicatorratedefinition"> 
+ SELECT ID,SCHEMEID,INDICATORCONTENTID,LEFTVALUE,RIGHTVALUE,OPERATOR,SCORE,WARNINGGRADE,FORMULA,SORT,TENANTID FROM  QAS_T_INDICATORRATEDEFINITION 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasTIndicatorratedefinition" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,SCHEMEID,INDICATORCONTENTID,LEFTVALUE,RIGHTVALUE,OPERATOR,SCORE,WARNINGGRADE,FORMULA,SORT,TENANTID FROM  QAS_T_INDICATORRATEDEFINITION 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasTIndicatorratedefinition">
+ INSERT INTO QAS_T_INDICATORRATEDEFINITION   ( ID,SCHEMEID,INDICATORCONTENTID,LEFTVALUE,RIGHTVALUE,OPERATOR,SCORE,WARNINGGRADE,FORMULA,SORT,TENANTID)
+  VALUES ( #{id},#{schemeid},#{indicatorcontentid},#{leftvalue},#{rightvalue},#{operator},#{score},#{warninggrade},#{formula},#{sort},#{tenantid} )
+</insert>
+
+ <update id="update" parameterType="QasTIndicatorratedefinition">
+ UPDATE QAS_T_INDICATORRATEDEFINITION SET  ID=#{id},SCHEMEID=#{schemeid},INDICATORCONTENTID=#{indicatorcontentid},LEFTVALUE=#{leftvalue},RIGHTVALUE=#{rightvalue},OPERATOR=#{operator},SCORE=#{score},WARNINGGRADE=#{warninggrade},FORMULA=#{formula},SORT=#{sort},TENANTID=#{tenantid} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_T_INDICATORRATEDEFINITION WHERE   ID=#{id}
+</delete>
+
+ <delete id="deleteBySchemeId" parameterType="QasTSchemecatalog">
+   DELETE FROM QAS_T_INDICATORRATEDEFINITION 
+   	<where>
+   		<if test="indicatorcatalogid!=null">AND INDICATORCONTENTID=#{indicatorcatalogid}</if>
+   		<if test="schemeid!=null">AND SCHEMEID=#{schemeid}</if>
+   	</where>
+</delete>
+
+ <insert id="batchInsert" parameterType="QasTIndicatorratedefinition">
+ INSERT INTO QAS_T_INDICATORRATEDEFINITION   ( ID,SCHEMEID,INDICATORCONTENTID,LEFTVALUE,RIGHTVALUE,OPERATOR,SCORE,WARNINGGRADE,FORMULA,SORT,TENANTID)
+  VALUES 
+  <foreach collection="list" item="d" separator=",">
+	  ( #{d.id},#{d.schemeid},#{d.indicatorcontentid},#{d.leftvalue},#{d.rightvalue},#{d.operator},#{d.score},#{d.warninggrade},#{d.formula},#{d.sort},#{d.tenantid} )
+  </foreach>
+
+</insert>
+
+<!--动态进行更新 如果有需要请开启，否则请删除
+ <update id="updateWithDyna" parameterType="QasTIndicatorratedefinition">
+ UPDATE QAS_T_INDICATORRATEDEFINITION 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="schemeid != null">  SCHEMEID = #{schemeid},</if>
+<if test="indicatorcontentid != null">  INDICATORCONTENTID = #{indicatorcontentid},</if>
+<if test="leftvalue != null">  LEFTVALUE = #{leftvalue},</if>
+<if test="rightvalue != null">  RIGHTVALUE = #{rightvalue},</if>
+<if test="operator != null">  OPERATOR = #{operator},</if>
+<if test="score != null">  SCORE = #{score},</if>
+<if test="warninggrade != null">  WARNINGGRADE = #{warninggrade},</if>
+<if test="formula != null">  FORMULA = #{formula},</if>
+<if test="sort != null">  SORT = #{sort},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+-->
+
+<select id="selectByParams">
+	 SELECT R.ID,R.SCHEMEID,R.INDICATORCONTENTID,R.LEFTVALUE,R.RIGHTVALUE,R.OPERATOR,R.SCORE,R.WARNINGGRADE,R.FORMULA,R.SORT,R.TENANTID FROM  QAS_T_INDICATORRATEDEFINITION R
+	 LEFT JOIN QAS_T_INDICATORCONTENT C ON R.INDICATORCONTENTID = C.ID
+	 WHERE C.PARENTINDICATORCONTENTID = #{elementid} AND R.SCHEMEID=#{schemeid}
+</select>
+
+<select id="selectIndicatorRate" resultType="QasTIndicatorratedefinition"> 
+SELECT R.ID,R.SCHEMEID,R.INDICATORCONTENTID,R.LEFTVALUE,R.RIGHTVALUE,R.OPERATOR,R.SCORE,R.WARNINGGRADE,R.FORMULA,R.SORT,R.TENANTID FROM  QAS_T_INDICATORRATEDEFINITION  R
+LEFT JOIN QAS_T_INDICATORCONTENT C ON C.ID = R.INDICATORCONTENTID
+LEFT JOIN QAS_T_SCHEMECATALOG S ON S.INDICATORCATALOGID = C.INDICATORCATALOGID AND S.SCHEMEID = R.SCHEMEID
+ WHERE   S.ID=#{id}  ORDER BY R.SORT
+</select> 
+
+<select id="selectIndicatorRateAll" resultType="QasTIndicatorratedefinition"> 
+SELECT R.ID,R.SCHEMEID,R.INDICATORCONTENTID,R.LEFTVALUE,R.RIGHTVALUE,R.OPERATOR,R.SCORE,R.WARNINGGRADE,R.FORMULA,R.SORT,R.TENANTID FROM  QAS_T_INDICATORRATEDEFINITION  R
+LEFT JOIN QAS_T_INDICATORCONTENT C ON C.ID = R.INDICATORCONTENTID
+LEFT JOIN QAS_T_SCHEMECATALOG S ON S.INDICATORCATALOGID = C.INDICATORCATALOGID AND S.SCHEMEID = R.SCHEMEID
+ WHERE   S.SCHEMEID=#{id}  ORDER BY R.SORT
+</select>
+<!--  ********************************QAS_T_INDICATORRATEDEFINITION config end********************************  -->
+
+</mapper>

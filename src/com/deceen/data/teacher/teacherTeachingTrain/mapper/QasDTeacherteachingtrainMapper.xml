@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.teacher.teacherTeachingTrain.mapper.QasDTeacherteachingtrainMapper">
+<!--  ********************************QAS_D_TEACHERTEACHINGTRAIN config begnin********************************  -->
+
+<select id="select" resultType="QasDTeacherteachingtrain"> 
+ SELECT ID,EMPLOYEEID,TEACHINGTRAINPROJNAME,TEACHINGTRAINDAY,TEACHINGTRAINHOUR,TEACHINGTRAINSITE,TEACHINGTRAININGDISPATCHEDDEPARTMENT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_TEACHERTEACHINGTRAIN 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDTeacherteachingtrain" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,EMPLOYEEID,TEACHINGTRAINPROJNAME,TEACHINGTRAINDAY,TEACHINGTRAINHOUR,TEACHINGTRAINSITE,TEACHINGTRAININGDISPATCHEDDEPARTMENT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_TEACHERTEACHINGTRAIN 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDTeacherteachingtrain">
+ INSERT INTO QAS_D_TEACHERTEACHINGTRAIN   ( ID,EMPLOYEEID,TEACHINGTRAINPROJNAME,TEACHINGTRAINDAY,TEACHINGTRAINHOUR,TEACHINGTRAINSITE,TEACHINGTRAININGDISPATCHEDDEPARTMENT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{employeeid},#{teachingtrainprojname},#{teachingtrainday},#{teachingtrainhour},#{teachingtrainsite},#{teachingtrainingdispatcheddepartment},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDTeacherteachingtrain">
+ UPDATE QAS_D_TEACHERTEACHINGTRAIN SET  ID=#{id},EMPLOYEEID=#{employeeid},TEACHINGTRAINPROJNAME=#{teachingtrainprojname},TEACHINGTRAINDAY=#{teachingtrainday},TEACHINGTRAINHOUR=#{teachingtrainhour},TEACHINGTRAINSITE=#{teachingtrainsite},TEACHINGTRAININGDISPATCHEDDEPARTMENT=#{teachingtrainingdispatcheddepartment},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_TEACHERTEACHINGTRAIN WHERE   ID=#{id}
+</delete>
+
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_TEACHERTEACHINGTRAIN WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDTeacherteachingtrain">
+ UPDATE QAS_D_TEACHERTEACHINGTRAIN 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="employeeid != null">  EMPLOYEEID = #{employeeid},</if>
+<if test="teachingtrainprojname != null">  TEACHINGTRAINPROJNAME = #{teachingtrainprojname},</if>
+<if test="teachingtrainday != null">  TEACHINGTRAINDAY = #{teachingtrainday},</if>
+<if test="teachingtrainhour != null">  TEACHINGTRAINHOUR = #{teachingtrainhour},</if>
+<if test="teachingtrainsite != null">  TEACHINGTRAINSITE = #{teachingtrainsite},</if>
+<if test="teachingtrainingdispatcheddepartment != null">  TEACHINGTRAININGDISPATCHEDDEPARTMENT = #{teachingtrainingdispatcheddepartment},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_TEACHERTEACHINGTRAIN config end********************************  -->
+
+</mapper>

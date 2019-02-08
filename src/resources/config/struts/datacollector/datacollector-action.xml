@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************T_DATAS_COLLECTOR config end********************************  -->
+
+<package name="TDatasCollector" extends="default" namespace="/collector">
+		
+		<action name="queryInfo" class="tDatasCollectorAction" method="queryInfo">
+			<result name="select">/pages/datacollector/TDatasCollectorInfo.jsp</result>
+		</action>
+		<action name="queryRunTranInfo" class="tDatasCollectorAction" method="queryInfo">
+			<result name="select">/pages/datacollector/TDatasCollectorRun.jsp</result>
+		</action>
+		
+		<action name="queryList" class="tDatasCollectorAction" method="queryList">
+			<result name="list">/pages/datacollector/TDatasCollectorList.jsp</result>
+		</action>
+		
+		<action name="remove" class="tDatasCollectorAction" method="remove">
+		</action>
+		<action name="runTran" class="tDatasCollectorAction" method="saveRunTran">
+		</action>
+		<action name="download" class="tDatasCollectorAction" method="download">
+		</action>
+		
+		<action name="toEdit" class="tDatasCollectorAction" method="toEdit">
+			<result name="toEdit">/pages/datacollector/TDatasCollectorEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="tDatasCollectorAction" method="save">
+			<result name="save" type="redirect">
+				/collector/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+		<action name="saveRunTran" class="tDatasCollectorAction" method="saveRunTran">
+			<result name="save" type="redirect">
+				/collector/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************T_DATAS_COLLECTOR config end********************************  -->
+</struts>

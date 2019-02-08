@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.school.managementInformationSystem.mapper.QasDManagementinformationsystemMapper">
+<!--  ********************************QAS_D_MANAGEMENTINFORMATIONSYSTEM config begnin********************************  -->
+
+<select id="select" resultType="QasDManagementinformationsystem"> 
+ SELECT ID,TYPE,SYSTEMNAME,SOURCE,DEVELOPMENTUNIT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_MANAGEMENTINFORMATIONSYSTEM 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDManagementinformationsystem" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,TYPE,SYSTEMNAME,SOURCE,DEVELOPMENTUNIT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_MANAGEMENTINFORMATIONSYSTEM 
+ WHERE  1 = 1
+ 
+   <if test="type != null and type != ''">
+	 	AND TYPE LIKE concat('%',#{type},'%')
+  </if>
+  
+   <if test="systemname != null and systemname != ''">
+	 	AND SYSTEMNAME LIKE concat('%',#{systemname},'%')
+  </if>
+  
+   <if test="source != null and source != ''">
+	 	AND SOURCE LIKE concat('%',#{source},'%')
+  </if>
+  
+   <if test="developmentunit != null and developmentunit != ''">
+	 	AND DEVELOPMENTUNIT LIKE concat('%',#{developmentunit},'%')
+  </if>
+
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDManagementinformationsystem">
+ INSERT INTO QAS_D_MANAGEMENTINFORMATIONSYSTEM   ( ID,TYPE,SYSTEMNAME,SOURCE,DEVELOPMENTUNIT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{type},#{systemname},#{source},#{developmentunit},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDManagementinformationsystem">
+ UPDATE QAS_D_MANAGEMENTINFORMATIONSYSTEM SET  ID=#{id},TYPE=#{type},SYSTEMNAME=#{systemname},SOURCE=#{source},DEVELOPMENTUNIT=#{developmentunit},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_MANAGEMENTINFORMATIONSYSTEM WHERE   ID=#{id}
+</delete>
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_MANAGEMENTINFORMATIONSYSTEM WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDManagementinformationsystem">
+ UPDATE QAS_D_MANAGEMENTINFORMATIONSYSTEM 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="type != null">  TYPE = #{type},</if>
+<if test="systemname != null">  SYSTEMNAME = #{systemname},</if>
+<if test="source != null">  SOURCE = #{source},</if>
+<if test="developmentunit != null">  DEVELOPMENTUNIT = #{developmentunit},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_MANAGEMENTINFORMATIONSYSTEM config end********************************  -->
+
+</mapper>

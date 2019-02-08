@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+        "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="com.upath.plat.auth" extends="default"
+		namespace="/plat/auth">
+		
+		<default-interceptor-ref name="webStackSaveToken"/>
+		
+		<!-- 系统管理 -->
+		<action name="tRmsAppinfo" class="tRmsAppinfoAction">
+			<result name="select">/pages/plat/auth/TRmsAppinfoEdit.jsp</result>
+			<result name="list">/pages/plat/auth/TRmsAppinfoList.jsp</result>
+		</action>
+		
+		<!-- 菜单管理 -->
+		<action name="tRmsMenuinfo" class="tRmsMenuinfoAction">
+			<result name="select">/pages/plat/auth/TRmsMenuinfoEdit.jsp</result>
+			<result name="list">/pages/plat/auth/TRmsMenuinfoList.jsp</result>
+			<result name="manage">/pages/plat/auth/TrmsMenuManage.jsp</result>
+		</action>
+		
+		<action name="tRmsMenufunc" class="tRmsMenufuncAction">
+			<result name="select">/pages/plat/auth/TRmsMenufuncInfo.jsp</result>
+			<result name="list">/pages/plat/auth/TRmsMenufuncList.jsp</result>
+			<result name="toEdit">/pages/plat/auth/TRmsMenufuncEdit.jsp</result>
+			<result name="save" type="redirect">/plat/auth/tRmsMenufunc!toEdit.action?bean.funcid=${bean.funcid}</result>
+		</action>
+		
+		<!-- 用户管理 -->
+		<action name="tRmsUser" class="tRmsUserAction">
+			<result name="select">/pages/plat/auth/TRmsUserEdit.jsp</result>
+			<result name="list">/pages/plat/auth/TRmsUserList.jsp</result>
+			<result name="manage">/pages/plat/auth/TrmsUserManage.jsp</result>
+		</action>
+		
+		<!-- 用户组管理 -->
+		<action name="tRmsGroups" class="tRmsGroupsAction">
+			<result name="select">/pages/plat/auth/TRmsGroupsEdit.jsp</result>
+			<result name="list">/pages/plat/auth/TRmsGroupsList.jsp</result>
+			<result name="manage">/pages/plat/auth/TrmsGroupsManage.jsp</result>
+			<result name="listUser">/pages/plat/auth/TRmsGroupUserTree.jsp</result>
+			<result name="listTree">/pages/plat/auth/TRmsGroupTree.jsp</result>
+		</action>
+		
+		<!-- 部门管理 -->
+		<action name="tRmsDeptment" class="tRmsDeptmentAction">
+			<result name="select">/pages/plat/auth/TRmsDeptmentEdit.jsp</result>
+			<result name="list">/pages/plat/auth/TRmsDeptmentList.jsp</result>
+			<result name="listTree">/pages/plat/auth/TRmsDeptmentTree.jsp</result>
+			<result name="listUser">/pages/plat/auth/ChoseUserTree.jsp</result>
+			<result name="toEditExcel">/pages/plat/auth/TRmsDeptmentEditExcel.jsp</result>
+		</action>
+		
+		<!-- 权限管理 -->
+		<action name="tRmsPermissionsinfo" class="tRmsPermissionsinfoAction">
+			<result name="select">/pages/plat/auth/TRmsPermissionsinfoEdit.jsp</result>
+			<result name="list">/pages/plat/auth/TRmsPermissionsinfoList.jsp</result>
+		</action>
+		
+		<!-- 角色管理 -->
+		<action name="tRmsRole" class="tRmsRoleAction">
+			<result name="select">/pages/plat/auth/TRmsRoleEdit.jsp</result>
+			<result name="list">/pages/plat/auth/TRmsRoleList.jsp</result>
+			<result name="treeList">/pages/plat/auth/TRmsRoleTree.jsp</result>
+			<result name="listUser">/pages/plat/auth/TRmsRoleUserTree.jsp</result>
+			<result name="listPermissions">/pages/plat/auth/TRmsRolePermissions.jsp</result>
+		</action>
+	</package>
+	
+	<!-- 此些功能考虑后面安全性问题，需要放开给单位用户进行使用 -->
+		<package name="com.upath.plat.org" extends="default"
+		namespace="/org/auth">
+				<!-- 部门管理 -->
+			<action name="listDeptInfo" class="tRmsDeptmentAction" method="listDeptInfo">
+				<result name="list">/pages/plat/auth/dept/DeptmentList.jsp</result>
+			</action>
+			
+			<action name="toEditDeptInfo" class="tRmsDeptmentAction" method="toEditDeptInfo">
+				<result name="toEdit">/pages/plat/auth/dept/DeptmentEdit.jsp</result>
+			</action>
+			
+			<action name="removeDept" class="tRmsDeptmentAction" method="removeDept">
+			</action>
+			
+				<action name="saveDept" class="tRmsDeptmentAction" method="saveDept">
+				</action>
+			
+			
+			<action name="listOrgUserInfo" class="tRmsUserAction" method="listOrgUserInfo">
+				<result name="list">/pages/plat/auth/dept/UserList.jsp</result>
+			</action>
+			
+			<action name="toEditOrgUserInfo" class="tRmsUserAction" method="toEditOrgUserInfo">
+				<result name="toEdit">/pages/plat/auth/dept/UserEdit.jsp</result>
+			</action>
+			
+			<action name="changeOrgUser" class="tRmsUserAction" method="changeOrgUser">
+			
+			</action>
+			<action name="getMajor" class="tRmsUserAction" method="getMajor">
+			</action>
+			
+			<action name="resetUserPwd" class="tRmsUserAction" method="resetUserPwd">
+			
+			</action>
+			
+			<action name="queryUser" class="tRmsUserAction" method="queryUser">
+			
+			</action>
+			
+			<action name="saveOrgUser" class="tRmsUserAction" method="saveOrgUser">
+				<result name="toEdit">/pages/plat/auth/dept/UserEdit.jsp</result>
+			</action>
+			
+				
+			<!-- 登陆用户修改密码 -->
+			<action name="toModify" class="loginAction" method="toModifyPassword">
+				<result name="success">/pages/plat/common/login/userPasswordEdit.jsp</result>
+			</action>
+			
+			<!-- 登陆用户修改密码 -->
+			<action name="savePassword" class="loginAction" method="savePassword">
+				<result name="success">/pages/plat/common/login/userPasswordEdit.jsp</result>
+				<result name="toMain" type="redirect">/main.action</result>
+			</action>
+			
+		</package>
+</struts>

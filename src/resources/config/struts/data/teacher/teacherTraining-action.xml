@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_TEACHERTRAINING config end********************************  -->
+
+<package name="QasDTeachertraining" extends="default"
+		namespace="/data/teacher/teacherTraining">
+		
+		<action name="queryInfo" class="qasDTeachertrainingAction" method="queryInfo">
+			<result name="select">/pages/data/teacher/teacherTraining/QasDTeachertrainingInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDTeachertrainingAction" method="queryList">
+			<result name="list">/pages/data/teacher/teacherTraining/QasDTeachertrainingList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDTeachertrainingAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDTeachertrainingAction" method="toEdit">
+			<result name="toEdit">/pages/data/teacher/teacherTraining/QasDTeachertrainingEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDTeachertrainingAction" method="save">
+			<result name="save" type="redirect">
+			/data/teacher/teacherTraining/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_TEACHERTRAINING config end********************************  -->
+</struts>

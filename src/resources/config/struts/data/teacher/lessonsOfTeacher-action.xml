@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_LESSONSOFTEACHER config end********************************  -->
+
+<package name="QasDLessonsofteacher" extends="default"
+		namespace="/data/teacher/lessonsOfTeacher">
+		
+		<action name="queryInfo" class="qasDLessonsofteacherAction" method="queryInfo">
+			<result name="select">/pages/data/teacher/lessonsOfTeacher/QasDLessonsofteacherInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDLessonsofteacherAction" method="queryList">
+			<result name="list">/pages/data/teacher/lessonsOfTeacher/QasDLessonsofteacherList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDLessonsofteacherAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDLessonsofteacherAction" method="toEdit">
+			<result name="toEdit">/pages/data/teacher/lessonsOfTeacher/QasDLessonsofteacherEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDLessonsofteacherAction" method="save">
+			<result name="save" type="redirect">
+			/data/teacher/lessonsOfTeacher/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_LESSONSOFTEACHER config end********************************  -->
+</struts>

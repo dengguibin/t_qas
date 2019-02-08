@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.common.modules.mapper.TCommonTemplateMapper">
+<!--  ********************************T_COMMON_TEMPLATE config begnin********************************  -->
+
+<select id="select" resultType="TCommonTemplate"> 
+ SELECT TID,TEMPLATE,PID,MBLX,KZSS,PXH,SFYX,PARAMS,OWNER,MARKS,CJSJ,CJR,XGSJ,XGR FROM  T_COMMON_TEMPLATE 
+ WHERE   TID=#{tid}
+</select>
+
+<select id="list" parameterType="TCommonTemplate" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT TID,TEMPLATE,PID,MBLX,KZSS,PXH,SFYX,PARAMS,OWNER,MARKS,CJSJ,CJR,XGSJ,XGR FROM  T_COMMON_TEMPLATE 
+ WHERE   TID=#{tid}
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="TCommonTemplate">
+ INSERT INTO T_COMMON_TEMPLATE   ( TID,TEMPLATE,PID,MBLX,KZSS,PXH,SFYX,PARAMS,OWNER,MARKS,CJSJ,CJR,XGSJ,XGR)
+  VALUES ( #{tid},#{template},#{pid},#{mblx},#{kzss},#{pxh},#{sfyx},#{params},#{owner},#{marks},#{cjsj},#{cjr},#{xgsj},#{xgr} )
+</insert>
+
+ <update id="update" parameterType="TCommonTemplate">
+ UPDATE T_COMMON_TEMPLATE SET  TID=#{tid},TEMPLATE=#{template},PID=#{pid},MBLX=#{mblx},KZSS=#{kzss},PXH=#{pxh},SFYX=#{sfyx},PARAMS=#{params},OWNER=#{owner},MARKS=#{marks},CJSJ=#{cjsj},CJR=#{cjr},XGSJ=#{xgsj},XGR=#{xgr} 
+ WHERE  TID=#{tid}
+</update>
+
+ <delete id="delete" parameterType="TCommonTemplate">
+   DELETE FROM T_COMMON_TEMPLATE WHERE   TID=#{tid}
+</delete>
+
+<!--  ********************************T_COMMON_TEMPLATE config end********************************  -->
+
+</mapper>

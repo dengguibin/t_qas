@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.diagnosereport.analy.mapper.QasTDiagnosticinterdocMapper">
+
+
+ 
+<!-- 添加数据 -->
+ <insert id="insert" parameterType="QasTDiagnosticinterdoc">
+ INSERT INTO qas_t_diagnosticinterdoc   ( ID,DIAGNOSTICREPORTID,DIAGNOSTICOBJID,DIAGNOSTICOBJNAME,WORDURL)
+  VALUES ( #{id},#{diagnosticreportid},#{diagnosticobjid},#{diagnosticobjname},#{wordurl} )
+</insert>
+<!-- 查询文档地址 -->
+<select id="selectBytaskId" parameterType="hashmap"  resultType="String" >
+
+	SELECT
+	d.wordurl
+	FROM
+	qas_t_diagnosticinterdoc d
+	LEFT JOIN
+	qas_t_diagnosticreport t
+
+	on d.DiagnosticReportId = t.id
+	where
+	t.DiagnoseTaskId = #{taskId}
+	and t.DiagnoseDataTime = #{datetime}
+	and d.DiagnosticObjName = #{objName}
+			
+ </select>
+</mapper>

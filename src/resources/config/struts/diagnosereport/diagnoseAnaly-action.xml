@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="DiagnoseAnaly" extends="default"
+		namespace="/diagnose/analy">
+		
+		<action name="getDiagnoseObj" class="qasTDiagnosticreportAction" method="getDiagnoseObj">
+		</action>
+		<action name="excuteAnaly" class="qasTDiagnosticreportAction" method="excuteAnaly">
+		</action>
+		
+		<action name="queryInfo" class="qasTDiagnosticreportAction" method="queryInfo">
+		</action>
+		
+		<action name="getDiagnoseReport" class="qasTDiagnosticreportAction" method="getDiagnoseReport">
+		</action>
+		
+	</package>
+</struts>

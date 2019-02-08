@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.common.modules.mapper.TCommonSqlMapper">
+<!--  ********************************T_COMMON_SQL config begnin********************************  -->
+
+<select id="select" resultType="TCommonSql"> 
+ SELECT TID,PTID,NAME,RTYPE,TYPE,SCRIPTS,RESULT,CPATH,TIMES,COSTS,DES,CJSJ,CJR,XGSJ,XGR FROM  T_COMMON_SQL 
+ WHERE   TID=#{tid}
+</select>
+
+<select id="list" parameterType="TCommonSql" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT TID,PTID,NAME,RTYPE,TYPE,SCRIPTS,RESULT,CPATH,TIMES,COSTS,DES,CJSJ,CJR,XGSJ,XGR FROM  T_COMMON_SQL 
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+<insert id="insert" parameterType="TCommonSql">
+ INSERT INTO T_COMMON_SQL   ( TID,PTID,NAME,RTYPE,TYPE,SCRIPTS,RESULT,CPATH,TIMES,COSTS,DES,CJSJ,CJR,XGSJ,XGR)
+  VALUES ( #{tid},#{ptid},#{name},#{rtype},#{type},#{scripts},#{result},#{cpath},#{times},#{costs},#{des},#{cjsj},#{cjr},#{xgsj},#{xgr} )
+</insert>
+<insert id="backupSql" parameterType="TCommonSql">
+INSERT INTO T_COMMON_SQLBAKS 
+	(TID, PTID, BTID, RTYPE, NAME, SCRIPTS, RESULT, CPATH, TIMES, COSTS, DES, CJSJ, CJR, XGSJ, XGR
+	)SELECT  TID, PTID,#{uuid}, RTYPE, NAME, SCRIPTS, RESULT, CPATH, TIMES, COSTS, DES,#{xgsj},CJR, XGSJ, XGR FROM T_COMMON_SQL
+	WHERE   TID=#{tid}
+</insert>
+
+ <update id="update" parameterType="TCommonSql">
+ UPDATE T_COMMON_SQL SET  TID=#{tid},PTID=#{ptid},NAME=#{name},RTYPE=#{rtype},TYPE=#{type},SCRIPTS=#{scripts},RESULT=#{result},CPATH=#{cpath},TIMES=#{times},COSTS=#{costs},DES=#{des},CJSJ=#{cjsj},CJR=#{cjr},XGSJ=#{xgsj},XGR=#{xgr} 
+ WHERE  TID=#{tid}
+</update>
+
+<delete id="delete" parameterType="TCommonSql">
+   DELETE FROM T_COMMON_SQL WHERE   TID=#{tid}
+</delete>
+
+<!--  ********************************T_COMMON_SQL config end********************************  -->
+
+</mapper>

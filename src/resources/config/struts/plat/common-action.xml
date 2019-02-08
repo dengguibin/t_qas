@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+        "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	
+	  <!-- 注入模板管理器 -->
+    <bean class="com.upath.plat.common.taglib.QueryBean"></bean>
+
+	<!-- 系统认证设置 -->
+	<package name="com.upath.index.auth" extends="default"
+		namespace="/auth">
+		<interceptors>
+			<interceptor name="userInterceptor" class="com.upath.plat.common.filter.ValidateUserInterceptor"></interceptor>
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="userInterceptor"></interceptor-ref>
+				<interceptor-ref name="webStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<!-- 定义系统登陆页面 -->
+		<action name="login" class="loginAction" method="login">
+			<interceptor-ref name="loginStack"></interceptor-ref>
+			<result name="login">/pages/plat/common/login/login.jsp</result>
+			<result name="success" type="redirect">/main.action</result>
+		</action>
+		
+		
+		
+		<!-- 系统认证服务 -->
+		<action name="auth" class="loginAction" method="authenticate">
+			<interceptor-ref name="loginStack"></interceptor-ref>
+			<result name="login">/pages/plat/common/login/login.jsp</result>
+			<result name="success" type="redirect" >/main.action</result>
+		</action>
+		
+		<!-- 系统登出页面 -->
+		<action name="logout" class="loginAction" method="logout">
+			<result name="success" type="redirect" >/main.action</result>
+		</action>
+		
+		<!-- 获取系统验证码 -->
+		<action name="code" class="loginAction" method="code"/>
+		
+		<!-- 后台校证请求是否已经登陆 -->
+		<action name="signal" class="loginAction" method="signal"/>
+	</package>
+	
+	
+	<!-- 系统登陆成功后进行主页控制 -->
+	<package name="com.upath.plat.main" extends="default"
+		namespace="/">
+		<!-- 公共字典管理 -->
+		<action name="main" class="mainAction">
+			<result name="success">/pages/t_qas/layout/layout.jsp</result>
+			<result name="accordion">/pages/t_qas/layout/layout.jsp</result>
+			<result name="toModify" type="redirect">/org/auth/toModify.action</result>
+		</action>
+	</package>
+	
+	
+	<!-- 系统共用功能的模块 -->
+	<package name="com.upath.plat.common" extends="default"
+		namespace="/plat/common">
+		<!-- 公共字典管理 -->
+		<action name="tCommonKeys" class="tCommonKeysAction">
+			<result name="select">/pages/plat/common/dic/TCommonKeysEdit.jsp</result>
+			<result name="list">/pages/plat/common/dic/TCommonKeysList.jsp</result>
+		</action>
+		
+		<!-- 公共字典管理 -->
+		<action name="tCommonSubkeys" class="tCommonSubkeysAction">
+			<result name="select">/pages/plat/common/dic/TCommonSubkeysEdit.jsp</result>
+			<result name="list">/pages/plat/common/dic/TCommonSubkeysList.jsp</result>
+		</action>
+		
+		<action name="listOrgJson" class="tRmsDeptmentAction" method="listOrgJson">
+		</action>
+		
+		
+		<!-- ID 管理器 -->
+		<action name="tCommonSeq" class="tCommonSeqAction">
+			<result name="select">/pages/plat/common/idm/TCommonSeqEdit.jsp</result>
+			<result name="list">/pages/plat/common/idm/TCommonSeqList.jsp</result>
+		</action>
+		<!-- ID 管理器 -->
+		<action name="tCommonSeqvalue" class="tCommonSeqvalueAction">
+			<result name="select">/pages/plat/common/idm/TCommonSeqvalueEdit.jsp</result>
+			<result name="list">/pages/plat/common/idm/TCommonSeqvalueList.jsp</result>
+		</action>
+		
+		<!-- 定义系统中所有需要直接通过菜单ID跳转到页面的功能 -->
+		<action name="redirect" class="tRmsMenuinfoAction" method="redirect">
+			<result name="redirect">/pages/plat/common/redirect.jsp</result>
+		</action>
+		
+		
+		<!-- SQL 管理  -->
+		<action name="tCommonSql" class="tCommonSqlAction">
+			<result name="select">/pages/plat/common/sql/TCommonSqlEdit.jsp</result>
+			<result name="list">/pages/plat/common/sql/TCommonSqlList.jsp</result>
+			<result name="listTree">/pages/plat/common/sql/TCommonSqlTree.jsp</result>
+			<result name="manage">/pages/plat/common/sql/TCommonSqlManage.jsp</result>
+		</action>
+		
+		
+		<!-- 在线 管理  -->
+		<action name="tCommonOnline" class="tCommonOnlineAction">
+			<result name="select">/pages/plat/common/login/TCommonOnlineEdit.jsp</result>
+			<result name="list">/pages/plat/common/login/TCommonOnlineList.jsp</result>
+		</action>
+		
+		<!-- 文档管理 -->
+		<action name="tCommonDocument" class="tCommonDocumentAction">
+			
+		</action>
+		
+		<!-- 文档管理 -->
+		<action name="download" class="tCommonDocumentAction" method="download">
+			
+		</action>
+		<action name="downloadZip" class="tCommonDocumentAction" method="downloadZip">
+			
+		</action>
+		
+		<!-- 登陆日志管理查询  -->
+		<action name="tRmsLogininfo" class="tRmsLogininfoAction">
+			<result name="list">/pages/plat/common/login/TRmsLogininfoList.jsp</result>
+		</action>
+		
+			<!-- 操作日志管理  -->
+		<action name="tRmsAlllogs" class="tRmsAlllogsAction">
+			<result name="list">/pages/plat/common/login/TRmsAlllogsList.jsp</result>
+		</action>
+		
+		<!-- 节假工作日期管理 -->
+		<action name="tCommonWorkday" class="tCommonWorkdayAction">
+			<result name="select">/pages/plat/common/workday.jsp</result>
+		</action>
+		
+		
+		
+		<!-- 习惯用语 模板管理  -->
+		<action name="tCommonTemplate" class="tCommonTemplateAction">
+			<result name="select">/pages/plat/common/template/TCommonTemplateEdit.jsp</result>
+			<result name="list">/pages/plat/common/template/TCommonTemplateList.jsp</result>
+			<result name="query">/pages/plat/common/template/TCommonTemplateListSelect.jsp</result>
+		</action>
+		
+		<!-- 邮件参数管理 -->
+		<action name="tCommonConfig" class="tCommonMessageAction">
+			<result name="select">/pages/plat/common/mail/MailParaMeterEdit.jsp</result>
+			<result name="list">/pages/plat/common/mail/MailParaMeterList.jsp</result>
+			<result name="toSend">/pages/plat/common/mail/MailExample.jsp</result>
+			<result name="toSendSms">/pages/plat/common/mail/SMSExample.jsp</result>
+			<result name="toSendSystemMsg">/pages/plat/common/mail/SystemMSGExample.jsp</result>
+		</action>
+		
+		<!-- 消息管理 -->
+		<action name="tCommonMessage" class="tCommonMessageAction">
+			<result name="listShort">/pages/plat/common/messages/TRmsShortMessageList.jsp</result>
+			<result name="listSystem">/pages/plat/common/messages/TRmsSystemMessageList.jsp</result>
+			<result name="listMail">/pages/plat/common/messages/TRmsMailMessageList.jsp</result>
+			<result name="listUserSysMsgs">/pages/plat/common/messages/TRmsUserSysMsgsList.jsp</result>
+		</action>
+		
+	</package>
+	
+</struts>

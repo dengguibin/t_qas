@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.school.trainingBaseOutOfCampusStatistics.mapper.QasDTrainingbaseoutofcampusstatisticsMapper">
+<!--  ********************************QAS_D_TRAININGBASEOUTOFCAMPUSSTATISTICS config begnin********************************  -->
+
+<select id="select" resultType="QasDTrainingbaseoutofcampusstatistics"> 
+ SELECT ID,PRACTICEBASEINCAMPUSID,MAJORID,NUMOFTRAININGPROJECT,NUMOFPROJECTNAME,NUMOFSTURECEIVED,BASEUSETIME,HALFYEARINTERNSHIPSTUDENT,ISACCOMMODATIONCONDITIONS,STUDENTINTERNSHIPALLOWANCE,SPECIALPRACTICEFUND,SCHOOLTUTORCOUNT,NUMOFGRADUATEEMPLOYED,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_TRAININGBASEOUTOFCAMPUSSTATISTICS 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="java.util.HashMap" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,PRACTICEBASEINCAMPUSID,MAJORID,NUMOFTRAININGPROJECT,NUMOFPROJECTNAME,NUMOFSTURECEIVED,BASEUSETIME,HALFYEARINTERNSHIPSTUDENT,ISACCOMMODATIONCONDITIONS,STUDENTINTERNSHIPALLOWANCE,SPECIALPRACTICEFUND,SCHOOLTUTORCOUNT,NUMOFGRADUATEEMPLOYED,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_TRAININGBASEOUTOFCAMPUSSTATISTICS 
+ WHERE  1 = 1
+
+	  <if test="practicebaseincampusid != null and practicebaseincampusid != ''">
+		 	AND PRACTICEBASEINCAMPUSID LIKE concat('%',#{practicebaseincampusid},'%')
+	  </if>
+	  
+	    <if test="majorid != null and majorid != ''">
+		 	AND MAJORID LIKE concat('%',#{majorid},'%')
+	  </if>
+	 
+	  <if test="minnumoftrainingprojectScope != null and maxnumoftrainingprojectScope !=null">
+		 	AND NUMOFTRAININGPROJECT between #{minnumoftrainingprojectScope} and #{maxnumoftrainingprojectScope}
+	  </if>
+	  
+	  <if test="numoftrainingprojectScope != null">
+		 	AND NUMOFTRAININGPROJECT >= #{numoftrainingprojectScope}
+	  </if>
+	  
+	   <if test="numofprojectname != null and numofprojectname != ''">
+		 	AND NUMOFPROJECTNAME LIKE concat('%',#{numofprojectname},'%')
+	  </if>
+	   
+	  <if test="minnumofstureceivedScope != null and maxnumofstureceivedScope !=null">
+		 	AND NUMOFSTURECEIVED between #{minnumofstureceivedScope} and #{maxnumofstureceivedScope}
+	  </if>
+	   
+	  <if test="minbaseusetimeScope != null and maxbaseusetimeScope !=null">
+		 	AND BASEUSETIME between #{minbaseusetimeScope} and #{maxbaseusetimeScope}
+	  </if>
+	  
+	  
+	  <if test="numofstureceivedScope != null">
+		 	AND NUMOFSTURECEIVED >= #{numofstureceivedScope}
+	  </if>
+	   
+	  <if test="baseusetimeScope != null">
+		 	AND BASEUSETIME >= #{baseusetimeScope}
+	  </if>
+	   
+	  <if test="minhalfyearinternshipstudentScope != null and maxhalfyearinternshipstudentScope !=null">
+		 	AND HALFYEARINTERNSHIPSTUDENT between #{minhalfyearinternshipstudentScope} and #{maxhalfyearinternshipstudentScope}
+	  </if>
+	  
+	  <if test="halfyearinternshipstudentScope != null">
+		 	AND HALFYEARINTERNSHIPSTUDENT >= #{halfyearinternshipstudentScope}
+	  </if>
+	  
+	  <!--
+	   <if test="halfyearinternshipstudentScope != null">
+		 	AND HALFYEARINTERNSHIPSTUDENT &gt;= #{halfyearinternshipstudentScope}
+	  </if>
+	    -->
+	    
+	    <if test="isaccommodationconditions != null and isaccommodationconditions != ''">
+		 	AND ISACCOMMODATIONCONDITIONS LIKE concat('%',#{isaccommodationconditions},'%')
+	  </if>
+
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDTrainingbaseoutofcampusstatistics">
+ INSERT INTO QAS_D_TRAININGBASEOUTOFCAMPUSSTATISTICS   ( ID,PRACTICEBASEINCAMPUSID,MAJORID,NUMOFTRAININGPROJECT,NUMOFPROJECTNAME,NUMOFSTURECEIVED,BASEUSETIME,HALFYEARINTERNSHIPSTUDENT,ISACCOMMODATIONCONDITIONS,STUDENTINTERNSHIPALLOWANCE,SPECIALPRACTICEFUND,SCHOOLTUTORCOUNT,NUMOFGRADUATEEMPLOYED,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{practicebaseincampusid},#{majorid},#{numoftrainingproject},#{numofprojectname},#{numofstureceived},#{baseusetime},#{halfyearinternshipstudent},#{isaccommodationconditions},#{studentinternshipallowance},#{specialpracticefund},#{schooltutorcount},#{numofgraduateemployed},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDTrainingbaseoutofcampusstatistics">
+ UPDATE QAS_D_TRAININGBASEOUTOFCAMPUSSTATISTICS SET  ID=#{id},PRACTICEBASEINCAMPUSID=#{practicebaseincampusid},MAJORID=#{majorid},NUMOFTRAININGPROJECT=#{numoftrainingproject},NUMOFPROJECTNAME=#{numofprojectname},NUMOFSTURECEIVED=#{numofstureceived},BASEUSETIME=#{baseusetime},HALFYEARINTERNSHIPSTUDENT=#{halfyearinternshipstudent},ISACCOMMODATIONCONDITIONS=#{isaccommodationconditions},STUDENTINTERNSHIPALLOWANCE=#{studentinternshipallowance},SPECIALPRACTICEFUND=#{specialpracticefund},SCHOOLTUTORCOUNT=#{schooltutorcount},NUMOFGRADUATEEMPLOYED=#{numofgraduateemployed},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_TRAININGBASEOUTOFCAMPUSSTATISTICS WHERE   ID=#{id}
+</delete>
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_TRAININGBASEOUTOFCAMPUSSTATISTICS WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDTrainingbaseoutofcampusstatistics">
+ UPDATE QAS_D_TRAININGBASEOUTOFCAMPUSSTATISTICS 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="practicebaseincampusid != null">  PRACTICEBASEINCAMPUSID = #{practicebaseincampusid},</if>
+<if test="majorid != null">  MAJORID = #{majorid},</if>
+<if test="numoftrainingproject != null">  NUMOFTRAININGPROJECT = #{numoftrainingproject},</if>
+<if test="numofprojectname != null">  NUMOFPROJECTNAME = #{numofprojectname},</if>
+<if test="numofstureceived != null">  NUMOFSTURECEIVED = #{numofstureceived},</if>
+<if test="baseusetime != null">  BASEUSETIME = #{baseusetime},</if>
+<if test="halfyearinternshipstudent != null">  HALFYEARINTERNSHIPSTUDENT = #{halfyearinternshipstudent},</if>
+<if test="isaccommodationconditions != null">  ISACCOMMODATIONCONDITIONS = #{isaccommodationconditions},</if>
+<if test="studentinternshipallowance != null">  STUDENTINTERNSHIPALLOWANCE = #{studentinternshipallowance},</if>
+<if test="specialpracticefund != null">  SPECIALPRACTICEFUND = #{specialpracticefund},</if>
+<if test="schooltutorcount != null">  SCHOOLTUTORCOUNT = #{schooltutorcount},</if>
+<if test="numofgraduateemployed != null">  NUMOFGRADUATEEMPLOYED = #{numofgraduateemployed},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_TRAININGBASEOUTOFCAMPUSSTATISTICS config end********************************  -->
+
+</mapper>

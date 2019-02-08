@@ -1,0 +1,33 @@
+.pop_shadowbox {
+	background:#999 none repeat scroll 0%;
+	display:none;
+	left:300px;
+	top:300px;
+	position:absolute;
+	width:590px;
+	z-index:101;
+	
+}
+.pop_dlgbox {
+	background-color:#FFFFFF;
+	border:1px solid #59a8d8;
+	left:-4px;
+	top:-4px;
+	position:relative;
+	text-align:left;
+	width:600px;
+}
+.pop_dlgbox .poptitle {
+	background:#e1edf5 url(images/poptitle_bg.gif) repeat-x center center;
+	cursor:move;
+	padding:5px 0pt 8px 7px;
+	height:10px;
+	font-weight:600;
+}
+.pop_dlgbox .close {
+	position:absolute;
+	right:4px;
+	top:4px;
+}
+
+.gray_background{background-color:#f7f7f7;width:100%;height:100%;position:absolute;top:0;left:0;z-index:100;display:none;filter:alpha(opacity=80);-moz-opacity:0.8;}

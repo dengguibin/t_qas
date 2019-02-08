@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_SKILLAPPRAISALORG config end********************************  -->
+
+<package name="QasDSkillappraisalorg" extends="default"
+		namespace="/data/school/skillAppraisalOrg">
+		
+		<action name="queryInfo" class="qasDSkillappraisalorgAction" method="queryInfo">
+			<result name="select">/pages/data/school/skillAppraisalOrg/QasDSkillappraisalorgInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDSkillappraisalorgAction" method="queryList">
+			<result name="list">/pages/data/school/skillAppraisalOrg/QasDSkillappraisalorgList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDSkillappraisalorgAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDSkillappraisalorgAction" method="toEdit">
+			<result name="toEdit">/pages/data/school/skillAppraisalOrg/QasDSkillappraisalorgEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDSkillappraisalorgAction" method="save">
+			<result name="save" type="redirect">
+			/data/school/skillAppraisalOrg/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_SKILLAPPRAISALORG config end********************************  -->
+</struts>

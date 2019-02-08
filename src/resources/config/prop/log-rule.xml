@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log-config>
+
+	<clear-day>60</clear-day><!-- 清除日志历史记录天数 -->
+	<clear-rows>100</clear-rows><!-- 一次查询处理多少条 -->
+	<desc>日志解释规则配置</desc>
+	<!-- 解释器下到上进行匹配
+	下面的规则如果优先符合将跳过上面的规则
+	 -->
+	<includes>
+		<log name="访问">[^\s]*.jsp</log>
+		<log name="访问">[^\s]*.action</log>
+		<log name="保存">[^\s]*save[^\s]*.action</log>
+		<log name="编辑">[^\s]*Edit[^\s]*.action</log>
+		<log name="查看">[^\s]*List[^\s]*.action</log>
+		<log name="查看">[^\s]*queryInfo[^\s]*.action</log>
+		<log name="查看">[^\s]*view[^\s]*.action</log>
+		<log name="操作">[^\s]*/plat/[^\s]*![^\s]*.action</log>
+		<log name="查看">[^\s]*/plat/[^\s]*!list[^\s]*.action</log>
+		<log name="编辑">[^\s]*/plat/[^\s]*!select.action</log>
+		<log name="保存">[^\s]*/plat/[^\s]*!save[^\s]*.action</log>
+		<log name="删除">[^\s]*/plat/[^\s]*!delete[^\s]*.action</log>
+		<log name="下载">[^\s]*/plat/[^\s]*!download.action</log>
+		<log name="下载">[^\s]*/plat/[^\s]*!downloadZip.action</log>
+	</includes>
+	<!-- s可以进行忽略的地址 -->
+	<ignore>
+		<log name="内部跳转">[^\s]*/plat/[^\s]*!redirect.action</log>
+		<log name="消息管理">[^\s]*/plat/[^\s]*tCommonMessage![^\s]*.action</log>
+	</ignore>
+</log-config>

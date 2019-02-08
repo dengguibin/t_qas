@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.auth.mapper.TRmsRoleMapper">
+<!--  ********************************T_RMS_ROLE config begnin********************************  -->
+
+<select id="select" resultType="TRmsRole"> 
+ SELECT JSID,JSMC,JSMS,PXH,SFYX,CJSJ,CJR,XGSJ,XGR FROM  T_RMS_ROLE 
+ WHERE   JSID=#{jsid}
+</select>
+
+<select id="menuList" parameterType="TRmsRole" useCache="false"   resultType ="hashmap" >  
+SELECT M.CDID,M.PCDID,M.CDMC, R.JSID,R.QX STAT,M.PXH,R.JSCDGXID RID, CASE WHEN R.JSID IS NULL  THEN 'FALSE'  ELSE 'TRUE' END CHECKED FROM T_RMS_MENUINFO M 
+LEFT OUTER JOIN T_RMS_ROLE_MENU R ON M.CDID = R.CDID AND R.JSID = #{jsid} 
+WHERE M.SFYX = 1  ORDER BY M.PXH
+</select>
+
+<select id="listUser" parameterType="TRmsRole" useCache="false"   resultType ="hashmap" >  
+SELECT <if test="jsid == null">DISTINCT </if> *  FROM (
+SELECT 'U' TYPE,U.YHMC,U.SFYX,U.YHID,U.BMID,U.PXH,CASE WHEN R.YHJSGXID IS NULL THEN 'FALSE' ELSE 'TRUE' END CHECKED, '' UNIT_TYPE FROM T_RMS_USER U
+ LEFT JOIN T_RMS_USER_ROLE R ON U.YHID = R.YHID 
+ <if test="jsid !=null">AND R.JSID =  #{jsid}  </if>
+ UNION ALL
+SELECT 'D' TYPE,D.BMMC,1 SFYX,D.BMID,D.FBMID,D.PXH,'FALSE'  CHECKED,D.UNIT_TYPE FROM T_RMS_DEPTMENT D 
+ ) V ORDER BY TYPE, PXH
+</select>
+
+<select id="listPermissions" parameterType="TRmsRole" useCache="false"   resultType ="hashmap" >  
+SELECT S.QXID,R.JSID,R.JSQXGXID,S.QXMC,S.PXH QXCODE FROM T_RMS_PERMISSIONSINFO  S
+INNER JOIN T_RMS_ROLE_PERMISIONS  R ON S.QXID = R.QXID
+WHERE R.JSID = #{jsid} 
+</select>
+
+
+<select id="list" parameterType="TRmsRole" useCache="false"   resultType ="hashmap" >  
+ <!-- <include refid="plat.ORACLE_PAGE_HEADER" /> -->
+ SELECT JSID,JSMC,JSMS,PXH,SFYX FROM  T_RMS_ROLE 
+<!--  <include refid="plat.ORACLE_PAGE_FOOTER" /> -->
+</select>
+
+ <insert id="insert" parameterType="TRmsRole">
+ INSERT INTO T_RMS_ROLE   ( JSID,JSMC,JSMS,PXH,SFYX,CJSJ,CJR,XGSJ,XGR)
+  VALUES ( #{jsid},#{jsmc},#{jsms},#{pxh},#{sfyx},#{cjsj},#{cjr},#{xgsj},#{xgr} )
+</insert>
+
+ <update id="update" parameterType="TRmsRole">
+ UPDATE T_RMS_ROLE SET  JSID=#{jsid},JSMC=#{jsmc},JSMS=#{jsms},PXH=#{pxh},SFYX=#{sfyx},CJSJ=#{cjsj},CJR=#{cjr} 
+ WHERE  JSID=#{jsid}
+</update>
+
+ <delete id="delete" parameterType="TRmsRole">
+   DELETE FROM T_RMS_ROLE WHERE   JSID=#{jsid}
+</delete>
+<select id="selectByIds" resultType="TRmsRole"> 
+   
+   SELECT JSID,JSMC,JSMS,PXH,SFYX,CJSJ,CJR,XGSJ,XGR FROM  T_RMS_ROLE 
+ 	WHERE   JSID in 
+ 	<foreach item="item" index="index" collection="list" 
+                         open="(" separator="," close=")">
+                        #{item}
+                </foreach>
+  
+
+
+</select>
+<!--  ********************************T_RMS_ROLE config end********************************  -->
+
+</mapper>

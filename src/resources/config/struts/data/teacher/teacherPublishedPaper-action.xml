@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_TEACHERPUBLISHEDPAPER config end********************************  -->
+
+<package name="QasDTeacherpublishedpaper" extends="default"
+		namespace="/data/teacher/teacherPublishedPaper">
+		
+		<action name="queryInfo" class="qasDTeacherpublishedpaperAction" method="queryInfo">
+			<result name="select">/pages/data/teacher/teacherPublishedPaper/QasDTeacherpublishedpaperInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDTeacherpublishedpaperAction" method="queryList">
+			<result name="list">/pages/data/teacher/teacherPublishedPaper/QasDTeacherpublishedpaperList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDTeacherpublishedpaperAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDTeacherpublishedpaperAction" method="toEdit">
+			<result name="toEdit">/pages/data/teacher/teacherPublishedPaper/QasDTeacherpublishedpaperEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDTeacherpublishedpaperAction" method="save">
+			<result name="save" type="redirect">
+			/data/teacher/teacherPublishedPaper/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_TEACHERPUBLISHEDPAPER config end********************************  -->
+</struts>

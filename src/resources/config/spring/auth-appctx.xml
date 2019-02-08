@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans 
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context-3.0.xsd
+         http://www.springframework.org/schema/tx
+         http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+         http://www.springframework.org/schema/aop 
+         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
+	default-autowire="byName">
+	
+	 <context:component-scan base-package="com.upath.plat.auth.action"/>
+	 
+	 <!--  扫描 mappers 自动配置 -->    
+	 <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
+	 <property name="basePackage" value="com.upath.plat.auth.mapper" /> 
+	  <property name="sqlSessionTemplate" ref="sqlSession" />
+	  </bean>
+	 
+	<!-- 拦截器配置管理 -->
+	<aop:config proxy-target-class="true">
+		<aop:advisor pointcut="execution(public * com.upath.plat.auth.service.*.*(..))" advice-ref="txAdvice"/>
+	</aop:config>
+	   
+	   <!-- 系统管理功能服务层 -->
+	  <bean id="tRmsAppinfoService" class="com.upath.plat.auth.service.TRmsAppinfoService">
+	  	<property name="mapper" ref="tRmsAppinfoMapper"></property>
+	  </bean>
+	  
+	  <!-- 菜单功能服务层 -->
+	  <bean id="tRmsMenuinfoService" class="com.upath.plat.auth.service.TRmsMenuinfoService">
+	  	<property name="mapper" ref="tRmsMenuinfoMapper"></property>
+	  </bean>
+	  
+	   <!-- 菜单 管理 功能服务层 -->
+	  <bean id="tRmsMenufuncService" class="com.upath.plat.auth.service.TRmsMenufuncService">
+	  	<property name="mapper" ref="tRmsMenufuncMapper"></property>
+	  </bean>
+	  
+	  
+	   <!-- 用户功能服务层 -->
+	  <bean id="tRmsUserService" class="com.upath.plat.auth.service.TRmsUserService">
+	  	<property name="mapper" ref="tRmsUserMapper"></property>
+	  	<property name="dMapper" ref="tRmsDeptmentMapper"></property>
+	  	<property name="userRoleMapper" ref="tRmsUserRoleMapper"></property>
+	  </bean>
+	   <!-- 用户功能服务层 -->
+	  <bean id="tRmsGroupsService" class="com.upath.plat.auth.service.TRmsGroupsService">
+	  	<property name="mapper" ref="tRmsGroupsMapper"></property>
+	  	<property name="gMapper" ref="tRmsGorupsUserMapper"></property>
+	  	<property name="dao" ref="batchDao"></property>
+	  </bean>
+	  
+	   <!-- 部门功能服务层 -->
+	  <bean id="tRmsDeptmentService" class="com.upath.plat.auth.service.TRmsDeptmentService">
+	  	<property name="mapper" ref="tRmsDeptmentMapper"></property>
+	  </bean>
+	  
+	   <!-- 角色管理服务层 -->
+	  <bean id="tRmsRoleService" class="com.upath.plat.auth.service.TRmsRoleService">
+	  	<property name="mapper" ref="tRmsRoleMapper"></property>
+	  	<property name="dao" ref="batchDao"></property>
+	  	<property name="gxMapper" ref="tRmsRolePermisionsMapper"></property>
+	  	<property name="uMapper" ref="tRmsUserRoleMapper"></property>
+	  </bean>
+	  
+	   <!-- 权限管理服务层 -->
+	  <bean id="tRmsPermissionsinfo" class="com.upath.plat.auth.service.TRmsPermissionsinfoService">
+	  	<property name="mapper" ref="tRmsPermissionsinfoMapper"></property>
+	  </bean>
+	  <!-- 门户配置 -->
+	  <bean id="tRmsRolePortletsService" class="com.upath.plat.auth.service.TRmsRolePortletsService">
+	  	<property name="mapper" ref="tRmsRolePortletsMapper"></property>
+	  </bean>
+	  <bean id="tRmsUserPortletsService" class="com.upath.plat.auth.service.TRmsUserPortletsService">
+	  	<property name="mapper" ref="tRmsUserPortletsMapper"></property>
+	  </bean>
+	  
+</beans>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_T_DIAGNOSETASK config end********************************  -->
+
+<package name="QasTDiagnosetask" extends="default"
+		namespace="/diagnose/diagnoseTask">
+		
+		<action name="getTree" class="qasTDiagnosetaskAction" method="getTree">
+		</action>
+		
+		<action name="queryInfo" class="qasTDiagnosetaskAction" method="queryInfo">
+			<result name="select">/pages/diagnoseformat/task/diagnoseTaskInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasTDiagnosetaskAction" method="queryList">
+			<result name="list">/pages/diagnoseformat/task/diagnoseTaskList.jsp</result>
+		</action>
+		
+		<action name="Professional" class="qasTDiagnosetaskAction" method="Professional">
+		<result name="select">/pages/diagnoseformat/task/dTasksProfession.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasTDiagnosetaskAction" method="remove">
+		</action>
+		
+		<action name="toList" class="qasTDiagnosetaskAction" method="toList">
+		</action>
+		
+		<action name="toEdit" class="qasTDiagnosetaskAction" method="toEdit">
+			<result name="toEdit">/pages/diagnoseformat/task/diagnoseTaskEdit.jsp</result>
+		</action>
+		
+		<action name="toPublish" class="qasTDiagnosetaskAction" method="toPublish">
+			<result name="list" type="redirect">
+				/diagnose/diagnoseTask/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+		
+		<action name="save" class="qasTDiagnosetaskAction" method="save">
+			<result name="save" type="redirect">
+				/diagnose/diagnoseTask/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+		
+		<action name="updateStatus" class="qasTDiagnosetaskAction" method="updateStatus">
+		</action>
+		
+		<action name="excuteAnaly" class="qasTDiagnosetaskAction" method="excuteAnaly">
+		</action>
+		
+		
+	</package>
+<!--  ********************************QAS_T_DIAGNOSETASK config end********************************  -->
+</struts>

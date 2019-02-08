@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.base.empolyee.mapper.QasDEmpolyeeMapper">
+<!--  ********************************QAS_D_EMPOLYEE config begnin********************************  -->
+
+<select id="select" resultType="QasDEmpolyee"> 
+ SELECT ID,DEPARTMENTID,MAJORID,EMPLOYEECODE,NAME,NATION,DUTY,TITLE,QUALIFICATION,ACADEMICDEGREE,SEX,BIRTHDAY,PHONE,EMAIL,WORKEXPERIENCE,MAJORDEEP,HIGHMAJORNAME,GRANTCOMPANY,RECEIVEDDATE,ISINPLAN,POSTDUTY,ACHIEVEMENT,MANAGEWORK,TEACHERTYPE,SPECIALAREA,SPECIALTY,ISTEACHERDEGREE,WORKYEAR,WORKINCURRENTYEAR,QUALIFICATIONLEVEL,QUALIFICATIONNAME,QUALIFICATIONUNIT,QUALIFICATIONRECEIVEDATE,TEACHERQUALIFICATIONUNIT,TEACHERQUALIFICATIONRECEIVEDATE,ISPROFESSIONALTEACHER,ISCORETEACHER,DOUBLEQUALIFIEDTEACHER,FAMOUSTEACHER,DUALMENTOR,COMPANYMENTOR,PUBLICTRAININGSUPERVISOR,TRAININGLEVEL,ISZHUJIANGSCHOLAR,DATEOFWORK,SIGNEDSTATUS,BACKGROUNDUNIT,BACKGROUNDDUTY,BACKGROUNDAPPOINTMENTDATE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_EMPOLYEE 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDEmpolyee" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,DEPARTMENTID,MAJORID,EMPLOYEECODE,NAME,NATION,DUTY,TITLE,QUALIFICATION,ACADEMICDEGREE,SEX,BIRTHDAY,PHONE,EMAIL,WORKEXPERIENCE,MAJORDEEP,HIGHMAJORNAME,GRANTCOMPANY,RECEIVEDDATE,ISINPLAN,POSTDUTY,ACHIEVEMENT,MANAGEWORK,TEACHERTYPE,SPECIALAREA,SPECIALTY,ISTEACHERDEGREE,WORKYEAR,WORKINCURRENTYEAR,QUALIFICATIONLEVEL,QUALIFICATIONNAME,QUALIFICATIONUNIT,QUALIFICATIONRECEIVEDATE,TEACHERQUALIFICATIONUNIT,TEACHERQUALIFICATIONRECEIVEDATE,ISPROFESSIONALTEACHER,ISCORETEACHER,DOUBLEQUALIFIEDTEACHER,FAMOUSTEACHER,DUALMENTOR,COMPANYMENTOR,PUBLICTRAININGSUPERVISOR,TRAININGLEVEL,ISZHUJIANGSCHOLAR,DATEOFWORK,SIGNEDSTATUS,BACKGROUNDUNIT,BACKGROUNDDUTY,BACKGROUNDAPPOINTMENTDATE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_EMPOLYEE 
+ WHERE  1 = 1
+ <if test="name != null and name != ''">
+ AND NAME LIKE '%' #{name}  '%'
+ </if>
+ <if test="sex != null and sex != ''">
+ AND SEX = #{sex}
+ </if>
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDEmpolyee">
+ INSERT INTO QAS_D_EMPOLYEE   ( ID,DEPARTMENTID,MAJORID,EMPLOYEECODE,NAME,NATION,DUTY,TITLE,QUALIFICATION,ACADEMICDEGREE,SEX,BIRTHDAY,PHONE,EMAIL,WORKEXPERIENCE,MAJORDEEP,HIGHMAJORNAME,GRANTCOMPANY,RECEIVEDDATE,ISINPLAN,POSTDUTY,ACHIEVEMENT,MANAGEWORK,TEACHERTYPE,SPECIALAREA,SPECIALTY,ISTEACHERDEGREE,WORKYEAR,WORKINCURRENTYEAR,QUALIFICATIONLEVEL,QUALIFICATIONNAME,QUALIFICATIONUNIT,QUALIFICATIONRECEIVEDATE,TEACHERQUALIFICATIONUNIT,TEACHERQUALIFICATIONRECEIVEDATE,ISPROFESSIONALTEACHER,ISCORETEACHER,DOUBLEQUALIFIEDTEACHER,FAMOUSTEACHER,DUALMENTOR,COMPANYMENTOR,PUBLICTRAININGSUPERVISOR,TRAININGLEVEL,ISZHUJIANGSCHOLAR,DATEOFWORK,SIGNEDSTATUS,BACKGROUNDUNIT,BACKGROUNDDUTY,BACKGROUNDAPPOINTMENTDATE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{departmentid},#{majorid},#{employeecode},#{name},#{nation},#{duty},#{title},#{qualification},#{academicdegree},#{sex},#{birthday},#{phone},#{email},#{workexperience},#{majordeep},#{highmajorname},#{grantcompany},#{receiveddate},#{isinplan},#{postduty},#{achievement},#{managework},#{teachertype},#{specialarea},#{specialty},#{isteacherdegree},#{workyear},#{workincurrentyear},#{qualificationlevel},#{qualificationname},#{qualificationunit},#{qualificationreceivedate},#{teacherqualificationunit},#{teacherqualificationreceivedate},#{isprofessionalteacher},#{iscoreteacher},#{doublequalifiedteacher},#{famousteacher},#{dualmentor},#{companymentor},#{publictrainingsupervisor},#{traininglevel},#{iszhujiangscholar},#{dateofwork},#{signedstatus},#{backgroundunit},#{backgroundduty},#{backgroundappointmentdate},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDEmpolyee">
+ UPDATE QAS_D_EMPOLYEE SET  ID=#{id},DEPARTMENTID=#{departmentid},MAJORID=#{majorid},EMPLOYEECODE=#{employeecode},NAME=#{name},NATION=#{nation},DUTY=#{duty},TITLE=#{title},QUALIFICATION=#{qualification},ACADEMICDEGREE=#{academicdegree},SEX=#{sex},BIRTHDAY=#{birthday},PHONE=#{phone},EMAIL=#{email},WORKEXPERIENCE=#{workexperience},MAJORDEEP=#{majordeep},HIGHMAJORNAME=#{highmajorname},GRANTCOMPANY=#{grantcompany},RECEIVEDDATE=#{receiveddate},ISINPLAN=#{isinplan},POSTDUTY=#{postduty},ACHIEVEMENT=#{achievement},MANAGEWORK=#{managework},TEACHERTYPE=#{teachertype},SPECIALAREA=#{specialarea},SPECIALTY=#{specialty},ISTEACHERDEGREE=#{isteacherdegree},WORKYEAR=#{workyear},WORKINCURRENTYEAR=#{workincurrentyear},QUALIFICATIONLEVEL=#{qualificationlevel},QUALIFICATIONNAME=#{qualificationname},QUALIFICATIONUNIT=#{qualificationunit},QUALIFICATIONRECEIVEDATE=#{qualificationreceivedate},TEACHERQUALIFICATIONUNIT=#{teacherqualificationunit},TEACHERQUALIFICATIONRECEIVEDATE=#{teacherqualificationreceivedate},ISPROFESSIONALTEACHER=#{isprofessionalteacher},ISCORETEACHER=#{iscoreteacher},DOUBLEQUALIFIEDTEACHER=#{doublequalifiedteacher},FAMOUSTEACHER=#{famousteacher},DUALMENTOR=#{dualmentor},COMPANYMENTOR=#{companymentor},PUBLICTRAININGSUPERVISOR=#{publictrainingsupervisor},TRAININGLEVEL=#{traininglevel},ISZHUJIANGSCHOLAR=#{iszhujiangscholar},DATEOFWORK=#{dateofwork},SIGNEDSTATUS=#{signedstatus},BACKGROUNDUNIT=#{backgroundunit},BACKGROUNDDUTY=#{backgroundduty},BACKGROUNDAPPOINTMENTDATE=#{backgroundappointmentdate},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_EMPOLYEE WHERE   ID=#{id}
+</delete>
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_EMPOLYEE WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDEmpolyee">
+ UPDATE QAS_D_EMPOLYEE 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="departmentid != null">  DEPARTMENTID = #{departmentid},</if>
+<if test="majorid != null">  MAJORID = #{majorid},</if>
+<if test="employeecode != null">  EMPLOYEECODE = #{employeecode},</if>
+<if test="name != null">  NAME = #{name},</if>
+<if test="nation != null">  NATION = #{nation},</if>
+<if test="duty != null">  DUTY = #{duty},</if>
+<if test="title != null">  TITLE = #{title},</if>
+<if test="qualification != null">  QUALIFICATION = #{qualification},</if>
+<if test="academicdegree != null">  ACADEMICDEGREE = #{academicdegree},</if>
+<if test="sex != null">  SEX = #{sex},</if>
+<if test="birthday != null">  BIRTHDAY = #{birthday},</if>
+<if test="phone != null">  PHONE = #{phone},</if>
+<if test="email != null">  EMAIL = #{email},</if>
+<if test="workexperience != null">  WORKEXPERIENCE = #{workexperience},</if>
+<if test="majordeep != null">  MAJORDEEP = #{majordeep},</if>
+<if test="highmajorname != null">  HIGHMAJORNAME = #{highmajorname},</if>
+<if test="grantcompany != null">  GRANTCOMPANY = #{grantcompany},</if>
+<if test="receiveddate != null">  RECEIVEDDATE = #{receiveddate},</if>
+<if test="isinplan != null">  ISINPLAN = #{isinplan},</if>
+<if test="postduty != null">  POSTDUTY = #{postduty},</if>
+<if test="achievement != null">  ACHIEVEMENT = #{achievement},</if>
+<if test="managework != null">  MANAGEWORK = #{managework},</if>
+<if test="teachertype != null">  TEACHERTYPE = #{teachertype},</if>
+<if test="specialarea != null">  SPECIALAREA = #{specialarea},</if>
+<if test="specialty != null">  SPECIALTY = #{specialty},</if>
+<if test="isteacherdegree != null">  ISTEACHERDEGREE = #{isteacherdegree},</if>
+<if test="workyear != null">  WORKYEAR = #{workyear},</if>
+<if test="workincurrentyear != null">  WORKINCURRENTYEAR = #{workincurrentyear},</if>
+<if test="qualificationlevel != null">  QUALIFICATIONLEVEL = #{qualificationlevel},</if>
+<if test="qualificationname != null">  QUALIFICATIONNAME = #{qualificationname},</if>
+<if test="qualificationunit != null">  QUALIFICATIONUNIT = #{qualificationunit},</if>
+<if test="qualificationreceivedate != null">  QUALIFICATIONRECEIVEDATE = #{qualificationreceivedate},</if>
+<if test="teacherqualificationunit != null">  TEACHERQUALIFICATIONUNIT = #{teacherqualificationunit},</if>
+<if test="teacherqualificationreceivedate != null">  TEACHERQUALIFICATIONRECEIVEDATE = #{teacherqualificationreceivedate},</if>
+<if test="isprofessionalteacher != null">  ISPROFESSIONALTEACHER = #{isprofessionalteacher},</if>
+<if test="iscoreteacher != null">  ISCORETEACHER = #{iscoreteacher},</if>
+<if test="doublequalifiedteacher != null">  DOUBLEQUALIFIEDTEACHER = #{doublequalifiedteacher},</if>
+<if test="famousteacher != null">  FAMOUSTEACHER = #{famousteacher},</if>
+<if test="dualmentor != null">  DUALMENTOR = #{dualmentor},</if>
+<if test="companymentor != null">  COMPANYMENTOR = #{companymentor},</if>
+<if test="publictrainingsupervisor != null">  PUBLICTRAININGSUPERVISOR = #{publictrainingsupervisor},</if>
+<if test="traininglevel != null">  TRAININGLEVEL = #{traininglevel},</if>
+<if test="iszhujiangscholar != null">  ISZHUJIANGSCHOLAR = #{iszhujiangscholar},</if>
+<if test="dateofwork != null">  DATEOFWORK = #{dateofwork},</if>
+<if test="signedstatus != null">  SIGNEDSTATUS = #{signedstatus},</if>
+<if test="backgroundunit != null">  BACKGROUNDUNIT = #{backgroundunit},</if>
+<if test="backgroundduty != null">  BACKGROUNDDUTY = #{backgroundduty},</if>
+<if test="backgroundappointmentdate != null">  BACKGROUNDAPPOINTMENTDATE = #{backgroundappointmentdate},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_EMPOLYEE config end********************************  -->
+
+</mapper>

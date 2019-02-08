@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.auth.mapper.TRmsUserPortletsMapper">
+<!--  ********************************T_RMS_USER_PORTLETS config begnin********************************  -->
+
+<select id="select" resultType="TRmsUserPortlets"> 
+ SELECT CID,USERID,PROID,MODULEID,COL_Y,ROW_X,SFYX,CJSJ,CJR,XGSJ,XGR,COLCOUNT,ROWCOUNT FROM  T_RMS_USER_PORTLETS 
+ WHERE   CID=#{cid}
+</select>
+
+<select id="list" parameterType="TRmsUserPortlets" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT CID,USERID,PROID,MODULEID,COL_Y,ROW_X,SFYX,CJSJ,CJR,XGSJ,XGR,COLCOUNT,ROWCOUNT FROM  T_RMS_USER_PORTLETS 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+<select id="findList" parameterType="TRmsUserPortlets" useCache="false"   resultType ="hashmap" >  
+ SELECT CID,USERID,PROID,MODULEID,COL_Y,ROW_X,SFYX,CJSJ,CJR,XGSJ,XGR,COLCOUNT,ROWCOUNT FROM  T_RMS_USER_PORTLETS 
+ WHERE  1 = 1
+ <if test="userid != null and userid != ''">
+ 	AND USERID = #{userid}  
+ </if>
+ <if test="proid != null and proid != ''">
+ 	AND PROID = #{proid}  
+ </if>
+ ORDER BY ROW_X ASC ,COL_Y ASC
+ 
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+</select>
+
+<select id="findRowList" parameterType="TRmsUserPortlets" useCache="false"   resultType ="String" >  
+ SELECT DISTINCT MODULEID FROM  T_RMS_USER_PORTLETS 
+ WHERE  1 = 1
+ <if test="userid != null and userid != ''">
+ 	AND USERID = #{userid}  
+ </if>
+ <if test="proid != null and proid != ''">
+ 	AND PROID = #{proid}  
+ </if>
+ <if test="sfyx != null ">
+ 	AND SFYX = #{sfyx}  
+ </if>
+ ORDER BY ROW_X ASC ,COL_Y ASC
+</select>
+
+ <insert id="insert" parameterType="TRmsUserPortlets">
+ INSERT INTO T_RMS_USER_PORTLETS   ( CID,USERID,PROID,MODULEID,COL_Y,ROW_X,SFYX,CJSJ,CJR,XGSJ,XGR,COLCOUNT,ROWCOUNT)
+  VALUES ( #{cid},#{userid},#{proid},#{moduleid},#{col_y},#{row_x},#{sfyx},#{cjsj},#{cjr},#{xgsj},#{xgr},#{colcount},#{rowcount} )
+</insert>
+
+ <update id="update" parameterType="TRmsUserPortlets">
+ UPDATE T_RMS_USER_PORTLETS SET  CID=#{cid},USERID=#{userid},PROID=#{proid},MODULEID=#{moduleid},COL_Y=#{col_y},ROW_X=#{row_x},SFYX=#{sfyx},CJSJ=#{cjsj},CJR=#{cjr},XGSJ=#{xgsj},XGR=#{xgr} 
+ WHERE  CID=#{cid}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM T_RMS_USER_PORTLETS WHERE   CID=#{cid}
+</delete>
+
+ <delete id="deleteByPro">
+   DELETE FROM T_RMS_USER_PORTLETS WHERE  
+ 	USERID = #{userid}  
+ 	AND PROID = #{proid}
+ 	<if test="moduleid != null and moduleid != ''">
+ 		AND MODULEID=#{moduleid}
+ 	</if>  
+</delete>
+ <delete id="deleteByList"  parameterType="java.util.Map" >
+   DELETE FROM T_RMS_USER_PORTLETS WHERE  
+ 	USERID = #{userid}  
+ 	AND PROID = #{proid} 
+ 		AND MODULEID IN
+	   <foreach item="userPort"  collection="userPortletsList" open="(" close=")" separator="," >
+		     	 #{userPort.moduleid}
+	</foreach >
+</delete>
+
+<!--动态进行更新 如果有需要请开启，否则请删除
+ <update id="updateWithDyna" parameterType="TRmsUserPortlets">
+ UPDATE T_RMS_USER_PORTLETS 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="cid != null">  CID = #{cid},</if>
+<if test="userid != null">  USERID = #{userid},</if>
+<if test="proid != null">  PROID = #{proid},</if>
+<if test="moduleid != null">  MODULEID = #{moduleid},</if>
+<if test="col_y != null">  COL_Y = #{col_y},</if>
+<if test="row_x != null">  ROW_X = #{row_x},</if>
+<if test="sfyx != null">  SFYX = #{sfyx},</if>
+<if test="cjsj != null">  CJSJ = #{cjsj},</if>
+<if test="cjr != null">  CJR = #{cjr},</if>
+<if test="xgsj != null">  XGSJ = #{xgsj},</if>
+<if test="xgr != null">  XGR = #{xgr},</if>
+
+ </trim>  
+ WHERE  CID=#{cid}
+</update>
+-->
+<!--  ********************************T_RMS_USER_PORTLETS config end********************************  -->
+
+</mapper>

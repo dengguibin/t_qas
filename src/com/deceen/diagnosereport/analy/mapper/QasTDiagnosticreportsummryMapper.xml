@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.diagnosereport.analy.mapper.QasTDiagnosticreportsummryMapper">
+<!--  ********************************QAS_T_DIAGNOSTICREPORTSUMMRY config begnin********************************  -->
+
+
+<update id="newPartition" parameterType="java.lang.String">  
+  		<choose>
+			<when test="sql!=null and sql!=''">
+				${sql}
+			</when>
+		</choose>  
+</update>
+
+<select id="select" resultType="QasTDiagnosticreportsummry"> 
+ SELECT ID,QUANTITATIVETOTALSCORE,PRODUCTIVETOTALSCORE,RANKSTRING,PRECEDENCE,OVERVIEW,PROBLEMS,SUGGESTIONS,QUANTITATIVERATESCORE,PRODUCTIVERATESCORE,OVERALLSCORE,TENANTID FROM  QAS_T_DIAGNOSTICREPORTSUMMRY 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasTDiagnosticreportsummry" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,QUANTITATIVETOTALSCORE,PRODUCTIVETOTALSCORE,RANKSTRING,PRECEDENCE,OVERVIEW,PROBLEMS,SUGGESTIONS,QUANTITATIVERATESCORE,PRODUCTIVERATESCORE,OVERALLSCORE,TENANTID FROM  QAS_T_DIAGNOSTICREPORTSUMMRY 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasTDiagnosticreportsummry">
+ INSERT INTO QAS_T_DIAGNOSTICREPORTSUMMRY   ( ID,QUANTITATIVETOTALSCORE,PRODUCTIVETOTALSCORE,RANKSTRING,PRECEDENCE,OVERVIEW,PROBLEMS,SUGGESTIONS,QUANTITATIVERATESCORE,PRODUCTIVERATESCORE,OVERALLSCORE,TENANTID)
+  VALUES ( #{id},#{quantitativetotalscore},#{productivetotalscore},#{rankstring},#{precedence},#{overview},#{problems},#{suggestions},#{quantitativeratescore},#{productiveratescore},#{overallscore},#{tenantid} )
+</insert>
+
+<insert id="insertBatch">
+	INSERT INTO QAS_T_DIAGNOSTICREPORTSUMMRY   ( ID,QUANTITATIVETOTALSCORE,PRODUCTIVETOTALSCORE,RANKSTRING,PRECEDENCE,OVERVIEW,PROBLEMS,SUGGESTIONS,QUANTITATIVERATESCORE,PRODUCTIVERATESCORE,OVERALLSCORE,TENANTID)
+  VALUES
+	 <foreach collection="list" item="d" separator=",">
+	 ( #{d.id},#{d.quantitativetotalscore},#{d.productivetotalscore},#{d.rankstring},#{d.precedence},#{d.overview},#{d.problems},#{d.suggestions},#{d.quantitativeratescore},#{d.productiveratescore},#{d.overallscore},#{d.tenantid} )
+  </foreach>
+</insert>
+
+ <update id="update" parameterType="QasTDiagnosticreportsummry">
+ UPDATE QAS_T_DIAGNOSTICREPORTSUMMRY SET  ID=#{id},QUANTITATIVETOTALSCORE=#{quantitativetotalscore},PRODUCTIVETOTALSCORE=#{productivetotalscore},RANKSTRING=#{rankstring},PRECEDENCE=#{precedence},OVERVIEW=#{overview},PROBLEMS=#{problems},SUGGESTIONS=#{suggestions},QUANTITATIVERATESCORE=#{quantitativeratescore},PRODUCTIVERATESCORE=#{productiveratescore},OVERALLSCORE=#{overallscore},TENANTID=#{tenantid} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_T_DIAGNOSTICREPORTSUMMRY WHERE   ID=#{id}
+</delete>
+
+<!--动态进行更新 如果有需要请开启，否则请删除
+ <update id="updateWithDyna" parameterType="QasTDiagnosticreportsummry">
+ UPDATE QAS_T_DIAGNOSTICREPORTSUMMRY 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="quantitativetotalscore != null">  QUANTITATIVETOTALSCORE = #{quantitativetotalscore},</if>
+<if test="productivetotalscore != null">  PRODUCTIVETOTALSCORE = #{productivetotalscore},</if>
+<if test="rankstring != null">  RANKSTRING = #{rankstring},</if>
+<if test="precedence != null">  PRECEDENCE = #{precedence},</if>
+<if test="overview != null">  OVERVIEW = #{overview},</if>
+<if test="problems != null">  PROBLEMS = #{problems},</if>
+<if test="suggestions != null">  SUGGESTIONS = #{suggestions},</if>
+<if test="quantitativeratescore != null">  QUANTITATIVERATESCORE = #{quantitativeratescore},</if>
+<if test="productiveratescore != null">  PRODUCTIVERATESCORE = #{productiveratescore},</if>
+<if test="overallscore != null">  OVERALLSCORE = #{overallscore},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+-->
+<!--  ********************************QAS_T_DIAGNOSTICREPORTSUMMRY config end********************************  -->
+
+</mapper>

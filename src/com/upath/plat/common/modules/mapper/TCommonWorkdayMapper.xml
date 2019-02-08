@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.common.modules.mapper.TCommonWorkdayMapper">
+<!--  ********************************T_COMMON_WORKDAY config begnin********************************  -->
+
+<select id="select" resultType="TCommonWorkday"> 
+ SELECT TID,LISTS,YEAR,CJSJ,CJR,XGSJ,XGR FROM  T_COMMON_WORKDAY 
+ WHERE   1 = 1
+ <if test="tid != null">
+ 	AND  TID=#{tid}
+ </if>
+ <if test="year != null">
+ 	AND  YEAR=#{year}
+ </if>
+</select>
+
+<select id="list" resultType="TCommonWorkday"> 
+ SELECT TID,LISTS,YEAR,CJSJ,CJR,XGSJ,XGR FROM  T_COMMON_WORKDAY 
+ WHERE   1 = 1
+ <if test="tid != null">
+ 	AND TID=#{tid}
+ </if>
+ <if test="year != null">
+ 	AND 	YEAR=#{year}
+ </if>
+</select>
+
+ <insert id="insert" parameterType="TCommonWorkday">
+ INSERT INTO T_COMMON_WORKDAY   ( TID,LISTS,YEAR,CJSJ,CJR,XGSJ,XGR)
+  VALUES ( #{tid},#{lists},#{year},#{cjsj},#{cjr},#{xgsj},#{xgr} )
+</insert>
+
+ <update id="update" parameterType="TCommonWorkday">
+ UPDATE T_COMMON_WORKDAY SET  TID=#{tid},LISTS=#{lists},YEAR=#{year},CJSJ=#{cjsj},CJR=#{cjr},XGSJ=#{xgsj},XGR=#{xgr} 
+ WHERE  TID=#{tid}
+</update>
+
+ <delete id="delete" parameterType="TCommonWorkday">
+   DELETE FROM T_COMMON_WORKDAY WHERE   TID=#{tid}
+</delete>
+
+<!--  ********************************T_COMMON_WORKDAY config end********************************  -->
+
+</mapper>

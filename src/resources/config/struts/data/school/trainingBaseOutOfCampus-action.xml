@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_TRAININGBASEOUTOFCAMPUS config end********************************  -->
+
+<package name="QasDTrainingbaseoutofcampus" extends="default"
+		namespace="/data/school/trainingBaseOutOfCampus">
+		
+		<action name="queryInfo" class="qasDTrainingbaseoutofcampusAction" method="queryInfo">
+			<result name="select">/pages/data/school/trainingBaseOutOfCampus/QasDTrainingbaseoutofcampusInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDTrainingbaseoutofcampusAction" method="queryList">
+			<result name="list">/pages/data/school/trainingBaseOutOfCampus/QasDTrainingbaseoutofcampusList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDTrainingbaseoutofcampusAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDTrainingbaseoutofcampusAction" method="toEdit">
+			<result name="toEdit">/pages/data/school/trainingBaseOutOfCampus/QasDTrainingbaseoutofcampusEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDTrainingbaseoutofcampusAction" method="save">
+			<result name="save" type="redirect">
+			/data/school/trainingBaseOutOfCampus/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_TRAININGBASEOUTOFCAMPUS config end********************************  -->
+</struts>

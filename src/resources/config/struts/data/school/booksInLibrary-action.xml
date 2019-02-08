@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_BOOKSINLIBRARY config end********************************  -->
+
+<package name="QasDBooksinlibrary" extends="default"
+		namespace="/data/school/booksInLibrary">
+		
+		<action name="queryInfo" class="qasDBooksinlibraryAction" method="queryInfo">
+			<result name="select">/pages/data/school/booksInLibrary/QasDBooksinlibraryInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDBooksinlibraryAction" method="queryList">
+			<result name="list">/pages/data/school/booksInLibrary/QasDBooksinlibraryList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDBooksinlibraryAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDBooksinlibraryAction" method="toEdit">
+			<result name="toEdit">/pages/data/school/booksInLibrary/QasDBooksinlibraryEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDBooksinlibraryAction" method="save">
+			<result name="save" type="redirect">
+			/data/school/booksInLibrary/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_BOOKSINLIBRARY config end********************************  -->
+</struts>

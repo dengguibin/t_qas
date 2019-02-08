@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.deceen.indicator.indicatorcontent.mapper.QasTIndicatorcontentMapper">
+	<!-- ********************************QAS_T_INDICATORCONTENT config begnin******************************** -->
+	
+	<select id="queryDataBySql" parameterType="java.lang.String"  resultType="java.util.LinkedHashMap">
+		<choose>
+			<when test="sql!=null and sql!=''">
+				${sql}
+			</when>
+			<otherwise>
+				select 1 from dual
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="queryDataBySql1" parameterType="java.util.HashMap"  resultType="java.util.LinkedHashMap">
+		<choose>
+			<when test="sql!=null and sql!=''">
+				${sql}
+			</when>
+			<otherwise>
+				select 1 from dual
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="select" resultType="QasTIndicatorcontent">
+		SELECT
+		ID,NAME_,INDICATORCATALOGID,INDICATORDATATYPE,INDICATORDATATREND,SQLSTRING,STANDARD,REMARK
+		FROM QAS_T_INDICATORCONTENT
+		WHERE INDICATORCATALOGID=#{indicatorcatalogid}
+	</select>
+
+	<!--个人面板模块（根据指标id，当前用户id查询指标内容）  -->
+	<select id="selectBypersonal" resultType="QasTIndicatorcontent">
+		SELECT
+		ID id,NAME_ name_,INDICATORCATALOGID indicatorcatalogid,INDICATORDATATYPE indicatordatatype,INDICATORDATATREND indicatordatatrend,SQLSTRING sqlstring,STANDARD standard,REMARK remark
+		FROM QAS_T_INDICATORCONTENT
+		WHERE INDICATORCATALOGID=#{indicatorcatalogid} 
+	</select>
+	
+	<select id="list" parameterType="QasTIndicatorcontent" useCache="false"
+		resultType="hashmap">
+		<include refid="plat.ORACLE_PAGE_HEADER" />
+		SELECT
+		ID,NAME_,INDICATORCATALOGID,INDICATORDATATYPE,INDICATORDATATREND,SQLSTRING,STANDARD,REMARK,
+		ATOMID,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME
+       	FROM QAS_T_INDICATORCONTENT
+		WHERE 1 = 1
+		<!-- ## 这里为查询的样例 修改完必须删除此些内容 <if test="filed != null and filed != ''"> 
+			AND COLUMN LIKE '%' #{filed} '%' </if> <if test="endTime != null and endTime 
+			!= ''"> <![CDATA[ AND #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]> </if> -->
+		<include refid="plat.ORACLE_PAGE_FOOTER" />
+	</select>
+	<select id="selectIndicatorByElementAndUser"  
+		resultType="com.deceen.indicator.indicatorcontent.model.QasTIndicatorcontent">
+		SELECT * FROM QAS_T_IndicatorCatalog i
+				LEFT OUTER JOIN qas_t_userindicatorearlywarning u
+				ON i.id = u.r_indicatorID 
+		WHERE 	
+			u.r_userID = #{userId}
+		AND 
+			i.parentId = #{elementId}
+		
+	</select>
+	<select id="selectByParams" resultType ="QasTIndicatorcontent">
+		SELECT CONT.ID,CONT.NAME_,CONT.INDICATORCATALOGID,CONT.INDICATORDATATYPE,CONT.INDICATORDATATREND,CONT.SQLSTRING,CONT.STANDARD
+		FROM QAS_T_INDICATORCONTENT CONT  
+		LEFT JOIN QAS_T_INDICATORCATALOG CAT ON CONT.INDICATORCATALOGID = CAT.ID
+		LEFT JOIN QAS_T_SCHEMECATALOG SCH ON CAT.ID = SCH.INDICATORCATALOGID
+		WHERE CAT.PARENTID = #{IndicatorCatalogId} AND SCH.SCHEMEID=#{schemeid}
+	</select>
+
+	<insert id="insert" parameterType="QasTIndicatorcontent">
+		INSERT INTO QAS_T_INDICATORCONTENT 
+		(ID,NAME_,INDICATORCATALOGID,INDICATORDATATYPE,INDICATORDATATREND,SQLSTRING,STANDARD,
+		REMARK,ATOMID,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME)
+		VALUES (#{id},#{name_},#{indicatorcatalogid},#{indicatordatatype},#{indicatordatatrend},#{sqlstring},#{standard},
+		#{remark},#{atomid},#{createdby},#{createdtime},#{updatedby},#{updatedtime})
+	</insert>
+
+	<delete id="delete">
+		DELETE FROM QAS_T_INDICATORCONTENT WHERE INDICATORCATALOGID=#{id}
+	</delete>
+
+	<!-- 批量删除 -->
+	<delete id="batchDelete">
+		DELETE FROM QAS_T_INDICATORCONTENT WHERE ID IN
+		<foreach collection="array" item="id" separator="," open="("
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<update id="updateWithDyna" parameterType="QasTIndicatorcontent">
+		UPDATE QAS_T_INDICATORCONTENT
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="id != null"> ID = #{id},</if>
+			<if test="name_ != null"> NAME_ = #{name_},</if>
+			<if test="indicatorcatalogid != null"> INDICATORCATALOGID = #{indicatorcatalogid},</if>
+			<if test="indicatordatatype != null"> INDICATORDATATYPE = #{indicatordatatype},</if>
+			<if test="indicatordatatrend != null"> INDICATORDATATREND = #{indicatordatatrend},</if>
+			<if test="sqlstring != null"> SQLSTRING = #{sqlstring},</if>
+			<if test="standard != null"> STANDARD = #{standard},</if>
+			<if test="remark != null"> REMARK = #{remark},</if>
+			<if test="atomid != null"> ATOMID = #{atomid},</if>
+			<if test="createdby != null"> CREATEDBY = #{createdby},</if>
+			<if test="createdtime != null"> CREATEDTIME = #{createdtime},</if>
+			<if test="updatedby != null"> UPDATEDBY = #{updatedby},</if>
+			<if test="updatedtime != null"> UPDATEDTIME = #{updatedtime},</if>
+		</trim>
+		WHERE ID=#{id}
+	</update>
+
+	<!-- ********************************QAS_T_INDICATORCONTENT config end******************************** -->
+
+</mapper>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.major.graduateInformation.mapper.QasDGraduateinformationMapper">
+<!--  ********************************QAS_D_GRADUATEINFORMATION config begnin********************************  -->
+
+<select id="select" resultType="QasDGraduateinformation"> 
+ SELECT ID,STUDENTID,GRADUATION,EMPLOYMENTPROVINCES,COMPANYNAME,COMPANYNATURE,COMPANYSCALE,ISRECEIVEALLCREDITS,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_GRADUATEINFORMATION 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDGraduateinformation" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,STUDENTID,GRADUATION,EMPLOYMENTPROVINCES,COMPANYNAME,COMPANYNATURE,COMPANYSCALE,ISRECEIVEALLCREDITS,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_GRADUATEINFORMATION 
+ WHERE  1 = 1
+ <if test="studentid != null and studentid != ''">
+ AND STUDENTID LIKE '%' #{studentid}  '%'
+ </if>
+ <if test="employmentprovinces != null and employmentprovinces != ''">
+ AND EMPLOYMENTPROVINCES = #{employmentprovinces}
+ </if>
+ <if test="isreceiveallcredits != null and isreceiveallcredits != ''">
+ AND ISRECEIVEALLCREDITS = #{isreceiveallcredits}
+ </if>
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDGraduateinformation">
+ INSERT INTO QAS_D_GRADUATEINFORMATION   ( ID,STUDENTID,GRADUATION,EMPLOYMENTPROVINCES,COMPANYNAME,COMPANYNATURE,COMPANYSCALE,ISRECEIVEALLCREDITS,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{studentid},#{graduation},#{employmentprovinces},#{companyname},#{companynature},#{companyscale},#{isreceiveallcredits},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDGraduateinformation">
+ UPDATE QAS_D_GRADUATEINFORMATION SET  ID=#{id},STUDENTID=#{studentid},GRADUATION=#{graduation},EMPLOYMENTPROVINCES=#{employmentprovinces},COMPANYNAME=#{companyname},COMPANYNATURE=#{companynature},COMPANYSCALE=#{companyscale},ISRECEIVEALLCREDITS=#{isreceiveallcredits},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_GRADUATEINFORMATION WHERE   ID=#{id}
+</delete>
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_GRADUATEINFORMATION WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDGraduateinformation">
+ UPDATE QAS_D_GRADUATEINFORMATION 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="studentid != null">  STUDENTID = #{studentid},</if>
+<if test="graduation != null">  GRADUATION = #{graduation},</if>
+<if test="employmentprovinces != null">  EMPLOYMENTPROVINCES = #{employmentprovinces},</if>
+<if test="companyname != null">  COMPANYNAME = #{companyname},</if>
+<if test="companynature != null">  COMPANYNATURE = #{companynature},</if>
+<if test="companyscale != null">  COMPANYSCALE = #{companyscale},</if>
+<if test="isreceiveallcredits != null">  ISRECEIVEALLCREDITS = #{isreceiveallcredits},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_GRADUATEINFORMATION config end********************************  -->
+
+</mapper>

@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context-3.0.xsd
+         http://www.springframework.org/schema/tx
+         http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+         http://www.springframework.org/schema/aop 
+         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
+	default-autowire="byName">
+
+
+	
+	<!-- 注入平台管理 上下文环境 -->
+	<bean class="com.upath.plat.common.util.PlatUtil"></bean>
+	<bean id="SpringContextUtil" class="com.upath.plat.common.util.SpringContextUtil" scope="singleton" ></bean>
+	
+	<!-- 注入平台管理 上下文环境 -->
+	<bean class="com.upath.plat.common.util.SpringContextUtil"></bean>
+	
+	  <!-- Spring bean 加载管理 器，目前使用到加载完成时，加载系统缓存 -->
+	  <bean class="com.upath.plat.common.cache.BeanPostProcessorImp"></bean>
+	  
+	  <bean id="commonService" class="com.upath.plat.common.service.CommonService">
+	  	<property name="dao" ref="dao"></property>
+	  </bean>
+	  
+	  
+	  <bean class="com.upath.plat.common.attachment.AttachmentsManager" id="attachmentsManager">
+	  	<property name="service" ref="tCommonDocumentService"></property>
+	  </bean>
+	
+
+	<!-- 拦截器配置管理 -->
+	<aop:config proxy-target-class="true">
+		<aop:advisor pointcut="execution(public * com.upath.plat.common.modules.service.*.*(..))"
+			advice-ref="txAdvice" />
+	</aop:config>
+	
+		<aop:config proxy-target-class="true">
+		<aop:advisor pointcut="execution(public * com.upath.plat.common.service.*.*(..))"
+			advice-ref="txAdvice" />
+	    </aop:config>
+
+	<!--  扫描 mappers 自动配置 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.upath.plat.common.modules.mapper" />
+		<property name="sqlSessionTemplate" ref="sqlSession" />
+	</bean>
+
+	<context:component-scan base-package="com.upath.plat.common.modules.action" />
+
+	<!-- 系统使用 缓存管理 器 ，此加载器为 字典缓存 管理器 -->
+	<bean id="cacheManager" class="com.upath.plat.common.cache.CacheManager" scope="singleton">
+		<property name="service" ref="commonService"></property>
+	</bean>
+	
+	<!-- 系统使用 缓存管理 器 ，菜单系统缓存管理 器 -->
+	<bean id="authCacheManager" class="com.upath.plat.common.cache.AuthCacheManager" scope="singleton">
+		<property name="service" ref="commonService"></property>
+	</bean>
+
+
+	<!-- SQL 模板缓存管理 器 -->
+	<bean id="sqlCacheManager" class="com.upath.plat.common.cache.SqlTemplateManager" scope="singleton">
+		<property name="service" ref="commonService"></property>
+	</bean>
+
+
+	<!-- ID 序列管理器 -->
+	<bean id="iSequence" class="com.upath.plat.common.service.PlatSequence">
+		<property name="mapper" ref="tCommonSeqvalueMapper"></property>
+	</bean>
+
+
+	<!-- 字典管理服务层 -->
+	<bean id="tCommonKeysService" class="com.upath.plat.common.modules.service.TCommonKeysService">
+		<property name="mapper" ref="tCommonKeysMapper"></property>
+	</bean>
+
+	<!-- 字典子键管理服务层 -->
+	<bean id="tCommonSubkeysService" class="com.upath.plat.common.modules.service.TCommonSubkeysService">
+		<property name="mapper" ref="tCommonSubkeysMapper"></property>
+	</bean>
+
+	<!-- 序列号管理服务层 -->
+	<bean id="tCommonSeqService" class="com.upath.plat.common.modules.service.TCommonSeqService">
+		<property name="mapper" ref="tCommonSeqMapper"></property>
+	</bean>
+	
+	<!-- 系统消息服务层 -->
+	<bean id="tMessageService" class="com.upath.plat.common.service.MessageService">
+		<property name="mapper" ref="tCommonMessagesMapper"></property>
+		<property name="recMapper" ref="tCommonMessagesReciversMapper"></property>
+	</bean>
+
+	<!-- 序列号子序列服务层 -->
+	<bean id="tCommonSeqvalueService" class="com.upath.plat.common.modules.service.TCommonSeqvalueService">
+		<property name="mapper" ref="tCommonSeqvalueMapper"></property>
+	</bean>
+
+
+	<!-- SQL 管理  -->
+	<bean id="tCommonSqlService" class="com.upath.plat.common.modules.service.TCommonSqlService">
+		<property name="mapper" ref="tCommonSqlMapper"></property>
+	</bean>
+	
+	<!-- 用户在线管理  -->
+	<bean id="tCommonOnlineService" class="com.upath.plat.common.modules.service.TCommonOnlineService">
+		<property name="mapper" ref="tCommonOnlineMapper"></property>
+	</bean>
+	<!-- 文档管理  -->
+	<bean id="tCommonDocumentService" class="com.upath.plat.common.modules.service.TCommonDocumentService">
+		<property name="mapper" ref="tCommonDocumentMapper"></property>
+	</bean>
+	
+	<!-- 节假日期配置管理  -->
+	<bean id="tCommonWorkdayService" class="com.upath.plat.common.modules.service.TCommonWorkdayService">
+		<property name="mapper" ref="tCommonWorkdayMapper"></property>
+	</bean>
+	
+	
+	<!-- 习惯用语模板管理  -->
+	<bean id="tCommonTemplateService" class="com.upath.plat.common.modules.service.TCommonTemplateService">
+		<property name="mapper" ref="tCommonTemplateMapper"></property>
+	</bean>
+	
+	 
+	   <!-- 登陆日志管理服务层 -->
+	  <bean id="tRmsLogininfoService" class="com.upath.plat.common.modules.service.TRmsLogininfoService">
+	  	<property name="mapper" ref="tRmsLogininfoMapper"></property>
+	  </bean>
+	  
+	   <!--业务日志管理服务层 -->
+	  <bean id="tRmsAlllogsService" class="com.upath.plat.common.modules.service.TRmsAlllogsService">
+	  	<property name="mapper" ref="tRmsAlllogsMapper"></property>
+	  </bean>
+	
+</beans>

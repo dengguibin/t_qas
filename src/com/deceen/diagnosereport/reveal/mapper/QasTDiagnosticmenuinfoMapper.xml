@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.diagnosereport.reveal.mapper.QasTDiagnosticmenuinfoMapper">
+<!--  ********************************QAS_T_DIAGNOSTICMENUINFO config begnin********************************  -->
+
+<select id="menuAnalyTest" parameterType="String" resultType="Menu" useCache="false"> 
+ SELECT CDID,PCDID,CDMC,CDCJ,PXH,LJDZ,CDCS,LJLX
+ FROM QAS_T_DIAGNOSTICMENUINFO WHERE DiagnosticIntermediaryId = #{DIId}  ORDER BY PXH
+</select>
+
+
+<select id="menuAnaly" parameterType="java.util.HashMap" resultType="Menu" useCache="false"> 
+	SELECT CDID,PCDID,CDMC,CDCJ,PXH,LJDZ,CDCS,LJLX
+	FROM QAS_T_DIAGNOSTICMENUINFO WHERE DiagnosticIntermediaryId 
+	in (select dint.id from QAS_T_DiagnosticIntermediary dint where DiagnosticReportId
+	in (select dir.id from QAS_T_DiagnosticReport dir where 1=1
+		<if test="taskId!=null and taskId!=''">
+			and DiagnoseTaskId=#{taskId} 
+		</if>
+		<if test="datetime!=null and datetime!=''">
+			and DiagnoseDataTime=#{datetime}
+		</if>
+		) 
+		<if test="objId!=null and objId!=''">
+			and DiagnosticObjId=#{objId}
+		</if>
+	)  
+	ORDER BY PXH
+</select>
+
+
+<select id="select" resultType="TRmsMenuinfo"> 
+ SELECT CDID,PCDID,CDMC,CDCJ,PXH,LJDZ,CDCS,LJLX FROM QAS_T_DIAGNOSTICMENUINFO 
+ WHERE CDID=#{cdid}
+</select>
+
+<select id="listMenus" resultType="TRmsMenuinfo"> 
+ SELECT CDID,PCDID,CDMC,CDCJ,PXH,LJDZ,CDCS,LJLX
+ FROM QAS_T_DIAGNOSTICMENUINFO 
+ WHERE 2=2 
+ 	<if test="cdmc != null">
+ 		AND CDMC LIKE '%' #{cdmc} '%'
+ 	</if>
+  ORDER BY PXH
+</select>
+
+<select id="list" parameterType="TRmsMenuinfo" useCache="false" resultType ="hashmap">  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT CDID,PCDID,CDMC,CDCJ,PXH,LJDZ,CDCS,LJLX FROM  QAS_T_DIAGNOSTICMENUINFO 
+ 		WHERE 1 = 1 
+ 	<if test="pcdid != null">
+ 		AND PCDID = #{pcdid}
+ 	</if>
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+<!-- <insert id="insert" parameterType="TRmsMenuinfo" useGeneratedKeys="true" keyProperty="cdid">
+ INSERT INTO QAS_T_DIAGNOSTICMENUINFO (CDID,DiagnosticIntermediaryId,PCDID,CDMC,CDCJ,PXH,LJDZ,CDCS,LJLX)
+ VALUES (#{cdid},#{diagnosticintermediaryid},#{pcdid},#{cdmc},#{cdcj},#{pxh},#{ljdz},#{cdcs},#{ljlx})
+</insert> -->
+
+
+<insert id="insert" parameterType="TRmsMenuinfo">
+ INSERT INTO QAS_T_DIAGNOSTICMENUINFO (CDID,DiagnosticIntermediaryId,PCDID,CDMC,CDCJ,PXH,LJDZ,CDCS,LJLX)
+ VALUES (#{cdid},#{diagnosticintermediaryid},#{pcdid},#{cdmc},#{cdcj},#{pxh},#{ljdz},#{cdcs},#{ljlx})
+ <selectKey keyProperty="cdid" order="AFTER" resultType="java.lang.Integer">
+ 	SELECT LAST_INSERT_ID()
+ </selectKey>
+</insert>
+
+
+<update id="update" parameterType="TRmsMenuinfo">
+ UPDATE QAS_T_DIAGNOSTICMENUINFO SET CDID=#{cdid},PCDID=#{pcdid},CDMC=#{cdmc},CDCJ=#{cdcj},PXH=#{pxh},LJDZ=#{ljdz},CDCS=#{cdcs},LJLX=#{ljlx} 
+ WHERE CDID=#{cdid}
+</update>
+
+<delete id="delete">
+   DELETE FROM QAS_T_DIAGNOSTICMENUINFO WHERE CDID=#{cdid}
+</delete>
+
+<!--动态更新-->
+<update id="updateWithDyna" parameterType="TRmsMenuinfo">
+ UPDATE QAS_T_DIAGNOSTICMENUINFO 
+ <trim prefix="SET" suffixOverrides=",">
+	<if test="cdid != null">  CDID = #{cdid},</if>
+	<if test="pcdid != null">  PCDID = #{pcdid},</if>
+	<if test="cdmc != null">  CDMC = #{cdmc},</if>
+	<if test="cdcj != null">  CDCJ = #{cdcj},</if>
+	<if test="pxh != null">  PXH = #{pxh},</if>
+	<if test="ljdz != null">  LJDZ = #{ljdz},</if>
+	<if test="cdcs != null">  CDCS = #{cdcs},</if>
+	<if test="ljlx != null">  LJLX = #{ljlx},</if>
+ </trim>  
+ WHERE  CDID=#{cdid}
+</update>
+
+<!--  ********************************QAS_T_DIAGNOSTICMENUINFO config end********************************  -->
+
+</mapper>

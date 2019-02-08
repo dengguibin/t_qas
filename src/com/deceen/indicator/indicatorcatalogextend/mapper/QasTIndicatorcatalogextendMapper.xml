@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.indicator.indicatorcatalogextend.mapper.QasTIndicatorcatalogextendMapper">
+<!--  ********************************QAS_T_INDICATORCATALOGEXTEND config begnin********************************  -->
+
+<select id="select" resultType="QasTIndicatorcatalogextend"> 
+ SELECT ID,INDICATORCATALOGID,INDICATORCATALOGUNIQUEID,PROBLEMOVERVIEW,PROBLEMDETAIL,SUGGESTIONOVERVIEW,SUGGESTIONDETAIL,TENANTID FROM  QAS_T_INDICATORCATALOGEXTEND 
+ WHERE   INDICATORCATALOGID=#{indicatorcatalogid}
+</select>
+
+<select id="list" parameterType="QasTIndicatorcatalogextend" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,INDICATORCATALOGID,INDICATORCATALOGUNIQUEID,PROBLEMOVERVIEW,PROBLEMDETAIL,SUGGESTIONOVERVIEW,SUGGESTIONDETAIL,TENANTID FROM  QAS_T_INDICATORCATALOGEXTEND 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasTIndicatorcatalogextend">
+ INSERT INTO QAS_T_INDICATORCATALOGEXTEND   ( ID,INDICATORCATALOGID,INDICATORCATALOGUNIQUEID,PROBLEMOVERVIEW,PROBLEMDETAIL,SUGGESTIONOVERVIEW,SUGGESTIONDETAIL,TENANTID)
+  VALUES ( #{id},#{indicatorcatalogid},#{indicatorcataloguniqueid},#{problemoverview},#{problemdetail},#{suggestionoverview},#{suggestiondetail},#{tenantid} )
+</insert>
+
+ <update id="update" parameterType="QasTIndicatorcatalogextend">
+ UPDATE QAS_T_INDICATORCATALOGEXTEND SET  ID=#{id},INDICATORCATALOGID=#{indicatorcatalogid},INDICATORCATALOGUNIQUEID=#{indicatorcataloguniqueid},PROBLEMOVERVIEW=#{problemoverview},PROBLEMDETAIL=#{problemdetail},SUGGESTIONOVERVIEW=#{suggestionoverview},SUGGESTIONDETAIL=#{suggestiondetail},TENANTID=#{tenantid} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_T_INDICATORCATALOGEXTEND WHERE   INDICATORCATALOGID=#{id}
+</delete>
+
+ <update id="updateWithDyna" parameterType="QasTIndicatorcatalogextend">
+ UPDATE QAS_T_INDICATORCATALOGEXTEND 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="indicatorcatalogid != null">  INDICATORCATALOGID = #{indicatorcatalogid},</if>
+<if test="indicatorcataloguniqueid != null">  INDICATORCATALOGUNIQUEID = #{indicatorcataloguniqueid},</if>
+<if test="problemoverview != null">  PROBLEMOVERVIEW = #{problemoverview},</if>
+<if test="problemdetail != null">  PROBLEMDETAIL = #{problemdetail},</if>
+<if test="suggestionoverview != null">  SUGGESTIONOVERVIEW = #{suggestionoverview},</if>
+<if test="suggestiondetail != null">  SUGGESTIONDETAIL = #{suggestiondetail},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+
+ </trim>  
+ WHERE  INDICATORCATALOGID=#{indicatorcatalogid}
+</update>
+
+<!--  ********************************QAS_T_INDICATORCATALOGEXTEND config end********************************  -->
+
+</mapper>

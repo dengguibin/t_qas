@@ -1,0 +1,205 @@
+*{
+	padding: 0;
+	margin: 0;
+	border: none;
+	background: none;
+	font-size: 14px;
+}
+html,body{
+	/*height: 100%;*/
+	margin: 0;
+	padding: 0;
+	background:#f0f9fd;
+	color: #666;
+	font-size: 14px;
+}
+span{
+	display: inline;
+}
+.f-data .left.box-l{
+    float: left;
+    width: 20%;
+    height: 100%;
+}
+.f-data .right.box-r{
+    float: right;
+    width: 79%;
+    /*margin-right: 0.5%;*/
+}
+/*搜索小图标*/
+.icon{
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	background-repeat: no-repeat;
+	-o-background-size: auto 100%; 
+	-mo-background-size: auto 100%; 
+	-moz-background-size: auto 100%; 
+	-ms-background-size: auto 100%; 
+	-webkit-background-size: auto 100%; 
+	background-size: auto 100%; 
+	-o-background-position: center center;
+	-mo-background-position: center center;
+	-moz-background-position: center center;
+	-ms-background-position: center center;
+	-webkit-background-position: center center;
+	background-position: center center;
+}
+.f-data .search-icon{
+	margin: 10px;
+	background-image: url(../img/metrics/search.png);
+}
+.f-data .search-select{
+	background-image: url(../img/metrics/search-select.png);
+}
+.f-data .search-unable{
+	background-image: url(../img/metrics/search-unable.png);
+}
+/*左边*/
+.f-data .search-box{
+    border-bottom: 1px solid #deebfe;
+    position: relative;
+}
+.f-data .search-box>input{
+	border: none;
+	background: none;
+	padding: 6px;
+	background: #fff;
+}
+.f-data .search-box .search-icon{
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 30px;
+	height: 18px;
+	margin: 6px 0;
+}
+.f-data .box-d{
+	border: 1px solid #deebfe;
+	background: #f1f6fc;
+	height: 100%;
+	-o-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-mo-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	overflow: auto;
+}
+
+
+/*ztree*/
+.ztree{
+	padding: 10px;
+}
+li.level0,li.level1,li.level2,li.level3,li.level4,li.level5,li.level6,li.level7,li.level8,li.level9,li.level10{
+    padding: 3px 0;
+}
+.ztree li a.curSelectedNode {
+    background-color: #cee1ff;
+    border: 4px solid #cee1ff;
+    border: 4px solid #cee1ff;
+    border: none;
+}
+
+
+/*右边*/
+.f-data .right.box-r>div.list{
+	overflow: auto;
+	width: 100%;
+	word-wrap: break-word; 
+	word-break: break-all;
+}
+.f-data .data-list{
+	min-width: 100%;
+	width: auto;
+}
+.f-data .data-list th{
+	max-width: 200px;
+	min-width: 160px;
+	text-align: center;
+	 vertical-align:middle
+}
+.f-data .data-list th,.f-data .data-list td{
+	text-align: center;
+}
+.f-data .data-list th:first-child{
+	min-width: 46px;
+}
+.f-data .table {
+    margin-bottom: 0px;
+}
+.f-data .box-r .search-box{
+	width: 240px;
+    position: relative;
+    margin: 0px auto;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(58, 148, 200);
+    border-image: initial;
+    border-radius: 2px;
+}
+.f-data .box-r .search-box>input{
+	width: 206px;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    background: none;
+    padding: 6px 6px;
+}
+.f-data .search-div{
+	padding-bottom: 10px;
+}
+.f-data .search-div .sumbit{
+	margin-right: 10px;
+	display: inline-block;
+}
+.f-data a:hover{
+	color: #fff;
+	text-decoration: none;
+}
+.f-data .top{
+	padding-bottom:6px ;
+}
+.f-data .top>span{
+	position: relative;
+	top: -4px;
+	color: #0066FF;
+}
+
+/*----------------------------添加 ------------------------*/
+.f-data .add-data-list .must{
+	display: inline-block;
+}
+.input-box{
+	position: relative;
+}
+.input-box>.icon{
+	position: absolute;
+	right: 0;
+	margin: 10px;
+}
+.inputxt{
+	width: 90%;
+	border: 1px solid #E7E7E7;
+    -o-border-radius: 4px;
+    -mo-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    padding: 9px 6px;
+    resize: none;
+    color: #333;
+}
+.inputxt.input-h-icon{
+	padding-right: 40px;
+}
+.f-data .add-data-list td{
+	vertical-align: middle;
+}
+
+
+
+

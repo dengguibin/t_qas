@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.base.grade.mapper.QasDGradeMapper">
+<!--  ********************************QAS_D_GRADE config begnin********************************  -->
+
+<select id="select" resultType="QasDGrade"> 
+ SELECT ID,DIRECTIONIDDIRECTIONID,GRADECODE,GRADENAME,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_GRADE 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDGrade" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,DIRECTIONIDDIRECTIONID,GRADECODE,GRADENAME,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_GRADE 
+ WHERE  1 = 1
+ <if test="gradename != null and gradename != ''">
+ AND GRADENAME LIKE '%' #{gradename}  '%'
+ </if>
+ <if test="directioniddirectionid != null and directioniddirectionid != ''">
+ AND DIRECTIONIDDIRECTIONID = #{directioniddirectionid}
+ </if>
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDGrade">
+ INSERT INTO QAS_D_GRADE   ( ID,DIRECTIONIDDIRECTIONID,GRADECODE,GRADENAME,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{directioniddirectionid},#{gradecode},#{gradename},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDGrade">
+ UPDATE QAS_D_GRADE SET  ID=#{id},DIRECTIONIDDIRECTIONID=#{directioniddirectionid},GRADECODE=#{gradecode},GRADENAME=#{gradename},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_GRADE WHERE   ID=#{id}
+</delete>
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_GRADE WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDGrade">
+ UPDATE QAS_D_GRADE 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="directioniddirectionid != null">  DIRECTIONIDDIRECTIONID = #{directioniddirectionid},</if>
+<if test="gradecode != null">  GRADECODE = #{gradecode},</if>
+<if test="gradename != null">  GRADENAME = #{gradename},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_GRADE config end********************************  -->
+
+</mapper>

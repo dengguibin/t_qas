@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.common.modules.mapper.TCommonSeqMapper">
+<!--  ********************************T_COMMON_SEQ config begnin********************************  -->
+
+<select id="select" resultType="TCommonSeq"> 
+ SELECT SEQID,NAME,OWNERS,MINVAL,MAXVAL,SPOS,STEPS,DES,CJSJ,CJR,XGSJ,XGR FROM  T_COMMON_SEQ 
+ WHERE   SEQID=#{seqid}
+</select>
+
+<select id="list" parameterType="TCommonSeq" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT SEQID,NAME,OWNERS,MINVAL,MAXVAL,SPOS,STEPS,DES,CJSJ,CJR,XGSJ,XGR FROM  T_COMMON_SEQ 
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="TCommonSeq">
+ INSERT INTO T_COMMON_SEQ   ( SEQID,NAME,OWNERS,MINVAL,MAXVAL,SPOS,STEPS,DES,CJSJ,CJR,XGSJ,XGR)
+  VALUES ( #{seqid},#{name},#{owners},#{minval},#{maxval},#{spos},#{steps},#{des},#{cjsj},#{cjr},#{xgsj},#{xgr} )
+</insert>
+
+ <update id="update" parameterType="TCommonSeq">
+ UPDATE T_COMMON_SEQ SET  SEQID=#{seqid},NAME=#{name},OWNERS=#{owners},MINVAL=#{minval},MAXVAL=#{maxval},SPOS=#{spos},STEPS=#{steps},DES=#{des},CJSJ=#{cjsj},CJR=#{cjr},XGSJ=#{xgsj},XGR=#{xgr} 
+ WHERE  SEQID=#{seqid}
+</update>
+
+ <delete id="delete" parameterType="TCommonSeq">
+   DELETE FROM T_COMMON_SEQ WHERE   SEQID=#{seqid}
+</delete>
+
+<!--  ********************************T_COMMON_SEQ config end********************************  -->
+
+</mapper>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.base.student.mapper.QasDStudentMapper">
+<!--  ********************************QAS_D_STUDENT config begnin********************************  -->
+
+<select id="select" resultType="QasDStudent"> 
+ SELECT ID,GRADEID,NO,NAME,SEX,NATION,EMAIL,BIRTHDAY,BIRTHPLACE,FROMARMY,ENROLLMENT,TYPEOFSTUDENT,ISRESIDENTSINCOUNTRY,ISSPECIALTRAINING,ISPOVERTYFAMILY,GRADE,LENGTHOFSCHOOLING,ADMISSIONDATE,ISGRADUATION,ARREARAGE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_STUDENT 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDStudent" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,GRADEID,NO,NAME,SEX,NATION,EMAIL,BIRTHDAY,BIRTHPLACE,FROMARMY,ENROLLMENT,TYPEOFSTUDENT,ISRESIDENTSINCOUNTRY,ISSPECIALTRAINING,ISPOVERTYFAMILY,GRADE,LENGTHOFSCHOOLING,ADMISSIONDATE,ISGRADUATION,ARREARAGE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_STUDENT 
+ WHERE  1 = 1
+ <if test="name != null and name != ''">
+ AND NAME LIKE '%' #{name}  '%'
+ </if>
+ <if test="isgraduation != null and isgraduation != ''">
+ AND ISGRADUATION = #{isgraduation}
+ </if>
+ <if test="admissiondate != null and admissiondate != ''">
+      AND ADMISSIONDATE = #{admissiondate}
+  </if>
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+<include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDStudent">
+ INSERT INTO QAS_D_STUDENT   ( ID,GRADEID,NO,NAME,SEX,NATION,EMAIL,BIRTHDAY,BIRTHPLACE,FROMARMY,ENROLLMENT,TYPEOFSTUDENT,ISRESIDENTSINCOUNTRY,ISSPECIALTRAINING,ISPOVERTYFAMILY,GRADE,LENGTHOFSCHOOLING,ADMISSIONDATE,ISGRADUATION,ARREARAGE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{gradeid},#{no},#{name},#{sex},#{nation},#{email},#{birthday},#{birthplace},#{fromarmy},#{enrollment},#{typeofstudent},#{isresidentsincountry},#{isspecialtraining},#{ispovertyfamily},#{grade},#{lengthofschooling},#{admissiondate},#{isgraduation},#{arrearage},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDStudent">
+ UPDATE QAS_D_STUDENT SET  ID=#{id},GRADEID=#{gradeid},NO=#{no},NAME=#{name},SEX=#{sex},NATION=#{nation},EMAIL=#{email},BIRTHDAY=#{birthday},BIRTHPLACE=#{birthplace},FROMARMY=#{fromarmy},ENROLLMENT=#{enrollment},TYPEOFSTUDENT=#{typeofstudent},ISRESIDENTSINCOUNTRY=#{isresidentsincountry},ISSPECIALTRAINING=#{isspecialtraining},ISPOVERTYFAMILY=#{ispovertyfamily},GRADE=#{grade},LENGTHOFSCHOOLING=#{lengthofschooling},ADMISSIONDATE=#{admissiondate},ISGRADUATION=#{isgraduation},ARREARAGE=#{arrearage},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_STUDENT WHERE   ID=#{id}
+</delete>
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_STUDENT WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDStudent">
+ UPDATE QAS_D_STUDENT 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="gradeid != null">  GRADEID = #{gradeid},</if>
+<if test="no != null">  NO = #{no},</if>
+<if test="name != null">  NAME = #{name},</if>
+<if test="sex != null">  SEX = #{sex},</if>
+<if test="nation != null">  NATION = #{nation},</if>
+<if test="email != null">  EMAIL = #{email},</if>
+<if test="birthday != null">  BIRTHDAY = #{birthday},</if>
+<if test="birthplace != null">  BIRTHPLACE = #{birthplace},</if>
+<if test="fromarmy != null">  FROMARMY = #{fromarmy},</if>
+<if test="enrollment != null">  ENROLLMENT = #{enrollment},</if>
+<if test="typeofstudent != null">  TYPEOFSTUDENT = #{typeofstudent},</if>
+<if test="isresidentsincountry != null">  ISRESIDENTSINCOUNTRY = #{isresidentsincountry},</if>
+<if test="isspecialtraining != null">  ISSPECIALTRAINING = #{isspecialtraining},</if>
+<if test="ispovertyfamily != null">  ISPOVERTYFAMILY = #{ispovertyfamily},</if>
+<if test="grade != null">  GRADE = #{grade},</if>
+<if test="lengthofschooling != null">  LENGTHOFSCHOOLING = #{lengthofschooling},</if>
+<if test="admissiondate != null">  ADMISSIONDATE = #{admissiondate},</if>
+<if test="isgraduation != null">  ISGRADUATION = #{isgraduation},</if>
+<if test="arrearage != null">  ARREARAGE = #{arrearage},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_STUDENT config end********************************  -->
+
+</mapper>

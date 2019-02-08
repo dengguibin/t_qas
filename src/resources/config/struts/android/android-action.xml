@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_EMPOLYEE config end********************************  -->
+
+<package name="DecAndroid" extends="default"
+		namespace="/deceen/android">
+		<!-- 数据填报，菜单获取 -->
+		<action name="getDataBlockMenue" class="DecAndroidAction" method="getDataBlockMenue">
+		</action>
+		
+		<!-- 诊断任务，诊断对象获取 -->
+		<action name="getDiagnoseTaskobj" class="DecAndroidAction" method="getDiagnoseTaskobj">
+		</action>
+		
+		<!-- 诊断任务，诊断模型类型 -->
+		<action name="getdiagnosescheme" class="DecAndroidAction" method="getdiagnosescheme">
+		</action>
+		
+		<!-- 诊断任务，诊断任务发布-->
+		<action name="addPublish" class="DecAndroidAction" method="addPublish">
+		</action>
+		
+		<!-- 数据填报_教研管理_专职招生就业指导人员、信息查询-->
+		<action name="listBaseOfEmploymentGuidance" class="DecAndroidAction" method="listBaseOfEmploymentGuidance">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_专职招生就业指导人员、新增和更新 -->
+		<action name="addBaseOfEmploymentGuidance" class="DecAndroidAction" method="addBaseOfEmploymentGuidance">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_专职督导人员、信息查询 -->
+		<action name="listBaseSupervisor" class="DecAndroidAction" method="listBaseSupervisor">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_专职督导人员、新增和更新 -->
+		<action name="addBaseSupervisor" class="DecAndroidAction" method="addBaseSupervisor">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_专职教学研究人员、信息查询 -->
+		<action name="listTeachingResearcher" class="DecAndroidAction" method="listTeachingResearcher">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_专职教学研究人员、新增和更新 -->
+		<action name="addTeachingResearcher" class="DecAndroidAction" method="addTeachingResearcher">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_产学研合作项目、信息查询 -->
+		<action name="listCooperateProject" class="DecAndroidAction" method="listCooperateProject">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_产学研合作项目、 新增和更新-->
+		<action name="addCooperateProjec" class="DecAndroidAction" method="addCooperateProjec">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_教学与学生管理文件、信息查询 -->
+		<action name="listFilesOfTeachingManage" class="DecAndroidAction" method="listFilesOfTeachingManage">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_教学与学生管理文件、新增和更新 -->
+		<action name="addFilesOfTeachingManage" class="DecAndroidAction" method="addFilesOfTeachingManage">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_创新创业竞赛、信息查询 -->
+		<action name="listInnovationMatch" class="DecAndroidAction" method="listInnovationMatch">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_创新创业竞赛、新增和更新  -->
+		<action name="listTeachingResearcher" class="DecAndroidAction" method="listTeachingResearcher">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_创新创业竞赛、新增和更新 -->
+		<action name="addInnovationMatch" class="DecAndroidAction" method="addInnovationMatch">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_大学生创新创业训练、信息查询 -->
+		<action name="listInnovativeTrainProj" class="DecAndroidAction" method="listInnovativeTrainProj">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_大学生创新创业训练、新增和更新 -->
+		<action name="addInnovativeTrainProj" class="DecAndroidAction" method="addInnovativeTrainProj">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_重大制度创新、信息查询 -->
+		<action name="listMajorSysInnovation" class="DecAndroidAction" method="listMajorSysInnovation">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_重大制度创新、新增和更新 -->
+		<action name="addMajorSysInnovation" class="DecAndroidAction" method="addMajorSysInnovation">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_奖助学情况、信息查询 -->
+		<action name="listScholarship" class="DecAndroidAction" method="listScholarship">
+		</action>
+		
+		<!--数据填报_教研管理菜单_奖助学情况 、新增和更新 -->
+		<action name="addScholarship" class="DecAndroidAction" method="addScholarship">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_技能大师工作室、信息查询 -->
+		<action name="listSkillMasterStudio" class="DecAndroidAction" method="listSkillMasterStudio">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_技能大师工作室、新增和更新 -->
+		<action name="addSkillMasterStudio" class="DecAndroidAction" method="addSkillMasterStudio">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_专职学生管理人员、信息查询 -->
+		<action name="listStudentManagement" class="DecAndroidAction" method="listStudentManagement">
+		</action>
+		
+		<!--数据填报_教研管理菜单_专职学生管理人员 、新增和更新 -->
+		<action name="addStudentManagement" class="DecAndroidAction" method="addStudentManagement">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_评教情况、信息查询 -->
+		<action name="listTeachingEvaluation" class="DecAndroidAction" method="listTeachingEvaluation">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_评教情况、新增和更新 -->
+		<action name="addTeachingEvaluation" class="DecAndroidAction" method="addTeachingEvaluation">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_专职教学管理人员、信息查询 -->
+		<action name="listeachingManagement" class="DecAndroidAction" method="listeachingManagement">
+		</action>
+		
+		<!--数据填报_教研管理菜单_专职教学管理人员 、新增和更新 -->
+		<action name="addTeachingEvaluation" class="DecAndroidAction" method="addTeachingEvaluation">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_专业教学资源库、信息查询 -->
+		<action name="listTeachingResource" class="DecAndroidAction" method="listTeachingResource">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_专业教学资源库、新增和更新 -->
+		<action name="addTeachingResource" class="DecAndroidAction" method="addTeachingResource">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_教育教学改革、信息查询 -->
+		<action name="listTeachingStdResearchProj" class="DecAndroidAction" method="listTeachingStdResearchProj">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_教育教学改革、新增和更新 -->
+		<action name="addTeachingStdResearchProj" class="DecAndroidAction" method="addTeachingStdResearchProj">
+		</action>
+	
+		<!-- 数据填报_教研管理菜单_协调发展协同育人心、信息查询 -->
+		<action name="listTechnologyinnovationcenter" class="DecAndroidAction" method="listTechnologyinnovationcenter">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_协调发展协同育人心、新增和更新 -->
+		<action name="addTechnologyinnovationcenter" class="DecAndroidAction" method="addTechnologyinnovationcenter">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_职业能力培养仿真中心、信息查询 -->
+		<action name="listVirtualSimulationCenter" class="DecAndroidAction" method="listVirtualSimulationCenter">
+		</action>
+		
+		<!-- 数据填报_教研管理菜单_职业能力培养仿真中心、新增和更新 -->
+		<action name="addVirtualSimulationCenter" class="DecAndroidAction" method="addVirtualSimulationCenter">
+		</action>
+		
+
+		<!-- 数据填报_教师菜单_教师授课统计、信息查询 -->
+		<action name="listLessonsOfTeacher" class="DecAndroidAction" method="listLessonsOfTeacher">
+		</action>
+		
+		<!-- 数据填报_教师菜单教师授课统计_、新增和更新 -->
+		<action name="addLessonsOfTeacher" class="DecAndroidAction" method="addLessonsOfTeacher">
+		</action>
+		
+		<!-- 数据填报_教师菜单_教师奖金项目、信息查询 -->
+		<action name="listTeacherAward" class="DecAndroidAction" method="listTeacherAward">
+		</action>
+		
+		<!-- 数据填报_教师菜单_教师奖金项目、新增和更新 -->
+		<action name="addTeacherAward" class="DecAndroidAction" method="addTeacherAward">
+		</action>
+		
+		<!-- 数据填报_教师菜单_教师社会兼职、信息查询 -->
+		<action name="listTeacherPartTimeWork" class="DecAndroidAction" method="listTeacherPartTimeWork">
+		</action>
+		
+		<!-- 数据填报_教师菜单_教师社会兼职、新增和更新 -->
+		<action name="addTeacherPartTimeWork" class="DecAndroidAction" method="addTeacherPartTimeWork">
+		</action>
+		
+		<!-- 数据填报_教师菜单_教师教学过程统计、信息查询 -->
+		<action name="listTeacherProcessStatistics" class="DecAndroidAction" method="listTeacherProcessStatistics">
+		</action>
+		
+		<!-- 数据填报_教师菜单_教师教学过程统计、新增和更新 -->
+		<action name="addTeacherProcessStatistics" class="DecAndroidAction" method="addTeacherProcessStatistics">
+		</action>
+		
+		<!-- 数据填报_教师菜单_教师公开出版著作论文、信息查询 -->
+		<action name="listTeacherPublishedPaper" class="DecAndroidAction" method="listTeacherPublishedPaper">
+		</action>
+		
+		<!-- 数据填报_教师菜单_教师公开出版著作论文、新增和更新 -->
+		<action name="addTeacherPublishedPaper" class="DecAndroidAction" method="addTeacherPublishedPaper">
+		</action>
+		
+		<!-- 数据填报_教师菜单_教师在研课题、信息查询 -->
+		<action name="listTeacherResearch" class="DecAndroidAction" method="listTeacherResearch">
+		</action>
+		
+		<!-- 数据填报_教师菜单_教师在研课题、新增和更新 -->
+		<action name="addTeacherResearch" class="DecAndroidAction" method="addTeacherResearch">
+		</action>
+		
+		<!-- 数据填报_教师菜单_教师挂职锻炼、信息查询 -->
+		<action name="listTeacherSecondment" class="DecAndroidAction" method="listTeacherSecondment">
+		</action>
+		
+		<!-- 数据填报_教师菜单_教师挂职锻炼、新增和更新 -->
+		<action name="addTeacherSecondment" class="DecAndroidAction" method="addTeacherSecondment">
+		</action>
+		
+		<!-- 数据填报_教师菜单_教师教学静修、信息查询 -->
+		<action name="listTeacherTeachingTrain" class="DecAndroidAction" method="listTeacherTeachingTrain">
+		</action>
+		
+		<!-- 数据填报_教师菜单_教师教学静修、新增和更新 -->
+		<action name="addTeacherTeachingTrain" class="DecAndroidAction" method="addTeacherTeachingTrain">
+		</action>
+		
+		<!-- 数据填报_教师菜单_教师技术专利、信息查询 -->
+		<action name="listTeacherTechnicalMonopoly" class="DecAndroidAction" method="listTeacherTechnicalMonopoly">
+		</action>
+		
+		<!-- 数据填报_教师菜单_教师技术专利、新增和更新 -->
+		<action name="addTeacherTechnicalMonopoly" class="DecAndroidAction" method="addTeacherTechnicalMonopoly">
+		</action>
+		
+		<!-- 数据填报_教师菜单_教师培训进修、信息查询 -->
+		<action name="listTeacherTraining" class="DecAndroidAction" method="listTeacherTraining">
+		</action>
+		
+		<!-- 数据填报_教师菜单_教师培训进修、新增和更新 -->
+		<action name="addTeacherTraining" class="DecAndroidAction" method="addTeacherTraining">
+		</action>
+		
+		<!-- 数据填报_学生菜单_学生社团红十字会获奖、信息查询 -->
+		<action name="listAssociationAndRedCrossAward" class="DecAndroidAction" method="listAssociationAndRedCrossAward">
+		</action>
+		
+		<!-- 数据填报_学生菜单_学生社团红十字会获奖、新增和更新 -->
+		<action name="addAssociationAndRedCrossAwar" class="DecAndroidAction" method="addAssociationAndRedCrossAwar">
+		</action>
+		
+		<!-- 数据填报_学生菜单_辍学学生明细、信息查询 -->
+		<action name="listDropoutList" class="DecAndroidAction" method="listDropoutList">
+		</action>
+		
+		<!-- 数据填报_学生菜单_辍学学生明细、新增和更新 -->
+		<action name="addDropoutList" class="DecAndroidAction" method="addDropoutList">
+		</action>
+		
+		<!-- 数据填报_学生菜单_职业资格证书统计、信息查询 -->
+		<action name="listQualification" class="DecAndroidAction" method="listQualification">
+		</action>
+		
+		<!-- 数据填报_学生菜单_职业资格证书统计、新增和更新 -->
+		<action name="addQualification" class="DecAndroidAction" method="addQualification">
+		</action>
+		
+		
+		<!-- 数据填报_学生菜单_复转军人及退役士兵、信息查询 -->
+		<action name="listRetiredSoldiers" class="DecAndroidAction" method="listRetiredSoldiers">
+		</action>
+		
+		<!-- 数据填报_学生菜单_复转军人及退役士兵、新增和更新 -->
+		<action name="addRetiredSoldiers" class="DecAndroidAction" method="addRetiredSoldiers">
+		</action>
+		
+		
+		<!-- 数据填报_学生菜单_应届生获证及社会培训、信息查询 -->
+		<action name="listSkillTraining" class="DecAndroidAction" method="listSkillTraining">
+		</action>
+		
+		<!-- 数据填报_学生菜单_应届生获证及社会培训、新增和更新 -->
+		<action name="addSkillTraining" class="DecAndroidAction" method="addSkillTraining">
+		</action>
+		
+		
+		<!-- 数据填报_学生菜单_学生社团、信息查询 -->
+		<action name="listStudAssociation" class="DecAndroidAction" method="listStudAssociation">
+		</action>
+		
+		<!-- 数据填报_学生菜单_学生社团、新增和更新 -->
+		<action name="addStudAssociation" class="DecAndroidAction" method="addStudAssociation">
+		</action>
+		
+		
+		<!-- 数据填报_学生菜单_学生社团统计、信息查询 -->
+		<action name="listStudAssociationStatistics" class="DecAndroidAction" method="listStudAssociationStatistics">
+		</action>
+		
+		<!-- 数据填报_学生菜单_学生社团统计、新增和更新 -->
+		<action name="addStudAssociationStatistics" class="DecAndroidAction" method="addStudAssociationStatistics">
+		</action>
+		
+		
+		<!-- 数据填报_学生菜单_学生获奖情况、信息查询 -->
+		<action name="listStudentAward" class="DecAndroidAction" method="listStudentAward">
+		</action>
+		
+		<!-- 数据填报_学生菜单_学生获奖情况、新增和更新 -->
+		<action name="addStudentAward" class="DecAndroidAction" method="addStudentAward">
+		</action>
+		
+		
+		<!-- 数据填报_学生菜单_学生日常表现统计、信息查询 -->
+		<action name="listStudentNormal" class="DecAndroidAction" method="listStudentNormal">
+		</action>
+		
+		<!-- 数据填报_学生菜单_学生日常表现统计、新增和更新 -->
+		<action name="addStudentNormal" class="DecAndroidAction" method="addStudentNormal">
+		</action>
+		
+		
+		<!-- 数据填报_学生菜单_在校生地区，民族户口、信息查询 -->
+		<action name="listStudRegionInfo" class="DecAndroidAction" method="listStudRegionInfo">
+		</action>
+		
+		<!-- 数据填报_学生菜单_在校生地区，民族户口、新增和更新 -->
+		<action name="addStudRegionInfo" class="DecAndroidAction" method="addStudRegionInfo">
+		</action>
+
+		<!-- 数据填报_学校菜单_校外实习基地统计、信息查询 -->
+		<action name="listTrainingBaseOutOfCampusStatistics" class="DecAndroidAction" method="listTrainingBaseOutOfCampusStatistics">
+		</action>
+		
+		<!-- 数据填报_学校菜单_校外实习基地统计、新增和更新 -->
+		<action name="addTrainingBaseOutOfCampusStatistics" class="DecAndroidAction" method="addTrainingBaseOutOfCampusStatistics">
+		</action>
+		
+		<!-- 登入 -->
+		<action name="login" class="DecAndroidAction" method="login">
+		</action>
+		
+		<!-- 登出 -->
+		<action name="logout" class="DecAndroidAction" method="logout">
+		</action>
+		
+		<!-- 获取验证码 -->
+		<action name="code" class="DecAndroidAction" method="code">
+		</action>
+	
+		<!-- 数据填报》基础》课程》全部查询 -->
+		<action name="listcourse" class="DecAndroidAction" method="listcourse">
+		</action>
+		
+		<!-- 数据填报》基础》课程》增加和修改 -->
+		<action name="addcourse" class="DecAndroidAction" method="addcourse">
+		</action>
+		
+		<!-- 数据填报》基础》教工》全部查询 -->
+		<action name="listempolyee" class="DecAndroidAction" method="listempolyee">
+		</action>
+		
+		<!-- 数据填报》基础》教工》增加和修改 -->
+		<action name="addempoiyee" class="DecAndroidAction" method="addempoiyee">
+		</action>
+		
+		<!-- 数据填报》基础》班级》全部查询 -->
+		<action name="listgrade" class="DecAndroidAction" method="listgrade">
+		</action>
+		
+		<!-- 数据填报》基础》班级》增加和修改 -->
+		<action name="addgrade" class="DecAndroidAction" method="addgrade">
+		</action>
+		
+		<!-- 数据填报》基础》学生》全部查询 -->
+		<action name="liststudent" class="DecAndroidAction" method="liststudent">
+		</action>
+		
+		<!-- 数据填报》基础》学生》增加和修改 -->
+		<action name="addstudent" class="DecAndroidAction" method="addstudent">
+		</action>
+		
+		<!-- 数据填报》学校经费》经费支出》全部查询 -->
+		<action name="listfundcos" class="DecAndroidAction" method="listfundcos">
+		</action>
+		
+		<!-- 数据填报》学校经费》经费支出》增加和修改 -->
+		<action name="addfundcos" class="DecAndroidAction" method="addfundcos">
+		</action>
+		
+		<!-- 数据填报》学校经费》经费收入》全部查询 -->
+		<action name="listfundincomes" class="DecAndroidAction" method="listfundincomes">
+		</action>
+		
+		<!-- 数据填报》学校经费》经费收入》增加和修改 -->
+		<action name="addfundincomes" class="DecAndroidAction" method="addfundincomes">
+		</action>
+		
+		<!-- 数据填报》专业》产学合作》全部查询 -->
+		<action name="listcooperate" class="DecAndroidAction" method="listcooperate">
+		</action>
+		
+		<!-- 数据填报》专业》产学合作》增加和修改 -->
+		<action name="addcooperate" class="DecAndroidAction" method="addcooperate">
+		</action>
+		
+		<!-- 数据填报》专业》产学合作企业》全部查询 -->
+		<action name="listcooperatecompany" class="DecAndroidAction" method="listcooperatecompany">
+		</action>
+		
+		<!-- 数据填报》专业》产学合作企业》增加和修改 -->
+		<action name="addcooperatecompany" class="DecAndroidAction" method="addcooperatecompany">
+		</action>
+		
+		<!-- 数据填报》专业》课程教材》全部查询 -->
+		<action name="listcoursematerial" class="DecAndroidAction" method="listcoursematerial">
+		</action>
+		
+		<!-- 数据填报》专业》课程教材》增加和修改 -->
+		<action name="addcoursematerial" class="DecAndroidAction" method="addcoursematerial">
+		</action>
+		
+		<!-- 数据填报》专业》专业方向》全部查询 -->
+		<action name="listdirectionstatistics" class="DecAndroidAction" method="listdirectionstatistics">
+		</action>
+		
+		<!-- 数据填报》专业》专业方向》增加和修改 -->
+		<action name="adddirectionstatistics" class="DecAndroidAction" method="adddirectionstatistics">
+		</action>
+		
+		<!-- 数据填报》专业》应届毕业生就业统计》全部查询 -->
+		<action name="listgraduateemployment" class="DecAndroidAction" method="listgraduateemployment">
+		</action>
+		
+		<!-- 数据填报》专业》应届毕业生就业统计》增加和修改 -->
+		<action name="addgraduateemployment" class="DecAndroidAction" method="addgraduateemployment">
+		</action>
+		
+		<!-- 数据填报》专业》应届毕业生就业单位统计》全部查询 -->
+		<action name="listgraduateemploymentunits" class="DecAndroidAction" method="listgraduateemploymentunits">
+		</action>
+		
+		<!-- 数据填报》专业》应届毕业生就业单位统计》增加和修改 -->
+		<action name="addgraduateemploymentunits" class="DecAndroidAction" method="addgraduateemploymentunits">
+		</action>
+		
+		<!-- 数据填报》专业》应届毕业生就业去向统计》全部查询 -->
+		<action name="listgraduateinformation" class="DecAndroidAction" method="listgraduateinformation">
+		</action>
+		
+		<!-- 数据填报》专业》应届毕业生就业去向统计》增加和修改 -->
+		<action name="addgraduateinformation" class="DecAndroidAction" method="addgraduateinformation">
+		</action>
+		
+		<!-- 数据填报》专业》上届毕业生就业统计》全部查询 -->
+		<action name="listlastyearemployment" class="DecAndroidAction" method="listlastyearemployment">
+		</action>
+		
+		<!-- 数据填报》专业》上届毕业生就业统计》增加和修改 -->
+		<action name="addlastyearemployment" class="DecAndroidAction" method="addlastyearemployment">
+		</action>
+		
+		<!-- 数据填报》专业》专业课程》全部查询 -->
+		<action name="listmajorcourse" class="DecAndroidAction" method="listmajorcourse">
+		</action>
+		
+		<!-- 数据填报》专业》专业课程》增加和修改 -->
+		<action name="addmajorcourse" class="DecAndroidAction" method="addmajorcourse">
+		</action>
+		
+		<!-- 数据填报》专业》专业负责人》全部查询 -->
+		<action name="listmajorleader" class="DecAndroidAction" method="listmajorleader">
+		</action>
+		
+		<!-- 数据填报》专业》专业负责人》增加和修改 -->
+		<action name="addmajorleader" class="DecAndroidAction" method="addmajorleader">
+		</action>
+		
+		<!-- 数据填报》专业》专业定性指标》全部查询 -->
+		<action name="listmajorqualitativeindicator" class="DecAndroidAction" method="listmajorqualitativeindicator">
+		</action>
+		
+		<!-- 数据填报》专业》专业定性指标》增加和修改 -->
+		<action name="addmajorqualitativeindicator" class="DecAndroidAction" method="addmajorqualitativeindicator">
+		</action>
+		
+		<!-- 数据填报》专业》顶岗实习统计》全部查询 -->
+		<action name="listpractice" class="DecAndroidAction" method="listpractice">
+		</action>
+		
+		<!-- 数据填报》专业》顶岗实习统计》增加和修改 -->
+		<action name="addpractice" class="DecAndroidAction" method="addpractice">
+		</action>
+		
+		<!-- 数据填报》专业》招生计划》全部查询 -->
+		<action name="listrecruit" class="DecAndroidAction" method="listrecruit">
+		</action>
+		
+		<!-- 数据填报》专业》招生计划》增加和修改 -->
+		<action name="addrecruit" class="DecAndroidAction" method="addrecruit">
+		</action>
+		
+		<!-- 数据填报》学校》占地面积》全部查询 -->
+		<action name="listareaofstructure" class="DecAndroidAction" method="listareaofstructure">
+		</action>
+		
+		<!-- 数据填报》学校》占地面积》增加和修改 -->
+		<action name="addareaofstructure" class="DecAndroidAction" method="addareaofstructure">
+		</action>
+		
+		<!-- 数据填报》学校》馆藏图书统计》全部查询 -->
+		<action name="listbooksinlibrary" class="DecAndroidAction" method="listbooksinlibrary">
+		</action>
+		
+		<!-- 数据填报》学校》馆藏图书统计》增加和修改 -->
+		<action name="addbooksinlibrary" class="DecAndroidAction" method="addbooksinlibrary">
+		</action>
+		
+		<!-- 数据填报》学校》全日制高职招生计划》全部查询 -->
+		<action name="listcollegeenrolplan" class="DecAndroidAction" method="listcollegeenrolplan">
+		</action>
+		
+		<!-- 数据填报》学校》全日制高职招生计划》增加和修改 -->
+		<action name="addcollegeenrolplan" class="DecAndroidAction" method="addcollegeenrolplan">
+		</action>
+		
+		<!-- 数据填报》学校》全日制高职招生方式》全部查询 -->
+		<action name="listcollegeenroltype" class="DecAndroidAction" method="listcollegeenroltype">
+		</action>
+		
+		<!-- 数据填报》学校》全日制高职招生方式》增加和修改 -->
+		<action name="addcollegeenroltype" class="DecAndroidAction" method="addcollegeenroltype">
+		</action>
+		
+		<!-- 数据填报》学校》院校在校生统计》全部查询 -->
+		<action name="listcollegeinschoolstudent" class="DecAndroidAction" method="listcollegeinschoolstudent">
+		</action>
+		
+		<!-- 数据填报》学校》院校在校生统计》增加和修改 -->
+		<action name="addcollegeinschoolstudent" class="DecAndroidAction" method="addcollegeinschoolstudent">
+		</action>
+		
+		<!-- 数据填报》学校》院校联系信息》全部查询 -->
+		<action name="listschoolcontacter" class="DecAndroidAction" method="listschoolcontacter">
+		</action>
+		
+		<!-- 数据填报》学校》院校联系信息》增加和修改 -->
+		<action name="addschoolcontacter" class="DecAndroidAction" method="addschoolcontacter">
+		</action>
+		
+		<!-- 数据填报》学校》固定资产》全部查询 -->
+		<action name="listfixedassets" class="DecAndroidAction" method="listfixedassets">
+		</action>
+		
+		<!-- 数据填报》学校》固定资产》增加和修改 -->
+		<action name="addfixedassets" class="DecAndroidAction" method="addfixedassets">
+		</action>
+		 
+		<!-- 数据填报》学校》信息化建设》全部查询 -->
+		<action name="listInformationconstruction" class="DecAndroidAction" method="listInformationconstruction">
+		</action>
+		
+		<!-- 数据填报》学校》信息化建设》增加和修改 -->
+		<action name="addInformationconstruction" class="DecAndroidAction" method="addInformationconstruction">
+		</action>
+		
+		<!-- 数据填报》学校》领导参与教学》全部查询 -->
+		<action name="listLeaderaction" class="DecAndroidAction" method="listLeaderaction">
+		</action>
+		
+		<!-- 数据填报》学校》领导参与教学》增加和修改 -->
+		<action name="addLeaderaction" class="DecAndroidAction" method="addLeaderaction">
+		</action>
+		
+		<!-- 数据填报》学校》管理信息系统》全部查询 -->
+		<action name="listManagementinformationsystem" class="DecAndroidAction" method="listManagementinformationsystem">
+		</action>
+		
+		<!-- 数据填报》学校》管理信息系统》增加和修改 -->
+		<action name="addManagementinformationsystem" class="DecAndroidAction" method="addManagementinformationsystem">
+		</action>
+		
+		<!-- 数据填报》学校》组织机构》全部查询 -->
+		<action name="listOrganizationstatistics" class="DecAndroidAction" method="listOrganizationstatistics">
+		</action>
+		
+		<!-- 数据填报》学校》组织机构》增加和修改 -->
+		<action name="addOrganizationstatistics" class="DecAndroidAction" method="addOrganizationstatistics">
+		</action>
+		
+		<!-- 数据填报》学校》校内实践基地属性》全部查询 -->
+		<action name="listPracticebaseincampus" class="DecAndroidAction" method="listPracticebaseincampus">
+		</action>
+		
+		<!-- 数据填报》学校》校内实践基地属性》增加和修改 -->
+		<action name="addPracticebaseincampus" class="DecAndroidAction" method="addPracticebaseincampus">
+		</action>
+		
+		<!-- 数据填报》学校》校内实践基地统计》全部查询 -->
+		<action name="listPracticebaseincampusstatistics" class="DecAndroidAction" method="listPracticebaseincampusstatistics">
+		</action>
+		
+		<!-- 数据填报》学校》校内实践基地统计》增加和修改 -->
+		<action name="addPracticebaseincampusstatistics" class="DecAndroidAction" method="addPracticebaseincampusstatistics">
+		</action>
+		
+		<!-- 数据填报》学校》阅览室，机房，教室》全部查询 -->
+		<action name="listRooms" class="DecAndroidAction" method="listRooms">
+		</action>
+		
+		<!-- 数据填报》学校》阅览室，机房，教室》增加和修改 -->
+		<action name="addRooms" class="DecAndroidAction" method="addRooms">
+		</action>
+		
+		<!-- 数据填报》学校》院校》全部查询 -->
+		<action name="listSchool" class="DecAndroidAction" method="listSchool">
+		</action>
+		
+		<!-- 数据填报》学校》院校》增加和修改 -->
+		<action name="addSchool" class="DecAndroidAction" method="addSchool">
+		</action>
+		
+		<!-- 数据填报》学校》学校获奖情况》全部查询 -->
+		<action name="listShoolaward" class="DecAndroidAction" method="listShoolaward">
+		</action>
+		
+		<!-- 数据填报》学校》学校获奖情况》增加和修改 -->
+		<action name="addShoolaward" class="DecAndroidAction" method="addShoolaward">
+		</action>
+		
+		<!-- 数据填报》学校》职业技能鉴定机构》全部查询 -->
+		<action name="listSkillappraisalorg" class="DecAndroidAction" method="listSkillappraisalorg">
+		</action>
+		
+		<!-- 数据填报》学校》职业技能鉴定机构》增加和修改 -->
+		<action name="addSkillappraisalorg" class="DecAndroidAction" method="addSkillappraisalorg">
+		</action>
+		
+		<!-- 数据填报》学校》职业技能鉴定机构统计》全部查询 -->
+		<action name="listSkillappraisalorgstatistics" class="DecAndroidAction" method="listSkillappraisalorgstatistics">
+		</action>
+		
+		<!-- 数据填报》学校》职业技能鉴定机构统计》增加和修改 -->
+		<action name="addSkillappraisalorgstatistics" class="DecAndroidAction" method="addSkillappraisalorgstatistics">
+		</action>
+		
+		<!-- 数据填报》学校》社会准捐款情况》全部查询 -->
+		<action name="listSocialdonation" class="DecAndroidAction" method="listSocialdonation">
+		</action>
+		
+		<!-- 数据填报》学校》社会准捐款情况》增加和修改 -->
+		<action name="addSocialdonation" class="DecAndroidAction" method="addSocialdonation">
+		</action>
+		
+		<!-- 数据填报》学校》校外实习基地属性》全部查询 -->
+		<action name="listTrainingbaseoutofcampus" class="DecAndroidAction" method="listTrainingbaseoutofcampus">
+		</action>
+		
+		<!-- 数据填报》学校》校外实习基地属性》增加和修改 -->
+		<action name="addTrainingbaseoutofcampus" class="DecAndroidAction" method="addTrainingbaseoutofcampus">
+		</action>
+		
+		<!-- 获取诊断报告-》全部(查询已发布的所有信息) -->
+		<action name="listDiagnosetask" class="DecAndroidAction" method="listDiagnosetask">
+		</action>
+		
+		<!-- 诊断指标：根据目录类型和父级目录点ID获得要素和诊断点信息 -->
+		<action name="getIndicatorcatalogType" class="DecAndroidAction" method="getIndicatorcatalogType">
+		</action>
+		
+		<!-- 诊断指标：根据目录类型和父级目录点ID获得信息 -->
+		<action name="getIndicatorcatalogTree" class="DecAndroidAction" method="getIndicatorcatalogTree">
+		</action>
+		
+		<!-- 诊断 指标：获取详细信息-->
+		<action name="getIndicatorcatalogInfo" class="DecAndroidAction" method="getIndicatorcatalogInfo">
+		</action>
+		
+		<!-- 诊断任务：获取详细信息 -->
+		<action name="getDiagnosetaskInfo" class="DecAndroidAction" method="getDiagnosetaskInfo">
+		</action>
+		
+		<!-- 诊断任务：新增和动态更新操作 -->
+		<action name="addDiagnosetask" class="DecAndroidAction" method="addDiagnosetask">
+		</action>
+		
+		<!-- 诊断任务：删除 -->
+		<action name="removeDiagnosetask" class="DecAndroidAction" method="removeDiagnosetask">
+		</action>
+		<!-- <action name="queryList" class="DecAndroidAction" method="queryList">
+			<result name="list">/pages/data/base/empolyee/QasDEmpolyeeList.jsp</result>
+		</action>
+		
+		<action name="remove" class="DecAndroidAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="DecAndroidAction" method="toEdit">
+			<result name="toEdit">/pages/data/base/empolyee/QasDEmpolyeeEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="DecAndroidAction" method="save">
+			<result name="save" type="redirect">
+			/data/base/empolyee/queryList.action?menuId=${menuId}
+			</result>
+		</action> -->
+	</package>
+<!--  ********************************QAS_D_EMPOLYEE config end********************************  -->
+</struts>

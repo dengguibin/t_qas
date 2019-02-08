@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.student.qualification.mapper.QasDQualificationMapper">
+<!--  ********************************QAS_D_QUALIFICATION config begnin********************************  -->
+
+<select id="select" resultType="QasDQualification"> 
+ SELECT ID,DIRECTIONID,CERTNAME,CERTLEVEL,CERTCOUNT,ISSUINGDEPARTMENT,IDENTIFICATIONSITE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_QUALIFICATION 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="java.util.HashMap" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,DIRECTIONID,CERTNAME,CERTLEVEL,CERTCOUNT,ISSUINGDEPARTMENT,IDENTIFICATIONSITE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_QUALIFICATION 
+ WHERE  1 = 1
+ 
+  <if test="directionid != null and directionid != ''">
+	 	AND DIRECTIONID LIKE concat('%',#{directionid},'%')
+  </if>
+    
+  <if test="certname != null and certname != ''">
+	 	AND CERTNAME LIKE concat('%',#{certname},'%')
+  </if>
+    
+  <if test="certlevel != null and certlevel != ''">
+	 	AND CERTLEVEL LIKE concat('%',#{certlevel},'%')
+  </if>
+  <if test="mincertcountScope != null and maxcertcountScope !=null">
+	 	AND CERTCOUNT between #{mincertcountScope} and #{maxcertcountScope}
+  </if>
+  
+	<if test="certcountScope != null">
+			AND CERTCOUNT >= #{certcountScope}
+	</if>
+  
+  <if test="issuingdepartment != null and issuingdepartment != ''">
+	 	AND ISSUINGDEPARTMENT LIKE concat('%',#{issuingdepartment},'%')
+  </if>
+  
+  <if test="identificationsite != null and identificationsite != ''">
+	 	AND IDENTIFICATIONSITE LIKE concat('%',#{identificationsite},'%')
+  </if>
+
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDQualification">
+ INSERT INTO QAS_D_QUALIFICATION   ( ID,DIRECTIONID,CERTNAME,CERTLEVEL,CERTCOUNT,ISSUINGDEPARTMENT,IDENTIFICATIONSITE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{directionid},#{certname},#{certlevel},#{certcount},#{issuingdepartment},#{identificationsite},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDQualification">
+ UPDATE QAS_D_QUALIFICATION SET  ID=#{id},DIRECTIONID=#{directionid},CERTNAME=#{certname},CERTLEVEL=#{certlevel},CERTCOUNT=#{certcount},ISSUINGDEPARTMENT=#{issuingdepartment},IDENTIFICATIONSITE=#{identificationsite},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_QUALIFICATION WHERE   ID=#{id}
+</delete>
+
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_QUALIFICATION WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDQualification">
+ UPDATE QAS_D_QUALIFICATION 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="directionid != null">  DIRECTIONID = #{directionid},</if>
+<if test="certname != null">  CERTNAME = #{certname},</if>
+<if test="certlevel != null">  CERTLEVEL = #{certlevel},</if>
+<if test="certcount != null">  CERTCOUNT = #{certcount},</if>
+<if test="issuingdepartment != null">  ISSUINGDEPARTMENT = #{issuingdepartment},</if>
+<if test="identificationsite != null">  IDENTIFICATIONSITE = #{identificationsite},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_QUALIFICATION config end********************************  -->
+
+</mapper>

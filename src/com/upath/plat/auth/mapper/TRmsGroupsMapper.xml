@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.auth.mapper.TRmsGroupsMapper">
+<!--  ********************************T_RMS_GROUPS config begnin********************************  -->
+
+<select id="select" resultType="TRmsGroups"> 
+ SELECT YHZID,FYHZID,YHZMC,YHZMS,ZCJ,PXH,YHZLX,SFYX,CJSJ,CJR,XGSJ,XGR FROM  T_RMS_GROUPS 
+ WHERE   YHZID=#{yhzid}
+</select>
+
+<select id="listGroups" parameterType="TRmsGroups" useCache="false"   resultType ="hashmap"> 
+ SELECT YHZID,FYHZID,YHZMC,YHZMS,ZCJ,PXH,YHZLX,SFYX FROM  T_RMS_GROUPS 
+</select>
+
+<select id="list" parameterType="TRmsGroups" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT G.YHZID,G.FYHZID,G.YHZMC,G.PXH,G.SFYX,U.YHID,U.YHMC,U.SFYX VALID,U.PXH SEQ FROM T_RMS_GROUPS G 
+ INNER JOIN T_RMS_GROUPS_USER R  ON G.YHZID = R.YHZID
+ INNER JOIN T_RMS_USER U ON R.YHID = U.YHID
+ WHERE 1 = 1 
+ <if test="yhzid != null">
+ AND G.YHZID=#{yhzid}
+ </if>
+ <if test="fyhzid != null">
+ AND G.FYHZID=#{fyhzid}
+ </if>
+ <if test="yhzms != null">
+ AND YHMC LIKE '%' #{yhzms} '%'
+ </if>
+ <if test="yhzmc != null">
+ AND G.YHZMC LIKE '%' #{yhzmc} '%'
+ </if>
+ ORDER BY G.PXH,U.PXH
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+<select id="listUser" parameterType="TRmsGroups" useCache="false"   resultType ="hashmap" >  
+ SELECT * FROM (
+SELECT 'U' TYPE,U.YHMC,U.SFYX,U.YHID,U.BMID,U.PXH,R.YHZID,CASE WHEN R.YHZID IS NULL THEN 'FALSE' ELSE 'TRUE' END CHECKED FROM T_RMS_USER U
+ LEFT OUTER JOIN T_RMS_GROUPS_USER R ON U.YHID = R.YHID AND R.YHZID = #{yhzid}
+ UNION ALL
+SELECT 'D' TYPE,D.BMMC,1 SFYX,D.BMID,D.FBMID,D.PXH,NULL YHJSGXID,'FALSE'  CHECKED FROM T_RMS_DEPTMENT D 
+ ) V ORDER BY TYPE, PXH
+</select>
+
+ <insert id="insert" parameterType="TRmsGroups">
+ INSERT INTO T_RMS_GROUPS   ( YHZID,FYHZID,YHZMC,YHZMS,ZCJ,PXH,YHZLX,SFYX,CJSJ,CJR,XGSJ,XGR)
+  VALUES ( #{yhzid},#{fyhzid},#{yhzmc},#{yhzms},#{zcj},#{pxh},#{yhzlx},#{sfyx},#{cjsj},#{cjr},#{xgsj},#{xgr} )
+</insert>
+
+ <update id="update" parameterType="TRmsGroups">
+ UPDATE T_RMS_GROUPS SET  YHZID=#{yhzid},FYHZID=#{fyhzid},YHZMC=#{yhzmc},YHZMS=#{yhzms},ZCJ=#{zcj},PXH=#{pxh},SFYX=#{sfyx},XGSJ=#{xgsj},XGR=#{xgr} 
+ WHERE  YHZID=#{yhzid}
+</update>
+
+ <delete id="delete" parameterType="TRmsGroups">
+   DELETE FROM T_RMS_GROUPS WHERE   YHZID=#{yhzid}
+</delete>
+
+<!--  ********************************T_RMS_GROUPS config end********************************  -->
+
+</mapper>

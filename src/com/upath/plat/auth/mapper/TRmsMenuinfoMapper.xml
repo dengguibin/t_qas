@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.auth.mapper.TRmsMenuinfoMapper">
+<!--  ********************************T_RMS_MENUINFO config begnin********************************  -->
+
+<select id="select" resultType="TRmsMenuinfo"> 
+ SELECT CDID,XTID,PCDID,CDMC,CDMS,CDCJ,PXH,LJDZ,CDCS,LJLX,SFYX,CJSJ,CJR,XGR,XGSJ FROM  T_RMS_MENUINFO 
+ WHERE CDID=#{cdid}
+</select>
+
+<select id="listMenus" resultType="TRmsMenuinfo"> 
+ SELECT CDID,XTID,PCDID,CDMC,CDMS,CDCJ,PXH,LJDZ,CDCS,LJLX,SFYX 
+ FROM T_RMS_MENUINFO 
+ WHERE 2=2 
+ 	<if test="cdmc != null">
+ 		AND CDMC LIKE '%' #{cdmc} '%'
+ 	</if>
+ 	<if test="sfyx != null">
+ 		AND SFYX = #{sfyx} 
+ 	</if>
+  ORDER BY PXH
+</select>
+
+<select id="list" parameterType="TRmsMenuinfo" useCache="false" resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT CDID,XTID,PCDID,CDMC,CDMS,CDCJ,PXH,LJDZ,CDCS,LJLX,SFYX,CJSJ,CJR,XGR,XGSJ FROM T_RMS_MENUINFO 
+ 		WHERE 1 = 1 
+ 	<if test="pcdid != null">
+ 		AND PCDID = #{pcdid}
+ 	</if>
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+<insert id="insert" parameterType="TRmsMenuinfo">
+ INSERT INTO T_RMS_MENUINFO (CDID,XTID,PCDID,CDMC,CDMS,CDCJ,PXH,LJDZ,CDCS,LJLX,SFYX,CJSJ,CJR,XGR,XGSJ)
+ VALUES (#{cdid},#{xtid},#{pcdid},#{cdmc},#{cdms},#{cdcj},#{pxh},#{ljdz},#{cdcs},#{ljlx},#{sfyx},#{cjsj},#{cjr},#{xgr},#{xgsj})
+</insert>
+
+<update id="update" parameterType="TRmsMenuinfo">
+ UPDATE T_RMS_MENUINFO SET CDID=#{cdid},XTID=#{xtid},PCDID=#{pcdid},CDMC=#{cdmc},CDMS=#{cdms},CDCJ=#{cdcj},PXH=#{pxh},LJDZ=#{ljdz},CDCS=#{cdcs},LJLX=#{ljlx},SFYX=#{sfyx},CJSJ=#{cjsj},CJR=#{cjr},XGR=#{xgr},XGSJ=#{xgsj} 
+ WHERE CDID=#{cdid}
+</update>
+
+<delete id="delete" parameterType="TRmsMenuinfo">
+ DELETE FROM T_RMS_MENUINFO WHERE CDID=#{cdid}
+</delete>
+
+<!--  ********************************T_RMS_MENUINFO config end********************************  -->
+
+</mapper>

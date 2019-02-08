@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.student.associationAndRedCrossAward.mapper.QasDAssociationandredcrossawardMapper">
+<!--  ********************************QAS_D_ASSOCIATIONANDREDCROSSAWARD config begnin********************************  -->
+
+<select id="select" resultType="QasDAssociationandredcrossaward"> 
+ SELECT ID,COMMUNITYID,SUBJECTNAME,AWARDLEVEL,AWARDDATE,AWARDINGUNIT,TUTORS,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_ASSOCIATIONANDREDCROSSAWARD 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDAssociationandredcrossaward" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,COMMUNITYID,SUBJECTNAME,AWARDLEVEL,AWARDDATE,AWARDINGUNIT,TUTORS,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_ASSOCIATIONANDREDCROSSAWARD 
+ WHERE  1 = 1
+
+  <if test="communityid != null and communityid != ''">
+	 	AND COMMUNITYID LIKE concat('%',#{communityid},'%')
+  </if>
+
+  <if test="subjectname != null and subjectname != ''">
+	 	AND SUBJECTNAME LIKE concat('%',#{subjectname},'%')
+  </if>
+
+  <if test="awardlevel != null and awardlevel != ''">
+	 	AND AWARDLEVEL LIKE concat('%',#{awardlevel},'%')
+  </if>
+
+  <if test="awarddate != null and awarddate != ''">
+	 	AND AWARDDATE LIKE concat('%',#{awarddate},'%')
+  </if>
+  
+  <if test="awardingunit != null and awardingunit != ''">
+	 	AND AWARDINGUNIT LIKE concat('%',#{awardingunit},'%')
+  </if>
+
+  <if test="tutors != null and tutors != ''">
+	 	AND TUTORS LIKE concat('%',#{tutors},'%')
+  </if>
+
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDAssociationandredcrossaward">
+ INSERT INTO QAS_D_ASSOCIATIONANDREDCROSSAWARD   ( ID,COMMUNITYID,SUBJECTNAME,AWARDLEVEL,AWARDDATE,AWARDINGUNIT,TUTORS,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{communityid},#{subjectname},#{awardlevel},#{awarddate},#{awardingunit},#{tutors},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDAssociationandredcrossaward">
+ UPDATE QAS_D_ASSOCIATIONANDREDCROSSAWARD SET  ID=#{id},COMMUNITYID=#{communityid},SUBJECTNAME=#{subjectname},AWARDLEVEL=#{awardlevel},AWARDDATE=#{awarddate},AWARDINGUNIT=#{awardingunit},TUTORS=#{tutors},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_ASSOCIATIONANDREDCROSSAWARD WHERE   ID=#{id}
+</delete>
+
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_ASSOCIATIONANDREDCROSSAWARD WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDAssociationandredcrossaward">
+ UPDATE QAS_D_ASSOCIATIONANDREDCROSSAWARD 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="communityid != null">  COMMUNITYID = #{communityid},</if>
+<if test="subjectname != null">  SUBJECTNAME = #{subjectname},</if>
+<if test="awardlevel != null">  AWARDLEVEL = #{awardlevel},</if>
+<if test="awarddate != null">  AWARDDATE = #{awarddate},</if>
+<if test="awardingunit != null">  AWARDINGUNIT = #{awardingunit},</if>
+<if test="tutors != null">  TUTORS = #{tutors},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_ASSOCIATIONANDREDCROSSAWARD config end********************************  -->
+
+</mapper>

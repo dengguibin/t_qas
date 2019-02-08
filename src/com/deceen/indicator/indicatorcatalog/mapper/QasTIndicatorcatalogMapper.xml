@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.indicator.indicatorcatalog.mapper.QasTIndicatorcatalogMapper">
+
+	<select id="select" resultType="QasTIndicatorcatalog"> 
+	 SELECT 
+	 ID,NAME_,INDICATORTYPE,SORT,PARENTID,LEADDEPT,SYNERGETICDEPT,REMARK,ISMONITOR,ISVALID,CREATEDBy
+	 FROM QAS_T_INDICATORCATALOG 
+	 WHERE ID=#{id}
+	</select>
+	
+	<select id="list" parameterType="QasTIndicatorcatalog" useCache="false"   resultType ="QasTIndicatorcatalog" >  
+	 <include refid="plat.ORACLE_PAGE_HEADER" />
+	 SELECT 
+	 ID,NAME_,INDICATORTYPE,PARENTID,LEADDEPT,SYNERGETICDEPT,REMARK
+	 FROM QAS_T_INDICATORCATALOG 
+	 ORDER BY SORT ASC
+	 <!-- 
+	   ## 这里为查询的样例 修改完必须删除此些内容
+	 <if test="filed != null and filed != ''">
+	 AND COLUMN LIKE '%' #{filed}  '%'
+	 </if>
+	  <if test="endTime != null and endTime != ''">
+	      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+	  </if>
+	 -->
+	 <include refid="plat.ORACLE_PAGE_FOOTER" />
+	</select>
+	
+	<insert id="insert" parameterType="QasTIndicatorcatalog">
+	 INSERT INTO QAS_T_INDICATORCATALOG (
+	 ID,NAME_,INDICATORTYPE,SORT,PARENTID,LEADDEPT,SYNERGETICDEPT,REMARK,ISMONITOR,ISVALID,
+	 CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME)
+	 VALUES (#{id},#{name_},#{indicatortype},#{sort},#{parentid},#{leadDept},#{synergeticDept},#{remark},#{ismonitor},#{isvalid},
+	 #{createdby},#{createdtime},#{updatedby},#{updatedtime})
+	</insert>
+	
+	<delete id="delete">
+	   DELETE FROM QAS_T_INDICATORCATALOG WHERE   ID=#{id}
+	</delete>
+	
+	<delete id="batchDelete" parameterType="java.lang.String">
+	     DELETE FROM QAS_T_INDICATORCATALOG WHERE ID IN
+	      <foreach item="id" collection="list" open="(" separator="," close=")">
+	     #{id}
+	    </foreach>
+	</delete>
+	
+	<update id="updateWithDyna" parameterType="QasTIndicatorcatalog">
+	 UPDATE QAS_T_INDICATORCATALOG 
+	 <trim prefix="SET" suffixOverrides=",">
+		<if test="id != null">  ID = #{id},</if>
+		<if test="name_ != null">  NAME_ = #{name_},</if>
+		<if test="indicatortype != null">  INDICATORTYPE = #{indicatortype},</if>
+		<if test="sort != null">  SORT = #{sort},</if>
+		<if test="parentid != null">  PARENTID = #{parentid},</if>
+		<if test="leadDept != null">  leadDept = #{leadDept},</if>
+		<if test="synergeticDept != null">  synergeticDept = #{synergeticDept},</if>
+		<if test="remark != null">  REMARK = #{remark},</if>
+		<if test="ismonitor != null">  ISMONITOR = #{ismonitor},</if>
+		<if test="isvalid != null">  ISVALID = #{isvalid},</if>
+		<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+		<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+		<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+		<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+	 </trim>  
+	 WHERE  ID=#{id}
+	</update>
+
+
+	<select id="queryByParentId" resultType ="QasTIndicatorcatalog">
+		SELECT ID,NAME_,INDICATORTYPE,PARENTID,REMARK,SORT,ISVALID 
+		FROM  QAS_T_INDICATORCATALOG 
+	 	WHERE  PARENTID = #{id}
+	</select>
+	
+	<select id="queryByParentIdToMaxSort" resultType ="QasTIndicatorcatalog">
+		SELECT MAX(SORT) SORT FROM  QAS_T_INDICATORCATALOG 
+	 WHERE  PARENTID = #{id} GROUP BY PARENTID 
+	</select>
+	
+	<select id="inditorCount" resultType="hashmap">
+		SELECT * FROM (SELECT T1.NAME_,COUNT(T2.ID) AS COUNT,T1.SORT FROM QAS_T_INDICATORCATALOG T1 LEFT JOIN
+		(SELECT ID,SORT,INDICATORTYPE FROM QAS_T_INDICATORCATALOG WHERE 1 = 1
+		 <if test="vague != null and vague != ''">
+	 		AND Name_ LIKE CONCAT('%',#{vague},'%')  
+	 	 </if> ) 
+		 T2 ON T2.SORT LIKE CONCAT(T1.SORT,'%') AND T2.INDICATORTYPE=0 
+		WHERE T1.PARENTID IS NULL GROUP BY T1.ID
+		UNION
+		SELECT T1.NAME_,COUNT(T2.ID) AS COUNT,T1.SORT  FROM QAS_T_INDICATORCATALOG T1 LEFT JOIN
+		(SELECT ID,SORT,INDICATORTYPE FROM QAS_T_INDICATORCATALOG WHERE 1 = 1
+		 <if test="vague != null and vague != ''">
+	 		AND Name_ LIKE CONCAT('%',#{vague},'%')  
+	 	 </if>)  
+	 	 T2 ON T2.SORT LIKE CONCAT(T1.SORT,'%') AND T2.INDICATORTYPE=0 
+		WHERE T1.PARENTID ='' GROUP BY T1.ID) A ORDER BY A.SORT
+	</select>
+	
+	
+	<!-- <select id="selectTree" resultType ="QasTIndicatorcatalog">
+		SELECT ID,NAME_,INDICATORTYPE,PARENTID,REMARK FROM  QAS_T_INDICATORCATALOG
+		WHERE NAME_ LIKE CONCAT(CONCAT('%',#{name}),'%') ORDER BY SORT ASC
+	</select> -->
+	
+	<select id="selectTree" resultType ="QasTIndicatorcatalog">
+		SELECT ID,NAME_,INDICATORTYPE,PARENTID,REMARK 
+		FROM  QAS_T_INDICATORCATALOG
+		WHERE FIND_IN_SET(ID,getIndicatorList(#{name})) 
+	</select>
+	
+	<select id="queryParams" resultType ="QasTIndicatorcatalog" parameterType="Map">
+		SELECT ID,NAME_,INDICATORTYPE,PARENTID,REMARK,SORT,ISVALID FROM  QAS_T_INDICATORCATALOG 
+	 <trim prefix="where" prefixOverrides="and">
+		<if test="id != null"> 
+			AND ID = #{id}
+		</if>
+		<if test="name_ != null"> 
+			AND NAME_ like concat('%',#{name_},'%') 
+		</if>
+		<if test="indicatortype != null">  
+			AND INDICATORTYPE = #{indicatortype}
+		</if>
+		<if test="sort != null"> 
+			AND SORT = #{sort}
+		</if>
+		<if test="parentid != null"> 
+			AND PARENTID = #{parentid}
+		</if>
+		<if test="remark != null"> 
+			AND REMARK = #{remark}
+		</if>
+		<if test="ismonitor != null"> 
+			AND ISMONITOR = #{ismonitor}
+		</if>
+		<if test="isvalid != null"> 
+			AND ISVALID = #{isvalid}
+		</if>
+		<if test="createdby != null"> 
+			AND CREATEDBY = #{createdby}
+		</if>
+		<if test="createdtime != null"> 
+			AND CREATEDTIME = #{createdtime}
+		</if>
+		<if test="updatedby != null"> 
+			AND UPDATEDBY = #{updatedby}
+		</if>
+		<if test="updatedtime != null"> 
+			AND UPDATEDTIME = #{updatedtime}
+		</if>
+	 </trim>
+	</select>
+	
+	<select id="selectIndicatorType" resultType="java.lang.String">
+	SELECT ID FROM QAS_T_INDICATORCATALOG WHERE INDICATORTYPE=1
+	</select>
+</mapper>

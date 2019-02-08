@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_LASTYEAREMPLOYMENT config end********************************  -->
+
+<package name="QasDLastyearemployment" extends="default"
+		namespace="/data/major/lastYearEmployment">
+		
+		<action name="queryInfo" class="qasDLastyearemploymentAction" method="queryInfo">
+			<result name="select">/pages/data/major/lastYearEmployment/QasDLastyearemploymentInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDLastyearemploymentAction" method="queryList">
+			<result name="list">/pages/data/major/lastYearEmployment/QasDLastyearemploymentList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDLastyearemploymentAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDLastyearemploymentAction" method="toEdit">
+			<result name="toEdit">/pages/data/major/lastYearEmployment/QasDLastyearemploymentEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDLastyearemploymentAction" method="save">
+			<result name="save" type="redirect">
+			/data/major/lastYearEmployment/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_LASTYEAREMPLOYMENT config end********************************  -->
+</struts>

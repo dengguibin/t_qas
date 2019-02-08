@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_MAJORDIRECTION config end********************************  -->
+
+<package name="QasDMajordirection" extends="default"
+		namespace="/system/majordirection">
+		
+		<action name="queryInfo" class="qasDMajordirectionAction" method="queryInfo">
+			<result name="select">/pages/system/majordirection/QasDMajordirectionInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDMajordirectionAction" method="queryList">
+			<result name="list">/pages/system/majordirection/QasDMajordirectionList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDMajordirectionAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDMajordirectionAction" method="toEdit">
+			<result name="toEdit">/pages/system/majordirection/QasDMajordirectionEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDMajordirectionAction" method="save">
+			<result name="save" type="redirect">
+			/system/majordirection/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_MAJORDIRECTION config end********************************  -->
+</struts>

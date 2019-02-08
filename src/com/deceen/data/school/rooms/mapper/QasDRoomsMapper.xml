@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.school.rooms.mapper.QasDRoomsMapper">
+<!--  ********************************QAS_D_ROOMS config begnin********************************  -->
+
+<select id="select" resultType="QasDRooms"> 
+ SELECT ID,NUMOFREADINGROOMSEAT,NUMOFCOMPUTER,NUMOFTEACHINGCOMPUTER,NUMOFTEACHINGPAD,NUMOFPUBLICCOMPUTERROOM,NUMOFSPECIALCOMPUTERROOM,NUMOFCLASSROOM,NUMOFMEDIAROOM,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_ROOMS 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="java.util.HashMap" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,NUMOFREADINGROOMSEAT,NUMOFCOMPUTER,NUMOFTEACHINGCOMPUTER,NUMOFTEACHINGPAD,NUMOFPUBLICCOMPUTERROOM,NUMOFSPECIALCOMPUTERROOM,NUMOFCLASSROOM,NUMOFMEDIAROOM,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_ROOMS 
+ WHERE  1 = 1
+
+  <if test="minnumofreadingroomseatScope != null and maxnumofreadingroomseatScope !=null">
+	 	AND NUMOFREADINGROOMSEAT between #{minnumofreadingroomseatScope} and #{maxnumofreadingroomseatScope}
+  </if>
+    
+  <if test="minnumofcomputerScope != null and maxnumofcomputerScope !=null">
+	 	AND NUMOFCOMPUTER between #{minnumofcomputerScope} and #{maxnumofcomputerScope}
+  </if>
+    
+  <if test="minnumofteachingcomputerScope != null and maxnumofteachingcomputerScope !=null">
+	 	AND NUMOFTEACHINGCOMPUTER between #{minnumofteachingcomputerScope} and #{maxnumofteachingcomputerScope}
+  </if>
+    
+  <if test="minnumofteachingpadScope != null and maxnumofteachingpadScope !=null">
+	 	AND NUMOFTEACHINGPAD between #{minnumofteachingpadScope} and #{maxnumofteachingpadScope}
+  </if>
+    
+  <if test="minnumofpubliccomputerroomScope != null and maxnumofpubliccomputerroomScope !=null">
+	 	AND NUMOFPUBLICCOMPUTERROOM between #{minnumofpubliccomputerroomScope} and #{maxnumofpubliccomputerroomScope}
+  </if>
+    
+  <if test="minnumofspecialcomputerroomScope != null and maxnumofspecialcomputerroomScope !=null">
+	 	AND NUMOFSPECIALCOMPUTERROOM between #{minnumofspecialcomputerroomScope} and #{maxnumofspecialcomputerroomScope}
+  </if>
+    
+  <if test="minnumofclassroomScope != null and maxnumofclassroomScope !=null">
+	 	AND NUMOFCLASSROOM between #{minnumofclassroomScope} and #{maxnumofclassroomScope}
+  </if>
+    
+  <if test="minnumofmediaroomScope != null and maxnumofmediaroomScope !=null">
+	 	AND NUMOFMEDIAROOM between #{minnumofmediaroomScope} and #{maxnumofmediaroomScope}
+  </if>
+  
+  
+  <if test="numofreadingroomseatScope != null">
+	 	AND NUMOFREADINGROOMSEAT >= #{numofreadingroomseatScope}
+  </if>
+    
+  <if test="numofcomputerScope != null">
+	 	AND NUMOFCOMPUTER >=  #{numofcomputerScope}
+  </if>
+    
+  <if test="numofteachingcomputerScope != null">
+	 	AND NUMOFTEACHINGCOMPUTER  >=  #{numofteachingcomputerScope}
+  </if>
+    
+  <if test="numofteachingpadScope != null">
+	 	AND NUMOFTEACHINGPAD  >=  #{numofteachingpadScope}
+  </if>
+    
+  <if test="numofpubliccomputerroomScope != null">
+	 	AND NUMOFPUBLICCOMPUTERROOM  >=  #{numofpubliccomputerroomScope}
+  </if>
+    
+  <if test="numofspecialcomputerroomScope != null">
+	 	AND NUMOFSPECIALCOMPUTERROOM  >=  #{numofspecialcomputerroomScope}
+  </if>
+    
+  <if test="numofclassroomScope != null">
+	 	AND NUMOFCLASSROOM  >=  #{numofclassroomScope}
+  </if>
+    
+  <if test="numofmediaroomScope != null">
+	 	AND NUMOFMEDIAROOM  >=  #{numofmediaroomScope}
+  </if>
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDRooms">
+ INSERT INTO QAS_D_ROOMS   ( ID,NUMOFREADINGROOMSEAT,NUMOFCOMPUTER,NUMOFTEACHINGCOMPUTER,NUMOFTEACHINGPAD,NUMOFPUBLICCOMPUTERROOM,NUMOFSPECIALCOMPUTERROOM,NUMOFCLASSROOM,NUMOFMEDIAROOM,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{numofreadingroomseat},#{numofcomputer},#{numofteachingcomputer},#{numofteachingpad},#{numofpubliccomputerroom},#{numofspecialcomputerroom},#{numofclassroom},#{numofmediaroom},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDRooms">
+ UPDATE QAS_D_ROOMS SET  ID=#{id},NUMOFREADINGROOMSEAT=#{numofreadingroomseat},NUMOFCOMPUTER=#{numofcomputer},NUMOFTEACHINGCOMPUTER=#{numofteachingcomputer},NUMOFTEACHINGPAD=#{numofteachingpad},NUMOFPUBLICCOMPUTERROOM=#{numofpubliccomputerroom},NUMOFSPECIALCOMPUTERROOM=#{numofspecialcomputerroom},NUMOFCLASSROOM=#{numofclassroom},NUMOFMEDIAROOM=#{numofmediaroom},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_ROOMS WHERE   ID=#{id}
+</delete>
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_ROOMS WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDRooms">
+ UPDATE QAS_D_ROOMS 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="numofreadingroomseat != null">  NUMOFREADINGROOMSEAT = #{numofreadingroomseat},</if>
+<if test="numofcomputer != null">  NUMOFCOMPUTER = #{numofcomputer},</if>
+<if test="numofteachingcomputer != null">  NUMOFTEACHINGCOMPUTER = #{numofteachingcomputer},</if>
+<if test="numofteachingpad != null">  NUMOFTEACHINGPAD = #{numofteachingpad},</if>
+<if test="numofpubliccomputerroom != null">  NUMOFPUBLICCOMPUTERROOM = #{numofpubliccomputerroom},</if>
+<if test="numofspecialcomputerroom != null">  NUMOFSPECIALCOMPUTERROOM = #{numofspecialcomputerroom},</if>
+<if test="numofclassroom != null">  NUMOFCLASSROOM = #{numofclassroom},</if>
+<if test="numofmediaroom != null">  NUMOFMEDIAROOM = #{numofmediaroom},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_ROOMS config end********************************  -->
+
+</mapper>

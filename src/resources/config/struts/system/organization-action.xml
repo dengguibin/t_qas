@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_E_ORGANIZATION config end********************************  -->
+
+<package name="QasEOrganization" extends="default"
+		namespace="/system/organization">
+		
+		<action name="queryInfo" class="qasEOrganizationAction" method="queryInfo">
+			<result name="select">/pages/system/organization/QasEOrganizationInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasEOrganizationAction" method="queryList">
+			<result name="list">/pages/system/organization/QasEOrganizationList.jsp</result>
+		</action>
+		
+		<action name="getTree" class="qasEOrganizationAction" method="getTree">
+		</action>
+		
+		<!-- <action name="selectType" class="qasEOrganizationAction" method="getSelectType">
+		</action> -->
+		
+		<action name="remove" class="qasEOrganizationAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasEOrganizationAction" method="toEdit">
+			<result name="toEdit">/pages/system/organization/QasEOrganizationEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasEOrganizationAction" method="save">
+			<result name="save" type="redirect">
+			/system/organization/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_E_ORGANIZATION config end********************************  -->
+</struts>

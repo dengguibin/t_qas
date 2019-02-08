@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.school.collegeEnrolPlan.mapper.QasDCollegeenrolplanMapper">
+<!--  ********************************QAS_D_COLLEGEENROLPLAN config begnin********************************  -->
+
+<select id="select" resultType="QasDCollegeenrolplan"> 
+ SELECT ID,COLUMN_9,COLUMN_10,COLUMN_11,COLUMN_12,COLUMN_13,COLUMN_14,COLUMN_15,COLUMN_16,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_COLLEGEENROLPLAN 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="java.util.HashMap" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,COLUMN_9,COLUMN_10,COLUMN_11,COLUMN_12,COLUMN_13,COLUMN_14,COLUMN_15,COLUMN_16,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_COLLEGEENROLPLAN 
+ WHERE  1 = 1
+ 
+   <if test="mincolumn_9Scope != null and maxcolumn_9Scope !=null">
+	 	AND Column_9 between #{mincolumn_9Scope} and #{maxcolumn_9Scope}
+  </if>
+  <if test="mincolumn_10Scope != null and maxcolumn_10Scope !=null">
+	 	AND Column_10 between #{mincolumn_10Scope} and #{maxcolumn_10Scope}
+  </if>
+  <if test="mincolumn_11Scope != null and maxcolumn_11Scope !=null">
+	 	AND Column_11 between #{mincolumn_11Scope} and #{maxcolumn_11Scope}
+  </if>
+  <if test="mincolumn_12Scope != null and maxcolumn_12Scope !=null">
+	 	AND Column_12 between #{mincolumn_12Scope} and #{maxcolumn_12Scope}
+  </if>
+  <if test="mincolumn_13Scope != null and maxcolumn_13Scope !=null">
+	 	AND Column_13 between #{mincolumn_13Scope} and #{maxcolumn_13Scope}
+  </if>
+  <if test="mincolumn_14Scope != null and maxcolumn_14Scope !=null">
+	 	AND Column_14 between #{mincolumn_14Scope} and #{maxcolumn_14Scope}
+  </if>
+  <if test="mincolumn_15Scope != null and maxcolumn_15Scope !=null">
+	 	AND Column_15 between #{mincolumn_15Scope} and #{maxcolumn_15Scope}
+  </if>
+  
+  <if test="column_9Scope != null ">
+	 	AND Column_9 >= #{column_9Scope}
+  </if>
+  <if test="column_10Scope != null">
+	 	AND Column_10  >=  #{column_10Scope}
+  </if>
+  <if test="column_11Scope != null">
+	 	AND Column_11  >=  #{column_11Scope}
+  </if>
+  <if test="column_12Scope != null">
+	 	AND Column_12  >=  #{column_12Scope}
+  </if>
+  <if test="column_13Scope != null">
+	 	AND Column_13  >=  #{column_13Scope}
+  </if>
+  <if test="column_14Scope != null">
+	 	AND Column_14  >=  #{column_14Scope}
+  </if>
+  <if test="column_15Scope != null">
+	 	AND Column_15  >=  #{column_15Scope}
+  </if>
+  
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDCollegeenrolplan">
+ INSERT INTO QAS_D_COLLEGEENROLPLAN   ( ID,COLUMN_9,COLUMN_10,COLUMN_11,COLUMN_12,COLUMN_13,COLUMN_14,COLUMN_15,COLUMN_16,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{column_9},#{column_10},#{column_11},#{column_12},#{column_13},#{column_14},#{column_15},#{column_16},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDCollegeenrolplan">
+ UPDATE QAS_D_COLLEGEENROLPLAN SET  ID=#{id},COLUMN_9=#{column_9},COLUMN_10=#{column_10},COLUMN_11=#{column_11},COLUMN_12=#{column_12},COLUMN_13=#{column_13},COLUMN_14=#{column_14},COLUMN_15=#{column_15},COLUMN_16=#{column_16},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_COLLEGEENROLPLAN WHERE   ID=#{id}
+</delete>
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_COLLEGEENROLPLAN WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDCollegeenrolplan">
+ UPDATE QAS_D_COLLEGEENROLPLAN 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="column_9 != null">  COLUMN_9 = #{column_9},</if>
+<if test="column_10 != null">  COLUMN_10 = #{column_10},</if>
+<if test="column_11 != null">  COLUMN_11 = #{column_11},</if>
+<if test="column_12 != null">  COLUMN_12 = #{column_12},</if>
+<if test="column_13 != null">  COLUMN_13 = #{column_13},</if>
+<if test="column_14 != null">  COLUMN_14 = #{column_14},</if>
+<if test="column_15 != null">  COLUMN_15 = #{column_15},</if>
+<if test="column_16 != null">  COLUMN_16 = #{column_16},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_COLLEGEENROLPLAN config end********************************  -->
+
+</mapper>

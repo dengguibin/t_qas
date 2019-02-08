@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_INNOVATIVETRAINPROJ config end********************************  -->
+
+<package name="QasDInnovativetrainproj" extends="default"
+		namespace="/data/teaching/innovativeTrainProj">
+		
+		<action name="queryInfo" class="qasDInnovativetrainprojAction" method="queryInfo">
+			<result name="select">/pages/data/teaching/innovativeTrainProj/QasDInnovativetrainprojInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDInnovativetrainprojAction" method="queryList">
+			<result name="list">/pages/data/teaching/innovativeTrainProj/QasDInnovativetrainprojList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDInnovativetrainprojAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDInnovativetrainprojAction" method="toEdit">
+			<result name="toEdit">/pages/data/teaching/innovativeTrainProj/QasDInnovativetrainprojEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDInnovativetrainprojAction" method="save">
+			<result name="save" type="redirect">
+			/data/teaching/innovativeTrainProj/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_INNOVATIVETRAINPROJ config end********************************  -->
+</struts>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  ********************************T_RMS_USER config begnin********************************  -->
+<mapper namespace="com.upath.plat.auth.mapper.TRmsUserMapper">
+<cache />
+
+<select id="select" resultType="TRmsUser"> 
+ SELECT YHID,YHLX,BMID,ZYID,YHJC,YHMC,YHCW,DLSJ,DLIP,SJHM,DZYJ,JTDH,GZDH,SFZX,SFYX,PXH,GRZY,CJSJ,CJR,XGSJ,XGR,YHMM,UID,CAID,YHZT FROM  T_RMS_USER 
+ WHERE   YHID=#{yhid}
+</select>
+
+<select id="list" parameterType="TRmsUser" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+  SELECT YHID,YHLX,U.YHZT,U.BMID,U.ZYID,YHJC,YHMC,YHCW,DLSJ,DLIP,SJHM,DZYJ,JTDH,GZDH,SFZX,U.SFYX,U.PXH,GRZY,D.BMMC,D.FBMID,UID,CAID
+  FROM  T_RMS_USER U LEFT JOIN T_RMS_DEPTMENT D ON U.BMID = D.BMID
+  WHERE 1 = 1 
+  <if test="bmid != null and bmid != ''">
+  AND (D.BMID = #{bmid} OR D.FDNCODE LIKE '%'#{bmid} '|%')
+  </if>
+  <if test="yhid != null and yhid != ''">
+  AND U.YHID LIKE '%' #{yhid} '%'
+  </if>
+  <if test="yhmc != null and yhmc != '' ">
+  AND (U.YHMC LIKE '%' #{yhmc} '%' OR U.YHID LIKE '%' #{yhmc} '%' )
+  </if>
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+<select id="listDeptUsers" parameterType="TRmsUser" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+  SELECT YHID,YHLX,U.YHZT,U.BMID,U.ZYID,YHJC,YHMC,YHCW,DLSJ,DLIP,SJHM,DZYJ,JTDH,GZDH,SFZX,U.SFYX,U.PXH,GRZY,D.BMMC,D.FBMID,UID,CAID
+  FROM  T_RMS_USER U INNER JOIN T_RMS_DEPTMENT D ON U.BMID = D.BMID
+  WHERE (D.BMID = #{bmid} OR D.FDNCODE LIKE '%'#{bmid} '|%')
+  <if test="yhid != null and yhid != ''">
+  AND U.YHID LIKE '%' #{yhid} '%'
+  </if>
+  <if test="yhmc != null and yhmc != ''">
+  AND U.YHMC LIKE '%' #{yhmc} '%'
+  </if>
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="TRmsUser">
+ INSERT INTO T_RMS_USER   ( YHID,YHLX,BMID,ZYID,YHJC,YHMC,YHCW,DLSJ,DLIP,SJHM,DZYJ,JTDH,GZDH,SFZX,SFYX,PXH,GRZY,CJSJ,CJR,XGSJ,XGR,YHMM,UID,CAID,YHZT)
+  VALUES ( #{yhid},#{yhlx},#{bmid},#{zyid},#{yhjc},#{yhmc},#{yhcw},#{dlsj},#{dlip},#{sjhm},#{dzyj},#{jtdh},#{gzdh},#{sfzx},#{sfyx},#{pxh},#{grzy},#{cjsj},#{cjr},#{xgsj},#{xgr},#{yhmm},#{uid},#{caid},#{yhzt} )
+</insert>
+
+ <update id="update" parameterType="TRmsUser">
+ UPDATE T_RMS_USER SET  YHID=#{yhid},YHLX=#{yhlx},BMID=#{bmid},ZYID=#{zyid},YHJC=#{yhjc},YHMC=#{yhmc},YHCW=#{yhcw},DLSJ=#{dlsj},DLIP=#{dlip},SJHM=#{sjhm},DZYJ=#{dzyj},JTDH=#{jtdh},GZDH=#{gzdh},SFZX=#{sfzx},SFYX=#{sfyx},PXH=#{pxh},GRZY=#{grzy},XGSJ=#{xgsj},XGR=#{xgr}
+ <if test="yhmm != null and yhmm != '' ">
+ ,YHMM=#{yhmm} 
+ </if>
+ WHERE  YHID=#{yhid}
+</update>
+
+<update id="updateStatus" parameterType="TRmsUser">
+ UPDATE T_RMS_USER SET XGSJ=#{xgsj},XGR=#{xgr}
+ <if test="yhmm != null and yhmm != '' ">
+ ,YHMM=#{yhmm} 
+ </if>
+ <if test="yhzt != null">
+ ,YHZT=#{yhzt} 
+ </if>
+ WHERE  YHID=#{yhid}
+</update>
+
+ <delete id="delete" parameterType="TRmsUser">
+   DELETE FROM T_RMS_USER WHERE   YHID=#{yhid}
+</delete>
+
+<select id="selectById" resultType="String"> 
+ SELECT ZYID FROM T_RMS_USER WHERE YHID=#{yhid}
+</select>
+
+<!--  ********************************T_RMS_USER config end********************************  -->
+
+</mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.teaching.virtualSimulationCenter.mapper.QasDVirtualsimulationcenterMapper">
+<!--  ********************************QAS_D_VIRTUALSIMULATIONCENTER config begnin********************************  -->
+
+<select id="select" resultType="QasDVirtualsimulationcenter"> 
+ SELECT ID,PROJECTNAME,MAJORID,PROJECTTYPE,GRADE,EMPLOYEEID,DEPARTMENT,FILE,STARTTIME,ENDTIME,CURSTATUS,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_VIRTUALSIMULATIONCENTER 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDVirtualsimulationcenter" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,PROJECTNAME,MAJORID,PROJECTTYPE,GRADE,EMPLOYEEID,DEPARTMENT,FILE,STARTTIME,ENDTIME,CURSTATUS,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_VIRTUALSIMULATIONCENTER 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDVirtualsimulationcenter">
+ INSERT INTO QAS_D_VIRTUALSIMULATIONCENTER   ( ID,PROJECTNAME,MAJORID,PROJECTTYPE,GRADE,EMPLOYEEID,DEPARTMENT,FILE,STARTTIME,ENDTIME,CURSTATUS,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{projectname},#{majorid},#{projecttype},#{grade},#{employeeid},#{department},#{file},#{starttime},#{endtime},#{curstatus},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDVirtualsimulationcenter">
+ UPDATE QAS_D_VIRTUALSIMULATIONCENTER SET  ID=#{id},PROJECTNAME=#{projectname},MAJORID=#{majorid},PROJECTTYPE=#{projecttype},GRADE=#{grade},EMPLOYEEID=#{employeeid},DEPARTMENT=#{department},FILE=#{file},STARTTIME=#{starttime},ENDTIME=#{endtime},CURSTATUS=#{curstatus},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_VIRTUALSIMULATIONCENTER WHERE   ID=#{id}
+</delete>
+
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_VIRTUALSIMULATIONCENTER WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDVirtualsimulationcenter">
+ UPDATE QAS_D_VIRTUALSIMULATIONCENTER 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="projectname != null">  PROJECTNAME = #{projectname},</if>
+<if test="majorid != null">  MAJORID = #{majorid},</if>
+<if test="projecttype != null">  PROJECTTYPE = #{projecttype},</if>
+<if test="grade != null">  GRADE = #{grade},</if>
+<if test="employeeid != null">  EMPLOYEEID = #{employeeid},</if>
+<if test="department != null">  DEPARTMENT = #{department},</if>
+<if test="file != null">  FILE = #{file},</if>
+<if test="starttime != null">  STARTTIME = #{starttime},</if>
+<if test="endtime != null">  ENDTIME = #{endtime},</if>
+<if test="curstatus != null">  CURSTATUS = #{curstatus},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_VIRTUALSIMULATIONCENTER config end********************************  -->
+
+</mapper>

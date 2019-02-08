@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.diagnoseformat.scheme.mapper.QasTSchemecatalogMapper">
+<!--  ********************************QAS_T_SCHEMECATALOG config begnin********************************  -->
+<resultMap type="com.deceen.diagnoseformat.scheme.model.QasTSchemecatalog" id="indicatorcatalogResult">
+        <id column="ID" property="id"/>
+        <result column="SCHEMEID" property="schemeid"/>
+        <result column="INDICATORCATALOGID" property="indicatorcatalogid"/>
+        <result column="ATOMSTYLEID" property="atomstyleid"/>
+        <result column="ISVALID" property="isvalid"/>
+        <result column="SCORE" property="score"/>
+        <result column="WEIGHT" property="weight"/>
+        <result column="CREATEDBY" property="createdby"/>
+        <result column="CREATEDTIME" property="createdtime"/>
+        <result column="UPDATEDBY" property="updatedby"/>
+        <result column="UPDATEDTIME" property="updatedtime"/>
+        <result column="TENANTID" property="tenantid"/>
+        <association property="indicatorcatalog"  select="com.deceen.indicator.indicatorcatalog.mapper.QasTIndicatorcatalogMapper.select"
+             column="INDICATORCATALOGID">
+         </association>
+    </resultMap>
+<select id="select" resultType="QasTSchemecatalog"> 
+ SELECT ID,SCHEMEID,INDICATORCATALOGID,ATOMSTYLEID,SCORE,WEIGHT,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID FROM  QAS_T_SCHEMECATALOG 
+ <where>
+ 	<if test="id != null"> AND ID=#{id}</if>
+ 	<if test="schemeid != null">AND SCHEMEID=#{schemeid}</if>
+ 	<if test="indicatorcatalogid != null">AND INDICATORCATALOGID=#{indicatorcatalogid}</if>
+ </where>
+</select>
+
+<!--  查询用户监视指标的要素
+ @author dengguibinsql -->
+<select id="selectElementByUser"  resultType="QasTIndicatorcatalog"> 
+
+SELECT element.* FROM QAS_T_IndicatorCatalog element 
+LEFT OUTER JOIN QAS_T_IndicatorCatalog indicator
+ON element.id=indicator.ParentId
+WHERE 
+EXISTS (
+				SELECT * FROM QAS_T_IndicatorCatalog i
+				LEFT OUTER JOIN qas_t_userindicatorearlywarning u
+				ON i.id = u.r_indicatorID 
+				WHERE 
+					indicator.Id = i.id
+ 				<if test="userId != null">  
+				 	AND u.r_userID = #{userId}
+				 </if>
+				
+			 )
+
+</select>
+<select id="list" parameterType="QasTSchemecatalog" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,SCHEMEID,INDICATORCATALOGID,ATOMSTYLEID,SCORE,WEIGHT,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID FROM  QAS_T_SCHEMECATALOG 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasTSchemecatalog">
+ INSERT INTO QAS_T_SCHEMECATALOG   ( ID,SCHEMEID,INDICATORCATALOGID,ATOMSTYLEID,SCORE,WEIGHT,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID)
+  VALUES ( #{id},#{schemeid},#{indicatorcatalogid},#{atomstyleid},#{score},#{weight},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid} )
+</insert>
+
+ <update id="update" parameterType="QasTSchemecatalog">
+ UPDATE QAS_T_SCHEMECATALOG SET  ID=#{id},SCHEMEID=#{schemeid},INDICATORCATALOGID=#{indicatorcatalogid},ATOMSTYLEID=#{atomstyleid},SCORE=#{score},WEIGHT=#{weight},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid} 
+ WHERE  ID=#{id}
+</update>
+
+ <update id="updateCountParentScore" >
+UPDATE QAS_T_SCHEMECATALOG,(SELECT SUM(TS.SCORE * ABS(TS.Weight))  SUM FROM QAS_T_SCHEMECATALOG TS 
+LEFT JOIN QAS_T_INDICATORCATALOG TI ON TS.INDICATORCATALOGID = TI.ID 
+WHERE TS.SCHEMEID=#{schemeid} AND TI.PARENTID=#{parentid}) S 
+SET SCORE = S.SUM WHERE SCHEMEID=#{schemeid} AND INDICATORCATALOGID=#{parentid}
+</update>
+
+ <delete id="delete">
+   DELETE FROM QAS_T_SCHEMECATALOG WHERE   ID=#{id}
+</delete>
+
+ <delete id="deleteschemeId">
+   DELETE FROM QAS_T_SCHEMECATALOG WHERE   SCHEMEID=#{schemeid}
+</delete>
+
+ <update id="updateWithDyna" parameterType="QasTSchemecatalog">
+ UPDATE QAS_T_SCHEMECATALOG 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="schemeid != null">  SCHEMEID = #{schemeid},</if>
+<if test="indicatorcatalogid != null">  INDICATORCATALOGID = #{indicatorcatalogid},</if>
+<if test="atomstyleid != null">  ATOMSTYLEID = #{atomstyleid},</if>
+<if test="isvalid != null">  ISVALID = #{isvalid},</if>
+<if test="score != null">  SCORE = #{score},</if>
+<if test="weight != null">  WEIGHT = #{weight},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+<!--  ********************************QAS_T_SCHEMECATALOG config end********************************  -->
+<select id="inditorCount" resultType="hashmap">
+	SELECT T1.NAME_,COUNT(T2.ID) as COUNT FROM QAS_T_INDICATORCATALOG T1 LEFT JOIN
+	QAS_T_INDICATORCATALOG T2 ON T2.SORT LIKE CONCAT(T1.SORT,'%') and T2.IndicatorType=0 
+	WHERE T1.PARENTID IS NULL GROUP BY T1.ID
+	UNION
+	SELECT T1.NAME_,COUNT(T2.ID) as COUNT FROM QAS_T_INDICATORCATALOG T1 LEFT JOIN
+	QAS_T_INDICATORCATALOG T2 ON T2.SORT LIKE CONCAT(T1.SORT,'%') and T2.IndicatorType=0 
+	WHERE T1.PARENTID ='' GROUP BY T1.ID
+</select>
+
+<select id="listAll" resultType="hashmap">
+	SELECT S.ID,I.NAME_,I.SORT FROM QAS_T_SCHEMECATALOG S,QAS_T_INDICATORCATALOG I WHERE S.SCHEMEID=SCHEMEID AND S.INDICATORCATALOGID=I.ID
+</select>
+
+<select id="selectTree" resultType ="hashmap">
+	SELECT TS.ID,TS.SCHEMEID,TS.INDICATORCATALOGID,TI.NAME_,TI.PARENTID,TI.INDICATORTYPE,TS.ISVALID,TS.WEIGHT FROM  QAS_T_SCHEMECATALOG TS LEFT JOIN
+	QAS_T_INDICATORCATALOG TI ON TS.INDICATORCATALOGID = TI.ID
+	WHERE 1=1
+	<if test="name != null">
+		AND	FIND_IN_SET(TS.INDICATORCATALOGID,GETINDICATORLISTSCHEME(#{name},#{schemeId})) 
+	</if>
+	AND TS.SCHEMEID=#{schemeId} ORDER BY TI.SORT ASC
+</select>
+
+<insert id="insertlist" parameterType="java.util.List">
+	INSERT INTO QAS_T_SCHEMECATALOG  ( ID,SCHEMEID,INDICATORCATALOGID,ATOMSTYLEID,ISVALID,SCORE,WEIGHT,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID) VALUES
+		<foreach collection="list" item="item" separator=",">
+			( #{item.id},#{item.schemeid},#{item.indicatorcatalogid},#{item.atomstyleid},#{item.isvalid},#{item.score},#{item.weight},#{item.createdby},#{item.createdtime},#{item.updatedby},#{item.updatedtime},#{item.tenantid} )
+		</foreach>
+	
+</insert>
+<select id="selectSchemeId" resultType ="QasTSchemecatalog">
+	 SELECT ID,SCHEMEID,INDICATORCATALOGID,ATOMSTYLEID,SCORE,WEIGHT,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID FROM  QAS_T_SCHEMECATALOG 
+ WHERE  1=1 
+ <if test="schemeid != null">
+ AND SCHEMEID=#{schemeid}
+  </if>
+</select>
+<select id="selectParams" resultMap ="indicatorcatalogResult">
+	SELECT S.ID,S.SCHEMEID,S.INDICATORCATALOGID,S.ATOMSTYLEID,S.ISVALID,S.SCORE,S.WEIGHT,S.CREATEDBY,S.CREATEDTIME,S.UPDATEDBY,S.UPDATEDTIME,S.TENANTID FROM  QAS_T_SCHEMECATALOG  S
+	LEFT JOIN QAS_T_INDICATORCATALOG I ON S.INDICATORCATALOGID = I.ID WHERE I.PARENTID=#{IndicatorCatalogId} AND S.SCHEMEID=#{schemeid}
+</select>
+
+<select id="selectByTaskId" parameterType="QasTSchemecatalog" resultType ="QasTSchemecatalog">
+	SELECT S.ID,S.SCHEMEID,S.INDICATORCATALOGID,S.ATOMSTYLEID,S.SCORE,S.WEIGHT,S.CREATEDBY,S.CREATEDTIME,S.UPDATEDBY,S.UPDATEDTIME,S.TENANTID FROM  QAS_T_SCHEMECATALOG  S
+	LEFT JOIN QAS_T_INDICATORCATALOG I ON S.INDICATORCATALOGID = I.ID
+	LEFT JOIN QAS_T_DIAGNOSETASK D ON D.SCHEMEID = S.SCHEMEID
+	WHERE D.ID = #{taskid} AND I.INDICATORTYPE = '1'
+</select>
+<select id="selectCountWeightByElement" parameterType="QasTSchemecatalog" resultType ="java.lang.Float">
+SELECT IFNULL(SUM(TS.WEIGHT),0) AS COUNT FROM QAS_T_SCHEMECATALOG TS 
+LEFT JOIN QAS_T_INDICATORCATALOG TI ON TS.INDICATORCATALOGID = TI.ID 
+LEFT JOIN QAS_T_INDICATORCATALOG TI2 ON TI.PARENTID=TI2.PARENTID
+WHERE TS.SCHEMEID=#{schemeid} AND TI2.ID=#{indicatorcatalogid} AND TI2.INDICATORTYPE=3
+</select>
+<select id="selectCountWeightByProject" parameterType="QasTSchemecatalog" resultType ="java.lang.Float">
+SELECT IFNULL(SUM(TS.WEIGHT),0) AS COUNT FROM QAS_T_SCHEMECATALOG TS 
+LEFT JOIN QAS_T_INDICATORCATALOG TI ON TS.INDICATORCATALOGID = TI.ID 
+where TS.SCHEMEID=#{schemeid} AND TI.INDICATORTYPE=2
+</select>
+<select id="countIsvalid" resultType ="java.lang.Integer">
+SELECT COUNT(1) FROM QAS_T_SCHEMECATALOG S 
+LEFT JOIN QAS_T_INDICATORCATALOG I ON I.ID = S.INDICATORCATALOGID
+<where>
+<if test="schemeid != null">AND S.SCHEMEID=#{schemeid} </if>
+<if test="parentid != null">AND I.PARENTID=#{parentid} </if>
+</where>
+AND S.ISVALID = 0
+</select>
+<update id="updateParentIsvalid">
+UPDATE QAS_T_SCHEMECATALOG SET ISVALID=1 WHERE SCHEMEID=#{schemeid} AND INDICATORCATALOGID=#{parentid}
+</update>
+</mapper>

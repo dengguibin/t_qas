@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.school.collegeInSchoolStudent.mapper.QasDCollegeinschoolstudentMapper">
+<!--  ********************************QAS_D_COLLEGEINSCHOOLSTUDENT config begnin********************************  -->
+
+<select id="select" resultType="QasDCollegeinschoolstudent"> 
+ SELECT ID,OFFNUM,EDUSTUNUM,SENIOREDUSTUNUM,HIGHTPFSSTUNUM,MIDDLEPFSSTUNUM,MIDDLESCHTWOYEARBEHANDNUM,OTHERNUM,FULLTIMESTUNUM,FULLTIMESTUTHREEYEARBEFORENUM,FULLTIMESTUFARMERNUM,ADULTCOLLEGESTUNUM,ADULTMIDDLESTUNUM,PARTTIMEPFSEDUREGNUM,PARTTIMESENIOREDUREGNUM,TRAINSOCIETYNUM,TRAINSTUNUM,TRAINSPECIFICGROUP,TRAINSMALLCOMPANY,OVERSEA,ABROAD,ADULTSTUDENT,EVENINGUNIVERSITYSTUDENT,CORRESPONDENCESTUDENT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_COLLEGEINSCHOOLSTUDENT 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="java.util.HashMap" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,OFFNUM,EDUSTUNUM,SENIOREDUSTUNUM,HIGHTPFSSTUNUM,MIDDLEPFSSTUNUM,MIDDLESCHTWOYEARBEHANDNUM,OTHERNUM,FULLTIMESTUNUM,FULLTIMESTUTHREEYEARBEFORENUM,FULLTIMESTUFARMERNUM,ADULTCOLLEGESTUNUM,ADULTMIDDLESTUNUM,PARTTIMEPFSEDUREGNUM,PARTTIMESENIOREDUREGNUM,TRAINSOCIETYNUM,TRAINSTUNUM,TRAINSPECIFICGROUP,TRAINSMALLCOMPANY,OVERSEA,ABROAD,ADULTSTUDENT,EVENINGUNIVERSITYSTUDENT,CORRESPONDENCESTUDENT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_COLLEGEINSCHOOLSTUDENT 
+ WHERE  1 = 1
+
+  <if test="minoffnumScope != null and maxoffnumScope !=null">
+	 	AND OFFNUM between #{minoffnumScope} and #{maxoffnumScope}
+  </if>
+   <if test="minedustunumScope != null and maxedustunumScope !=null">
+	 	AND EDUSTUNUM between #{minedustunumScope} and #{maxedustunumScope}
+  </if>
+   <if test="minsenioredustunumScope != null and maxsenioredustunumScope !=null">
+	 	AND SENIOREDUSTUNUM between #{minsenioredustunumScope} and #{maxsenioredustunumScope}
+  </if>
+   <if test="minfulltimestufarmernumScope != null and maxfulltimestufarmernumScope !=null">
+	 	AND ADULTCOLLEGESTUNUM between #{minfulltimestufarmernumScope} and #{maxfulltimestufarmernumScope}
+  </if>
+   <if test="minadultcollegestunumScope != null and maxadultcollegestunumScope !=null">
+	 	AND ADULTMIDDLESTUNUM between #{minadultcollegestunumScope} and #{maxadultcollegestunumScope}
+  </if>
+   <if test="minparttimepfseduregnumScope != null and maxparttimepfseduregnumScope !=null">
+	 	AND PARTTIMEPFSEDUREGNUM between #{minparttimepfseduregnumScope} and #{maxparttimepfseduregnumScope}
+  </if>
+   <if test="minparttimesenioreduregnumScope != null and maxparttimesenioreduregnumScope !=null">
+	 	AND PARTTIMESENIOREDUREGNUM between #{minparttimesenioreduregnumScope} and #{maxparttimesenioreduregnumScope}
+  </if>
+  
+  
+  <if test="offnumScope != null">
+	 	AND OFFNUM >= #{offnumScope}
+  </if>
+   <if test="edustunumScope != null">
+	 	AND EDUSTUNUM  >=  #{edustunumScope}
+  </if>
+   <if test="senioredustunumScope != null">
+	 	AND SENIOREDUSTUNUM >=  #{senioredustunumScope}
+  </if>
+   <if test="fulltimestufarmernumScope != null">
+	 	AND ADULTCOLLEGESTUNUM  >=  #{fulltimestufarmernumScope}
+  </if>
+   <if test="adultcollegestunumScope != null">
+	 	AND ADULTMIDDLESTUNUM  >=  #{adultcollegestunumScope}
+  </if>
+   <if test="parttimepfseduregnumScope != null">
+	 	AND PARTTIMEPFSEDUREGNUM  >=  #{parttimepfseduregnumScope}
+  </if>
+   <if test="parttimesenioreduregnumScope != null">
+	 	AND PARTTIMESENIOREDUREGNUM  >=  #{parttimesenioreduregnumScope}
+  </if>
+
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDCollegeinschoolstudent">
+ INSERT INTO QAS_D_COLLEGEINSCHOOLSTUDENT   ( ID,OFFNUM,EDUSTUNUM,SENIOREDUSTUNUM,HIGHTPFSSTUNUM,MIDDLEPFSSTUNUM,MIDDLESCHTWOYEARBEHANDNUM,OTHERNUM,FULLTIMESTUNUM,FULLTIMESTUTHREEYEARBEFORENUM,FULLTIMESTUFARMERNUM,ADULTCOLLEGESTUNUM,ADULTMIDDLESTUNUM,PARTTIMEPFSEDUREGNUM,PARTTIMESENIOREDUREGNUM,TRAINSOCIETYNUM,TRAINSTUNUM,TRAINSPECIFICGROUP,TRAINSMALLCOMPANY,OVERSEA,ABROAD,ADULTSTUDENT,EVENINGUNIVERSITYSTUDENT,CORRESPONDENCESTUDENT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{offnum},#{edustunum},#{senioredustunum},#{hightpfsstunum},#{middlepfsstunum},#{middleschtwoyearbehandnum},#{othernum},#{fulltimestunum},#{fulltimestuthreeyearbeforenum},#{fulltimestufarmernum},#{adultcollegestunum},#{adultmiddlestunum},#{parttimepfseduregnum},#{parttimesenioreduregnum},#{trainsocietynum},#{trainstunum},#{trainspecificgroup},#{trainsmallcompany},#{oversea},#{abroad},#{adultstudent},#{eveninguniversitystudent},#{correspondencestudent},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDCollegeinschoolstudent">
+ UPDATE QAS_D_COLLEGEINSCHOOLSTUDENT SET  ID=#{id},OFFNUM=#{offnum},EDUSTUNUM=#{edustunum},SENIOREDUSTUNUM=#{senioredustunum},HIGHTPFSSTUNUM=#{hightpfsstunum},MIDDLEPFSSTUNUM=#{middlepfsstunum},MIDDLESCHTWOYEARBEHANDNUM=#{middleschtwoyearbehandnum},OTHERNUM=#{othernum},FULLTIMESTUNUM=#{fulltimestunum},FULLTIMESTUTHREEYEARBEFORENUM=#{fulltimestuthreeyearbeforenum},FULLTIMESTUFARMERNUM=#{fulltimestufarmernum},ADULTCOLLEGESTUNUM=#{adultcollegestunum},ADULTMIDDLESTUNUM=#{adultmiddlestunum},PARTTIMEPFSEDUREGNUM=#{parttimepfseduregnum},PARTTIMESENIOREDUREGNUM=#{parttimesenioreduregnum},TRAINSOCIETYNUM=#{trainsocietynum},TRAINSTUNUM=#{trainstunum},TRAINSPECIFICGROUP=#{trainspecificgroup},TRAINSMALLCOMPANY=#{trainsmallcompany},OVERSEA=#{oversea},ABROAD=#{abroad},ADULTSTUDENT=#{adultstudent},EVENINGUNIVERSITYSTUDENT=#{eveninguniversitystudent},CORRESPONDENCESTUDENT=#{correspondencestudent},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_COLLEGEINSCHOOLSTUDENT WHERE   ID=#{id}
+</delete>
+
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_COLLEGEINSCHOOLSTUDENT WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDCollegeinschoolstudent">
+ UPDATE QAS_D_COLLEGEINSCHOOLSTUDENT 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="offnum != null">  OFFNUM = #{offnum},</if>
+<if test="edustunum != null">  EDUSTUNUM = #{edustunum},</if>
+<if test="senioredustunum != null">  SENIOREDUSTUNUM = #{senioredustunum},</if>
+<if test="hightpfsstunum != null">  HIGHTPFSSTUNUM = #{hightpfsstunum},</if>
+<if test="middlepfsstunum != null">  MIDDLEPFSSTUNUM = #{middlepfsstunum},</if>
+<if test="middleschtwoyearbehandnum != null">  MIDDLESCHTWOYEARBEHANDNUM = #{middleschtwoyearbehandnum},</if>
+<if test="othernum != null">  OTHERNUM = #{othernum},</if>
+<if test="fulltimestunum != null">  FULLTIMESTUNUM = #{fulltimestunum},</if>
+<if test="fulltimestuthreeyearbeforenum != null">  FULLTIMESTUTHREEYEARBEFORENUM = #{fulltimestuthreeyearbeforenum},</if>
+<if test="fulltimestufarmernum != null">  FULLTIMESTUFARMERNUM = #{fulltimestufarmernum},</if>
+<if test="adultcollegestunum != null">  ADULTCOLLEGESTUNUM = #{adultcollegestunum},</if>
+<if test="adultmiddlestunum != null">  ADULTMIDDLESTUNUM = #{adultmiddlestunum},</if>
+<if test="parttimepfseduregnum != null">  PARTTIMEPFSEDUREGNUM = #{parttimepfseduregnum},</if>
+<if test="parttimesenioreduregnum != null">  PARTTIMESENIOREDUREGNUM = #{parttimesenioreduregnum},</if>
+<if test="trainsocietynum != null">  TRAINSOCIETYNUM = #{trainsocietynum},</if>
+<if test="trainstunum != null">  TRAINSTUNUM = #{trainstunum},</if>
+<if test="trainspecificgroup != null">  TRAINSPECIFICGROUP = #{trainspecificgroup},</if>
+<if test="trainsmallcompany != null">  TRAINSMALLCOMPANY = #{trainsmallcompany},</if>
+<if test="oversea != null">  OVERSEA = #{oversea},</if>
+<if test="abroad != null">  ABROAD = #{abroad},</if>
+<if test="adultstudent != null">  ADULTSTUDENT = #{adultstudent},</if>
+<if test="eveninguniversitystudent != null">  EVENINGUNIVERSITYSTUDENT = #{eveninguniversitystudent},</if>
+<if test="correspondencestudent != null">  CORRESPONDENCESTUDENT = #{correspondencestudent},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_COLLEGEINSCHOOLSTUDENT config end********************************  -->
+
+</mapper>

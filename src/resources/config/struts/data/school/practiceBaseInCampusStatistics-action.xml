@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_PRACTICEBASEINCAMPUSSTATISTICS config end********************************  -->
+
+<package name="QasDPracticebaseincampusstatistics" extends="default"
+		namespace="/data/school/practiceBaseInCampusStatistics">
+		
+		<action name="queryInfo" class="qasDPracticebaseincampusstatisticsAction" method="queryInfo">
+			<result name="select">/pages/data/school/practiceBaseInCampusStatistics/QasDPracticebaseincampusstatisticsInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDPracticebaseincampusstatisticsAction" method="queryList">
+			<result name="list">/pages/data/school/practiceBaseInCampusStatistics/QasDPracticebaseincampusstatisticsList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDPracticebaseincampusstatisticsAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDPracticebaseincampusstatisticsAction" method="toEdit">
+			<result name="toEdit">/pages/data/school/practiceBaseInCampusStatistics/QasDPracticebaseincampusstatisticsEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDPracticebaseincampusstatisticsAction" method="save">
+			<result name="save" type="redirect">
+			/data/school/practiceBaseInCampusStatistics/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_PRACTICEBASEINCAMPUSSTATISTICS config end********************************  -->
+</struts>

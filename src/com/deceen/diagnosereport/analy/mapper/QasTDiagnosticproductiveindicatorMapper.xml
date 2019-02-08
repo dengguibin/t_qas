@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.diagnosereport.analy.mapper.QasTDiagnosticproductiveindicatorMapper">
+<!--  ********************************QAS_T_DIAGNOSTICPRODUCTIVEINDICATOR config begnin********************************  -->
+
+<select id="select" resultType="QasTDiagnosticproductiveindicator"> 
+ SELECT ID,DIAGNOSTICELEMENTID,INDICATORCONTENTID,INDICATORCONTENTUNIQUEID,INDICATORNAME,PRODUCTIVELEVEL,ISREACH,DIAGNOSTICSCORE,TENANTID FROM  QAS_T_DIAGNOSTICPRODUCTIVEINDICATOR 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasTDiagnosticproductiveindicator" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,DIAGNOSTICELEMENTID,INDICATORCONTENTID,INDICATORCONTENTUNIQUEID,INDICATORNAME,PRODUCTIVELEVEL,ISREACH,DIAGNOSTICSCORE,TENANTID FROM  QAS_T_DIAGNOSTICPRODUCTIVEINDICATOR 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasTDiagnosticproductiveindicator">
+ INSERT INTO QAS_T_DIAGNOSTICPRODUCTIVEINDICATOR   ( ID,DIAGNOSTICELEMENTID,INDICATORCONTENTID,INDICATORCONTENTUNIQUEID,INDICATORNAME,PRODUCTIVELEVEL,ISREACH,DIAGNOSTICSCORE,TENANTID)
+  VALUES ( #{id},#{diagnosticelementid},#{indicatorcontentid},#{indicatorcontentuniqueid},#{indicatorname},#{productivelevel},#{isreach},#{diagnosticscore},#{tenantid} )
+</insert>
+
+ <update id="update" parameterType="QasTDiagnosticproductiveindicator">
+ UPDATE QAS_T_DIAGNOSTICPRODUCTIVEINDICATOR SET  ID=#{id},DIAGNOSTICELEMENTID=#{diagnosticelementid},INDICATORCONTENTID=#{indicatorcontentid},INDICATORCONTENTUNIQUEID=#{indicatorcontentuniqueid},INDICATORNAME=#{indicatorname},PRODUCTIVELEVEL=#{productivelevel},ISREACH=#{isreach},DIAGNOSTICSCORE=#{diagnosticscore},TENANTID=#{tenantid} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_T_DIAGNOSTICPRODUCTIVEINDICATOR WHERE   ID=#{id}
+</delete>
+
+<!--动态进行更新 如果有需要请开启，否则请删除
+ <update id="updateWithDyna" parameterType="QasTDiagnosticproductiveindicator">
+ UPDATE QAS_T_DIAGNOSTICPRODUCTIVEINDICATOR 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="diagnosticelementid != null">  DIAGNOSTICELEMENTID = #{diagnosticelementid},</if>
+<if test="indicatorcontentid != null">  INDICATORCONTENTID = #{indicatorcontentid},</if>
+<if test="indicatorcontentuniqueid != null">  INDICATORCONTENTUNIQUEID = #{indicatorcontentuniqueid},</if>
+<if test="indicatorname != null">  INDICATORNAME = #{indicatorname},</if>
+<if test="productivelevel != null">  PRODUCTIVELEVEL = #{productivelevel},</if>
+<if test="isreach != null">  ISREACH = #{isreach},</if>
+<if test="diagnosticscore != null">  DIAGNOSTICSCORE = #{diagnosticscore},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+-->
+<!--  ********************************QAS_T_DIAGNOSTICPRODUCTIVEINDICATOR config end********************************  -->
+
+</mapper>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.fund.fundCostStatistics.mapper.QasDFundcoststatisticsMapper">
+<!--  ********************************QAS_D_FUNDCOSTSTATISTICS config begnin********************************  -->
+
+<select id="select" resultType="QasDFundcoststatistics"> 
+ SELECT ID,SCHOOLEXPENDITURE,LANDREQUISITION,INFRASTRUCTURECONSTRUCTION,EQUIPMENTPROCUREMENTTOTAL,TEACHINGFUNDTOTAL,TRAININGEQUIPMENT,PACTICEFEE,HIRETEACHERFEE,SPORTSFEE,OTHERSFEE,TEACHINGRESEARCHTOTAL,TEACHERCONSTRUCTIONTOTAL,TEACHERTRAININGFEE,BOOKACQUISITIONFEE,OTHERS,AMOUNTOFREPAYMENT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_FUNDCOSTSTATISTICS 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="java.util.HashMap" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,SCHOOLEXPENDITURE,LANDREQUISITION,INFRASTRUCTURECONSTRUCTION,EQUIPMENTPROCUREMENTTOTAL,TEACHINGFUNDTOTAL,TRAININGEQUIPMENT,PACTICEFEE,HIRETEACHERFEE,SPORTSFEE,OTHERSFEE,TEACHINGRESEARCHTOTAL,TEACHERCONSTRUCTIONTOTAL,TEACHERTRAININGFEE,BOOKACQUISITIONFEE,OTHERS,AMOUNTOFREPAYMENT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_FUNDCOSTSTATISTICS 
+ WHERE  1 = 1
+ 
+  <if test="minScope != null and maxScope !=null">
+	 	AND SCHOOLEXPENDITURE between #{minScope} and #{maxScope}
+  </if>
+  
+   <if test="schoolexpenditureScope != null">
+	 	AND SCHOOLEXPENDITURE >=#{schoolexpenditureScope}
+  </if>
+  
+   <if test="tenantid != null and tenantid != ''">
+	 	AND TENANTID LIKE concat('%',#{tenantid},'%')
+  </if>
+   <if test="updatedtime != null">
+	 	<![CDATA[  AND  DATE_FORMAT(UPDATEDTIME,'%Y-%m-%d')=DATE_FORMAT(#{updatedtime},'%Y-%m-%d')]]>
+  </if>
+ 
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDFundcoststatistics">
+ INSERT INTO QAS_D_FUNDCOSTSTATISTICS   ( ID,SCHOOLEXPENDITURE,LANDREQUISITION,INFRASTRUCTURECONSTRUCTION,EQUIPMENTPROCUREMENTTOTAL,TEACHINGFUNDTOTAL,TRAININGEQUIPMENT,PACTICEFEE,HIRETEACHERFEE,SPORTSFEE,OTHERSFEE,TEACHINGRESEARCHTOTAL,TEACHERCONSTRUCTIONTOTAL,TEACHERTRAININGFEE,BOOKACQUISITIONFEE,OTHERS,AMOUNTOFREPAYMENT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{schoolexpenditure},#{landrequisition},#{infrastructureconstruction},#{equipmentprocurementtotal},#{teachingfundtotal},#{trainingequipment},#{pacticefee},#{hireteacherfee},#{sportsfee},#{othersfee},#{teachingresearchtotal},#{teacherconstructiontotal},#{teachertrainingfee},#{bookacquisitionfee},#{others},#{amountofrepayment},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDFundcoststatistics">
+ UPDATE QAS_D_FUNDCOSTSTATISTICS SET  ID=#{id},SCHOOLEXPENDITURE=#{schoolexpenditure},LANDREQUISITION=#{landrequisition},INFRASTRUCTURECONSTRUCTION=#{infrastructureconstruction},EQUIPMENTPROCUREMENTTOTAL=#{equipmentprocurementtotal},TEACHINGFUNDTOTAL=#{teachingfundtotal},TRAININGEQUIPMENT=#{trainingequipment},PACTICEFEE=#{pacticefee},HIRETEACHERFEE=#{hireteacherfee},SPORTSFEE=#{sportsfee},OTHERSFEE=#{othersfee},TEACHINGRESEARCHTOTAL=#{teachingresearchtotal},TEACHERCONSTRUCTIONTOTAL=#{teacherconstructiontotal},TEACHERTRAININGFEE=#{teachertrainingfee},BOOKACQUISITIONFEE=#{bookacquisitionfee},OTHERS=#{others},AMOUNTOFREPAYMENT=#{amountofrepayment},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_FUNDCOSTSTATISTICS WHERE   ID=#{id}
+</delete>
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_FUNDCOSTSTATISTICS WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDFundcoststatistics">
+ UPDATE QAS_D_FUNDCOSTSTATISTICS 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="schoolexpenditure != null">  SCHOOLEXPENDITURE = #{schoolexpenditure},</if>
+<if test="landrequisition != null">  LANDREQUISITION = #{landrequisition},</if>
+<if test="infrastructureconstruction != null">  INFRASTRUCTURECONSTRUCTION = #{infrastructureconstruction},</if>
+<if test="equipmentprocurementtotal != null">  EQUIPMENTPROCUREMENTTOTAL = #{equipmentprocurementtotal},</if>
+<if test="teachingfundtotal != null">  TEACHINGFUNDTOTAL = #{teachingfundtotal},</if>
+<if test="trainingequipment != null">  TRAININGEQUIPMENT = #{trainingequipment},</if>
+<if test="pacticefee != null">  PACTICEFEE = #{pacticefee},</if>
+<if test="hireteacherfee != null">  HIRETEACHERFEE = #{hireteacherfee},</if>
+<if test="sportsfee != null">  SPORTSFEE = #{sportsfee},</if>
+<if test="othersfee != null">  OTHERSFEE = #{othersfee},</if>
+<if test="teachingresearchtotal != null">  TEACHINGRESEARCHTOTAL = #{teachingresearchtotal},</if>
+<if test="teacherconstructiontotal != null">  TEACHERCONSTRUCTIONTOTAL = #{teacherconstructiontotal},</if>
+<if test="teachertrainingfee != null">  TEACHERTRAININGFEE = #{teachertrainingfee},</if>
+<if test="bookacquisitionfee != null">  BOOKACQUISITIONFEE = #{bookacquisitionfee},</if>
+<if test="others != null">  OTHERS = #{others},</if>
+<if test="amountofrepayment != null">  AMOUNTOFREPAYMENT = #{amountofrepayment},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_FUNDCOSTSTATISTICS config end********************************  -->
+
+</mapper>

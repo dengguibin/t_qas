@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.diagnoseformat.task.mapper.QasTDiagnosetaskobjMapper">
+<!--  ********************************QAS_T_DIAGNOSETASKOBJ config begnin********************************  -->
+
+<select id="selectByTaskId" resultType="QasTDiagnosetaskobj"> 
+ SELECT ID,DIAGNOSETASKID,DIAGNOSEOBJID,DIAGNOSEOBJNAME,DIAGNOSEOBJIDTYPE,TENANTID,PARENTNAME  FROM  QAS_T_DIAGNOSETASKOBJ 
+ WHERE   DIAGNOSETASKID=#{taskid}
+</select>
+
+<select id="selectTasklevel" resultType="QasTDiagnosetasklevel"> 
+ SELECT Id,DiagnoseTaskId,LeftValue,RightValue,TaskLevel
+ FROM QAS_T_DiagnoseTaskLevel
+ WHERE	DiagnoseTaskId = #{taskid}
+</select>
+
+<select id="selectAlltaskObj" resultType="QasTDiagnosetaskobj"> 
+ SELECT ID,DIAGNOSETASKID,DIAGNOSEOBJID,DIAGNOSEOBJNAME,DIAGNOSEOBJIDTYPE,TENANTID,PARENTNAME  FROM  QAS_T_DIAGNOSETASKOBJ 
+</select>
+<select id="selectfind" resultType="QasTDiagnosetaskobj"> 
+ SELECT ID,DIAGNOSETASKID,DIAGNOSEOBJID,DIAGNOSEOBJNAME,DIAGNOSEOBJIDTYPE,TENANTID FROM  QAS_T_DIAGNOSETASKOBJ 
+ WHERE   DIAGNOSETASKID=#{id} <!-- AND DIAGNOSEOBJIDTYPE=#{type} -->
+</select>
+
+<select id="selectById" resultType="QasTDiagnosetaskobj"> 
+ SELECT ID,DIAGNOSETASKID,DIAGNOSEOBJID,DIAGNOSEOBJNAME,DIAGNOSEOBJIDTYPE,TENANTID FROM  QAS_T_DIAGNOSETASKOBJ 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasTDiagnosetaskobj" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,DIAGNOSETASKID,DIAGNOSEOBJID,DIAGNOSEOBJNAME,DIAGNOSEOBJIDTYPE,TENANTID FROM  QAS_T_DIAGNOSETASKOBJ 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasTDiagnosetaskobj">
+ INSERT INTO QAS_T_DIAGNOSETASKOBJ   ( ID,DIAGNOSETASKID,DIAGNOSEOBJID,DIAGNOSEOBJNAME,DIAGNOSEOBJIDTYPE,TENANTID)
+  VALUES ( #{id},#{diagnosetaskid},#{diagnoseobjid},#{diagnoseobjname},#{diagnoseobjidtype},#{tenantid} )
+</insert>
+
+ <insert id="batchInsert" parameterType="java.util.List">
+INSERT INTO QAS_T_DIAGNOSETASKOBJ   ( ID,DIAGNOSETASKID,DIAGNOSEOBJID,DIAGNOSEOBJNAME,DIAGNOSEOBJIDTYPE,TENANTID,PARENTNAME)
+  VALUES 
+  <foreach collection="list" item="d" separator=",">
+	  ( #{d.id},#{d.diagnosetaskid},#{d.diagnoseobjid},#{d.diagnoseobjname},#{d.diagnoseobjidtype},#{d.tenantid},#{d.parentName})
+  </foreach>
+</insert>
+
+ <update id="update" parameterType="QasTDiagnosetaskobj">
+ UPDATE QAS_T_DIAGNOSETASKOBJ SET  ID=#{id},DIAGNOSETASKID=#{diagnosetaskid},DIAGNOSEOBJID=#{diagnoseobjid},DIAGNOSEOBJNAME=#{diagnoseobjname},DIAGNOSEOBJIDTYPE=#{diagnoseobjidtype},TENANTID=#{tenantid} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_T_DIAGNOSETASKOBJ WHERE   DIAGNOSETASKID=#{id}
+</delete>
+
+<!-- 通过任务id去查找相关联的诊断对象（状态为已发布 1） -->
+<select id="selectByTaskIdToStatus" resultType="QasTDiagnosetaskobj"> 
+SELECT
+	t1.ID,
+	DIAGNOSETASKID,
+	DIAGNOSEOBJID,
+	DIAGNOSEOBJNAME,
+	DIAGNOSEOBJIDTYPE,
+	TENANTID,
+	PARENTNAME
+FROM
+	QAS_T_DIAGNOSETASKOBJ t1
+LEFT JOIN QAS_T_DIAGNOSETASK t2 ON t1.DIAGNOSETASKID = t2.Id
+WHERE
+	t2.PUBLISHSTATUS = 1
+AND DIAGNOSETASKID = #{taskid}
+</select>
+
+<!--动态进行更新 如果有需要请开启，否则请删除
+ <update id="updateWithDyna" parameterType="QasTDiagnosetaskobj">
+ UPDATE QAS_T_DIAGNOSETASKOBJ 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="diagnosetaskid != null">  DIAGNOSETASKID = #{diagnosetaskid},</if>
+<if test="diagnoseobjid != null">  DIAGNOSEOBJID = #{diagnoseobjid},</if>
+<if test="diagnoseobjname != null">  DIAGNOSEOBJNAME = #{diagnoseobjname},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+-->
+<!--  ********************************QAS_T_DIAGNOSETASKOBJ config end********************************  -->
+
+</mapper>

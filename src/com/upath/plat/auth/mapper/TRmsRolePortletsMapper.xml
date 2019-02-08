@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.auth.mapper.TRmsRolePortletsMapper">
+<!--  ********************************T_RMS_ROLE_PORTLETS config begnin********************************  -->
+
+<select id="select" resultType="TRmsRolePortlets"> 
+ SELECT CID,JSID,PROID,MODULEID,PXH,SFYX,CJSJ,CJR,XGSJ,XGR FROM  T_RMS_ROLE_PORTLETS 
+ WHERE   CID=#{cid}
+</select>
+
+<select id="list" parameterType="TRmsRolePortlets" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT CID,JSID,PROID,MODULEID,PXH,SFYX,CJSJ,CJR,XGSJ,XGR FROM  T_RMS_ROLE_PORTLETS 
+ WHERE  1 = 1
+  <if test="proid != null and proid != ''">
+ 	AND PROID = #{proid} 
+ </if>
+  <if test="roleList != null "> 
+ 		AND JSID IN
+	  <foreach item="state"  collection="roleList" open="(" close=")" separator="," >
+	     	 #{state.roleId}
+	   </foreach > 
+  </if>
+ 
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+<select id="queryNoPage" parameterType="TRmsRolePortlets" useCache="false"   resultType ="hashmap" >  
+ SELECT CID,JSID,PROID,MODULEID,PXH,SFYX,CJSJ,CJR,XGSJ,XGR FROM  T_RMS_ROLE_PORTLETS 
+ WHERE  1 = 1
+  <if test="proid != null and proid != ''">
+ 	AND PROID = #{proid} 
+ </if>
+  <if test="roleList != null "> 
+ 		AND JSID IN
+	  <foreach item="state"  collection="roleList" open="(" close=")" separator="," >
+	     	 #{state.roleId}
+	   </foreach > 
+  </if>
+</select>
+<select id="queryModuleId" parameterType="TRmsRolePortlets" useCache="false"   resultType ="String" >  
+ SELECT DISTINCT MODULEID FROM  T_RMS_ROLE_PORTLETS 
+ WHERE  1 = 1
+  <if test="proid != null and proid != ''">
+ 	AND PROID = #{proid} 
+ </if>
+  <if test="roleList != null "> 
+ 		AND JSID IN
+	  <foreach item="state"  collection="roleList" open="(" close=")" separator="," >
+	     	 #{state.roleId}
+	   </foreach > 
+  </if>
+</select>
+
+ <insert id="insert" parameterType="TRmsRolePortlets">
+ INSERT INTO T_RMS_ROLE_PORTLETS   ( CID,JSID,PROID,MODULEID,PXH,SFYX,CJSJ,CJR,XGSJ,XGR)
+  VALUES ( #{cid},#{jsid},#{proid},#{moduleid},#{pxh},#{sfyx},#{cjsj},#{cjr},#{xgsj},#{xgr} )
+</insert>
+
+ <update id="update" parameterType="TRmsRolePortlets">
+ UPDATE T_RMS_ROLE_PORTLETS SET  CID=#{cid},JSID=#{jsid},PROID=#{proid},MODULEID=#{moduleid},PXH=#{pxh},SFYX=#{sfyx},CJSJ=#{cjsj},CJR=#{cjr},XGSJ=#{xgsj},XGR=#{xgr} 
+ WHERE  CID=#{cid}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM T_RMS_ROLE_PORTLETS WHERE   CID=#{cid}
+</delete>
+ <delete id="deleteByProjectId">
+   DELETE FROM T_RMS_ROLE_PORTLETS WHERE   PROID=#{projectId}
+</delete>
+
+<!--动态进行更新 如果有需要请开启，否则请删除
+ <update id="updateWithDyna" parameterType="TRmsRolePortlets">
+ UPDATE T_RMS_ROLE_PORTLETS 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="cid != null">  CID = #{cid},</if>
+<if test="jsid != null">  JSID = #{jsid},</if>
+<if test="proid != null">  PROID = #{proid},</if>
+<if test="moduleid != null">  MODULEID = #{moduleid},</if>
+<if test="pxh != null">  PXH = #{pxh},</if>
+<if test="sfyx != null">  SFYX = #{sfyx},</if>
+<if test="cjsj != null">  CJSJ = #{cjsj},</if>
+<if test="cjr != null">  CJR = #{cjr},</if>
+<if test="xgsj != null">  XGSJ = #{xgsj},</if>
+<if test="xgr != null">  XGR = #{xgr},</if>
+
+ </trim>  
+ WHERE  CID=#{cid}
+</update>
+-->
+<!--  ********************************T_RMS_ROLE_PORTLETS config end********************************  -->
+
+</mapper>

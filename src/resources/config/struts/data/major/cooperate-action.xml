@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_COOPERATE config end********************************  -->
+
+<package name="QasDCooperate" extends="default"
+		namespace="/data/major/cooperate">
+		
+		<action name="queryInfo" class="qasDCooperateAction" method="queryInfo">
+			<result name="select">/pages/data/major/cooperate/QasDCooperateInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDCooperateAction" method="queryList">
+			<result name="list">/pages/data/major/cooperate/QasDCooperateList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDCooperateAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDCooperateAction" method="toEdit">
+			<result name="toEdit">/pages/data/major/cooperate/QasDCooperateEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDCooperateAction" method="save">
+			<result name="save" type="redirect">
+			/data/major/cooperate/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_COOPERATE config end********************************  -->
+</struts>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.auth.mapper.TRmsMenufuncMapper">
+<!--  ********************************T_RMS_MENUFUNC config begnin********************************  -->
+
+<select id="select" resultType="TRmsMenufunc"> 
+ SELECT FUNCID,CDID,NAME,CODE,FCNAME,URL,LX,DESCRIP,MARKS,CJSJ,CJR,XGSJ,XGR FROM  T_RMS_MENUFUNC 
+ WHERE   FUNCID=#{funcid}
+</select>
+
+<select id="list" parameterType="TRmsMenufunc" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+SELECT FUNCID,CDID,NAME,CODE,FCNAME,URL,LX,DESCRIP,MARKS,P.QXMC
+ FROM  T_RMS_MENUFUNC M INNER JOIN T_RMS_PERMISSIONSINFO P ON M.CODE = P.QXID
+ WHERE  CDID = #{cdid}
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="TRmsMenufunc">
+ INSERT INTO T_RMS_MENUFUNC   ( FUNCID,CDID,NAME,CODE,FCNAME,URL,LX,DESCRIP,MARKS,CJSJ,CJR,XGSJ,XGR)
+  VALUES ( #{funcid},#{cdid},#{name},#{code},#{fcname},#{url},#{lx},#{descrip},#{marks},#{cjsj},#{cjr},#{xgsj},#{xgr} )
+</insert>
+
+ <update id="update" parameterType="TRmsMenufunc">
+ UPDATE T_RMS_MENUFUNC SET  FUNCID=#{funcid},CDID=#{cdid},NAME=#{name},CODE=#{code},FCNAME=#{fcname},URL=#{url},LX=#{lx},DESCRIP=#{descrip},MARKS=#{marks},XGSJ=#{xgsj},XGR=#{xgr} 
+ WHERE  FUNCID=#{funcid}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM T_RMS_MENUFUNC WHERE   FUNCID=#{funcid}
+</delete>
+
+<!--  ********************************T_RMS_MENUFUNC config end********************************  -->
+
+</mapper>

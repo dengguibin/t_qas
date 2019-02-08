@@ -1,0 +1,232 @@
+
+.icon,.icon-l{
+	display: inline-block;
+	background-repeat: no-repeat;
+	-o-background-size: auto 100%; 
+	-mo-background-size: auto 100%; 
+	-moz-background-size: auto 100%; 
+	-ms-background-size: auto 100%; 
+	-webkit-background-size: auto 100%; 
+	background-size: auto 100%; 
+	-o-background-position: center center;
+	-mo-background-position: center center;
+	-moz-background-position: center center;
+	-ms-background-position: center center;
+	-webkit-background-position: center center;
+	background-position: center center;
+}
+
+/*左边菜单的图标*/
+.icon-l{
+	width: 20px;
+	height: 20px;
+	
+}
+/*展开*/
+.expand-icon{
+	background-image: url(../img/left/expand.png);
+}
+.expand-select,.expand-icon.select{
+	background-image: url(../img/left/expand-select.png);
+}
+/*指标管理*/
+.in-man-icon{
+	background-image: url(../img/left/dia-icon.png);
+}
+.in-man-select,.in-man-icon.select{
+	background-image: url(../img/left/dia-select-icon.png);
+}
+/*指标类型库*/
+.in-temp-icon{
+	background-image: url(../img/left/in-temp-icon.png);
+}
+.in-temp-select,.in-temp-icon.select{
+	background-image: url(../img/left/in-temp-select-icon.png);
+}
+/*诊断方案*/
+.d-program-icon{
+	background-image: url(../img/left/d-program-icon.png);
+}
+.d-program-select,.d-program-icon.select{
+	background-image: url(../img/left/d-program-select.png);
+}
+/*诊断模型*/
+.d-model-icon{
+	background-image: url(../img/left/d-model-icon.png);
+}
+.de-model-select,.d-model-icon.select{
+	background-image: url(../img/left/d-model-select.png);
+}
+
+/*右边图标样式*/
+.icon{
+	width: 18px;
+	height: 18px;
+}
+/*搜索框*/
+.search-icon{
+	margin: 10px;
+	background-image: url(../img/metrics/search.png);
+}
+.search-select,.search-select:hover{
+	background-image: url(../img/metrics/search-select.png);
+}
+.search-unable{
+	background-image: url(../img/metrics/search-unable.png);
+}
+/*移动模板层级*/
+.remove-index-icon{
+	background-image: url(../img/metrics/remove-index-icon.png);
+}
+.remove-index-select,.remove-index-select:hover{
+	background-image: url(../img/metrics/remove-index-select.png);
+}
+.remove-index-unable{
+	background-image: url(../img/metrics/remove-index-unable.png);
+}
+/*新建指标*/
+.add-metrics-icon{
+	background-image: url(../img/metrics/add-metrics-icon.png);
+}
+.add-metrics-select,.add-metrics-icon:hover,.add-metrics-icon.select{
+	background-image: url(../img/metrics/add-metrics-select.png);
+}
+.add-metrics-unable{
+	background-image: url(../img/metrics/add-metrics-unable.png);
+}
+/*新建层级*/
+.add-index-icon{
+	background-image: url(../img/metrics/add-index.png);
+}
+.add-index-select,.add-index-icon:hover,.add-index-icon.select{
+	background-image: url(../img/metrics/add-index-select.png);
+}
+.add-index-unable{
+	background-image: url(../img/metrics/add-index-unable.png);
+}
+/*删除*/
+.delete-icon{
+	background-image: url(../img/metrics/delete.png);
+}
+.delete-select,.delete-icon:hover,.delete-icon.select{
+	background-image: url(../img/metrics/delete-select.png);
+}
+.delete-unable{
+	background-image: url(../img/metrics/delete-unable.png);
+}
+
+/*排序*/
+.sort-icon{
+	background-image: url(../img/metrics/sort-icon.png);
+}
+.sort-select,.sort-icon:hover,.sort-icon.select{
+	background-image: url(../img/metrics/sort-select.png);
+}
+/*返回*/
+.return-icon{
+	background-image: url(../img/metrics/return-icon.png);
+}
+/*警告 消息*/
+.warn-icon{
+	background-image: url(../img/header/warn.png);
+}
+.warn-icon:hover,.warn-icon.select,.warn-select{
+	background-image: url(../img/header/warn-hover.png);
+}
+/*通知 */
+.msg-icon{
+	background-image: url(../img/header/msg.png);
+}
+.msg-select,.msg-icon.select,.msg-icon:hover{
+	background-image: url(../img/header/msg-hover.png);
+}
+
+/*诊断对象输入框的图标*/
+.dia-obj{
+	background-image: url(../img/diagnostic/obj-icon.png);
+}
+/*单机版导入*/
+.import{
+	background-image: url(../img/fillData/import.png);
+}
+
+/*必须*/
+.must{
+	/*display: inline-block;*/
+	width: 10px;
+	height: 10px;
+	background-image: url(../img/metrics/required.png);
+	-o-background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	-mo-background-size: 100% 100%;
+	-ms-background-size: 100% 100%;
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+}
+
+
+/*z----------- 诊断分析 ---------------*/
+/*总体概述*/
+.general-icon{
+	background-image: url(../img/analy/general-icon.png);
+}
+.general-icon.select,.general-select{
+	background-image: url(../img/analy/general-select.png);
+}
+/*专业建设规划*/
+.profession-icon{
+	background-image: url(../img/analy/profession-icon.png);
+}
+.profession-icon.select,.profession-select{
+	background-image: url(../img/analy/profession-select.png);
+}
+/*教育教学*/
+.educate-icon{
+	background-image: url(../img/analy/educate-icon.png);
+}
+.educate-icon.select,.educate-select{
+	background-image: url(../img/analy/educate-select.png);
+}
+/*学生成长与发展*/
+.student-icon{
+	background-image: url(../img/analy/student-icon.png);
+}
+.student-icon.select,.student-select{
+	background-image: url(../img/analy/student-select.png);
+}
+/*师资建设*/
+.teacher-icon{
+	background-image: url(../img/analy/teacher-icon.png);
+}
+.teacher-icon.select,.teacher-select{
+	background-image: url(../img/analy/teacher-select.png);
+}
+/*对外交流与合作*/
+.foreign-icon{
+	background-image: url(../img/analy/foreign-icon.png);
+}
+.foreign-icon.select,.foreign-select{
+	background-image: url(../img/analy/foreign-select.png);
+}
+/*教学资源*/
+.resources-icon{
+	background-image: url(../img/analy/resources-icon.png);
+}
+.resources-icon.select,.resources-select{
+	background-image: url(../img/analy/resources-select.png);
+}
+/*科研与社会服务*/
+.research-icon{
+	background-image: url(../img/analy/research-icon.png);
+}
+.research-icon.select,.research-select{
+	background-image: url(../img/analy/research-select.png);
+}
+/*导出报告*/
+.export-icon{
+	background-image: url(../img/analy/export-icon.png);
+}
+/*注释 问号*/
+.comment-icon{
+	background-image: url(../img/analy/comment-icon.png);
+}

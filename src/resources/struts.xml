@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+        "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.devMode" value="false" /><!-- true 启用调试 -->
+	<constant name="struts.locale" value="zh_CN" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+  <!-- 告诉struts2，我要用spring装配工厂，其实默认就是这个了-_-!!! -->
+  <constant name="struts.objectFactory" value="spring" />
+  <constant name="struts.objectFactory.spring.autoWire" value="name" />
+  <constant name="struts.multipart.saveDir" value="/temp"/>
+  <constant name="struts.multipart.maxSize" value="2147483647"/>
+  <!-- 
+  	基于注解的方式来配置使用 action 
+ 	<constant name="struts.convention.package.locators" value="" /> 
+	<constant name="struts.convention.package.locators.basePackage" value="" /> 
+   -->
+  <!-- struts2的扩展名，比如struts1的时候，用的.do,struts2默认为.action，可以改成其它的，比如.dxd -->
+    <constant name="struts.action.extension" value="action" />
+ 	<!-- 允许动态引用 方法 -->
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    
+    <!-- 主题设置 -->
+    <constant name="struts.ui.theme" value="simple" />
+    <constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+    
+    <!-- 注入模板管理器
+    <bean class="com.upath.plat.common.taglib.QueryBean"></bean>
+ -->
+  <!-- 所有的action 都必须继续基础包的功能  此块功能直接影响 到系统管理的操作 -->
+    <package name="default" extends="struts-default" namespace="/">
+    		<interceptors>
+    			<interceptor name="webInterceptor" class="com.upath.plat.common.filter.WebActionInterceptor"></interceptor>
+    			<!-- 任意以save开始的方法将都会被要求进行令牌控制 -->
+    			<interceptor-stack name="webStack">
+    				<interceptor-ref name="defaultStack"/>
+    				 <interceptor-ref name="token">
+					  <param name="includeMethods">save*</param>
+					 </interceptor-ref>
+    				<interceptor-ref name="webInterceptor"/>
+    			</interceptor-stack>
+    			<!-- 重新定义一个椎绽栈解决AJAX保存问题 
+    			主要解决AJAX进行保存提交 的一些问题
+    			目前主要在菜单权限管理中进行使用到
+    			-->
+    			<interceptor-stack name="webStackSaveToken">
+    				<interceptor-ref name="defaultStack"/>
+    				 <interceptor-ref name="token">
+					  <param name="includeMethods">save</param>
+					 </interceptor-ref>
+    				<interceptor-ref name="webInterceptor"/>
+    			</interceptor-stack>
+    		</interceptors>
+    		<default-interceptor-ref name="webStack"/>
+    		<global-results>
+    			<result name="exception">/pages/plat/common/exception.jsp</result>
+    			<result name="saveOK">/pages/plat/common/success.jsp</result>
+    			<result name="menuTags">/pages/plat/frame/menuTags.jsp</result>
+    		</global-results>
+    		<global-exception-mappings>
+    			<exception-mapping result="exception" exception="java.lang.Exception"></exception-mapping>
+    		</global-exception-mappings>
+    </package>
+  
+   
+    <!-- UPATH 管理 平台所配置的文件信息  -->
+     <include file="config/struts/**/*-action.xml"></include>
+   
+</struts>
+
+

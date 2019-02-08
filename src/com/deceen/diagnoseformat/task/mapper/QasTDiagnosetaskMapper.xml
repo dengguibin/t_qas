@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.diagnoseformat.task.mapper.QasTDiagnosetaskMapper">
+<!--  ********************************QAS_T_DIAGNOSETASK config begnin********************************  -->
+
+<select id="select" resultType="QasTDiagnosetask"> 
+ SELECT ID,PID,SCHEMEID,ROLEID,TASKNAME,STARTTIME,ENDTIME,FREQUENCY,PUBLISHTIME,PUBLISHSTATUS,ISMAJOR,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME
+ FROM QAS_T_DIAGNOSETASK 
+ WHERE ID=#{id}
+</select>
+
+<select id="listAll" parameterType="QasTDiagnosetask" useCache="false"   resultType ="QasDMajor" >  
+	<!-- 国家 -->
+	<if test="rangeType == 1"></if>
+	
+	<!-- 省级 -->
+	<if test="rangeType == 2"></if>
+	
+	<!-- 市级 -->
+	<if test="rangeType == 3"></if>
+	
+	<!-- 学校 -->
+	<if test="rangeType == 4"></if>
+	
+	<!-- 学院 -->
+	<if test="rangeType == 5">
+		SELECT DISTINCT * FROM (
+			SELECT 'U' TYPE,D.BMMC MAJORNAME,D.BMID ID,D.FBMID ORGANIZATIONID,
+				CASE WHEN O.ID IS NULL THEN 'FALSE' ELSE 'TRUE' END AS CHECKED,'' AS UNIT_TYPE 
+			FROM T_RMS_DEPTMENT D 
+			LEFT JOIN QAS_T_DIAGNOSETASKOBJ O ON D.BMID = O.DIAGNOSEOBJID 
+				<if test="id !=null">AND O.DIAGNOSETASKID = #{id}</if>
+			WHERE D.UNIT_TYPE = '2'
+			UNION ALL
+			SELECT 'D' TYPE,D.BMMC MAJORNAME,D.BMID ID,D.FBMID ORGANIZATIONID,'FALSE' AS CHECKED,UNIT_TYPE AS UNIT_TYPE 
+			FROM T_RMS_DEPTMENT D WHERE D.UNIT_TYPE = '1'
+		) Y 
+		<!-- SELECT  BMID AS ID,FBMID AS ORGANIZATIONID,BMMC AS MAJORNAME FROM T_RMS_DEPTMENT WHERE UNIT_TYPE != 3 -->
+	</if>
+	
+	<!-- 专业 -->
+	<if test="rangeType == 6">
+		SELECT DISTINCT * FROM (
+			SELECT 'D' TYPE,BMID AS ID,FBMID AS ORGANIZATIONID,BMMC AS MAJORNAME,'FALSE' AS CHECKED,UNIT_TYPE AS UNIT_TYPE 
+			FROM T_RMS_DEPTMENT WHERE UNIT_TYPE = '2'
+			UNION ALL
+			SELECT 'U' TYPE,M.ID AS ID,M.ORGANIZATIONID AS ORGANIZATIONID,M.MAJORNAME AS MAJORNAME,
+				CASE WHEN O.ID IS NULL THEN 'FALSE' ELSE 'TRUE' END AS CHECKED,'' AS UNIT_TYPE 
+			FROM QAS_D_MAJOR M
+			LEFT JOIN QAS_T_DIAGNOSETASKOBJ O ON M.ID = O.DIAGNOSEOBJID 
+				<if test="id !=null">AND O.DIAGNOSETASKID = #{id}</if>
+		) V
+	 	<!--  SELECT  BMID AS ID,FBMID AS ORGANIZATIONID,BMMC AS MAJORNAME FROM T_RMS_DEPTMENT WHERE UNIT_TYPE != 3
+	  		UNION
+	  		SELECT  ID AS ID,ORGANIZATIONID AS ORGANIZATIONID,MAJORNAME AS MAJORNAME FROM QAS_D_MAJOR -->
+	</if>
+	
+	<!-- 课程 -->
+	<if test="rangeType == 7"></if>
+	
+	<!-- 教师 -->
+	<if test="rangeType == 8"></if>
+	
+	<!-- 学生 -->
+	<if test="rangeType == 9"></if>
+	
+</select>
+
+<select id="listAllzy" parameterType="QasDMajor" useCache="false"   resultType ="hashmap" >  
+SELECT DISTINCT * FROM(
+  SELECT 'D' TYPE,BMID AS ID,FBMID AS ORGANIZATIONID,BMMC AS MAJORNAME,'FALSE' AS CHECKED,UNIT_TYPE AS UNIT_TYPE FROM T_RMS_DEPTMENT WHERE UNIT_TYPE = '2'
+  UNION ALL
+  SELECT 'U' TYPE,M.ID AS ID,M.ORGANIZATIONID AS ORGANIZATIONID,M.MAJORNAME AS MAJORNAME,CASE WHEN O.ID IS NULL THEN 'FALSE' ELSE 'TRUE' END AS CHECKED,'' AS UNIT_TYPE FROM QAS_D_MAJOR M
+  LEFT JOIN QAS_T_DIAGNOSETASKOBJ O ON M.ID = O.DIAGNOSEOBJID )V WHERE ORGANIZATIONID=#{organizationid}
+</select>
+
+<select id="list" parameterType="QasTDiagnosetask" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ 	SELECT DT.ID,DT.TASKNAME,DT.STARTTIME,DT.ENDTIME,DT.FREQUENCY,DT.PUBLISHTIME,DT.PUBLISHSTATUS,DT.ISMAJOR,DT.UPDATEDBY,DT.UPDATEDTIME,U.YHMC,DS.SCHEMENAME 
+	FROM QAS_T_DIAGNOSETASK DT
+	LEFT JOIN T_RMS_USER U ON U.YHID=DT.UPDATEDBY
+	LEFT JOIN QAS_T_DIAGNOSESCHEME DS ON DS.ID = DT.SCHEMEID
+	WHERE  1 = 1 
+	
+	<if test="roleid != null and roleid != ''">
+ 	AND DT.ROLEID LIKE CONCAT(CONCAT('%',#{roleid}),'%') 
+ 	</if>
+  <if test="taskname != null and taskname != ''">
+ 	AND taskname LIKE CONCAT(CONCAT('%',#{taskname}),'%')
+ </if>
+ <if test="publishstatus != null">
+ 	AND DT.PUBLISHSTATUS=#{publishstatus}
+ </if>
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+ 	ORDER BY DT.UPDATEDTIME DESC
+</select>
+
+<insert id="insert" parameterType="QasTDiagnosetask">
+ INSERT INTO QAS_T_DIAGNOSETASK (ID,PID,SCHEMEID,ROLEID,TASKNAME,STARTTIME,ENDTIME,FREQUENCY,PUBLISHTIME,PUBLISHSTATUS,ISMAJOR,CREATEDBY,CREATEDTIME)
+  VALUES (#{id},#{pid},#{schemeid},#{roleid},#{taskname},#{starttime},#{endtime},#{frequency},#{publishtime},#{publishstatus},#{ismajor},#{createdby},#{createdtime})
+</insert>
+
+<delete id="delete">
+   DELETE FROM QAS_T_DIAGNOSETASK WHERE   ID=#{id}
+</delete>
+
+<!--动态进行更新-->
+<update id="updateWithDyna" parameterType="QasTDiagnosetask">
+ UPDATE QAS_T_DIAGNOSETASK 
+ <trim prefix="SET" suffixOverrides=",">
+	<if test="id != null">  ID = #{id},</if>
+	<if test="pid != null">  PID = #{pid},</if>
+	<if test="schemeid != null">  SCHEMEID = #{schemeid},</if>
+	<if test="roleid != null">  ROLEID = #{roleid},</if>
+	<if test="taskname != null and taskname != ''">  TASKNAME = #{taskname},</if>
+	<if test="starttime != null">  STARTTIME = #{starttime},</if>
+	<if test="endtime != null">  ENDTIME = #{endtime},</if>
+	<if test="frequency != null">  FREQUENCY = #{frequency},</if>
+	<if test="publishtime != null">  PUBLISHTIME = #{publishtime},</if>
+	<if test="publishstatus != null">  PUBLISHSTATUS = #{publishstatus},</if>
+	<if test="ismajor != null">  ISMAJOR = #{ismajor},</if>
+	<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+	<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<select id="selectPublishTask" parameterType="QasTDiagnosetask"  resultType="QasTDiagnosetask">
+select * from
+(select DISTINCT a.id AS ID,a.PID,a.SCHEMEID,a.ROLEID,a.TASKNAME,max(b.DiagnoseDataTime) DiagnoseDataTime,
+a.STARTTIME,a.ENDTIME,a.FREQUENCY,a.PUBLISHTIME,a.PUBLISHSTATUS
+from QAS_T_DIAGNOSETASK a,QAS_T_DiagnosticReport b where a.id=b.DIAGNOSETASKID and a.PUBLISHSTATUS=#{publishstatus}
+group by a.id
+order by DiagnoseDataTime desc) t1 
+union 
+select * from
+(select  DISTINCT a.id AS ID,a.PID,a.SCHEMEID,a.ROLEID,a.TASKNAME,null,a.STARTTIME,a.ENDTIME,a.FREQUENCY,a.PUBLISHTIME,a.PUBLISHSTATUS
+ from QAS_T_DIAGNOSETASK a WHERE a.PUBLISHSTATUS=#{publishstatus}
+ and a.id not in (select DIAGNOSETASKID from QAS_T_DiagnosticReport b where b.DIAGNOSETASKID=a.id)
+ order by a.PublishTime desc) t2;
+</select>
+
+<!--修改任务状态-->
+<update id="updateStatus" parameterType="Map">
+UPDATE QAS_T_DIAGNOSETASK SET PUBLISHSTATUS = #{status} 
+WHERE ID =#{id}
+</update>
+
+
+<!--  ********************************QAS_T_DIAGNOSETASK config end********************************  -->
+
+</mapper>

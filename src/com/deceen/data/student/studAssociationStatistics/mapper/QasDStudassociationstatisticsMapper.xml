@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.student.studAssociationStatistics.mapper.QasDStudassociationstatisticsMapper">
+<!--  ********************************QAS_D_STUDASSOCIATIONSTATISTICS config begnin********************************  -->
+
+<select id="select" resultType="QasDStudassociationstatistics"> 
+ SELECT ID,COMMUNITYID,ACTIVITYCOUNT,PARTICIPANTINACTIVITY,MEMBERTOTAL,EMPLOYEEMEMBERNUM,STUDENTMEMBERNUM,DUENUM,HANDINNUM,REMAINNUM,ACTIVITYFUND,ACTIVITYDUE,ACTIVITYFUNDFROMSCHOOL,ACTIVITYREMAIN,ACTIVITYOTHERS,DONATIONTOTAL,DONATIONHANDIN,DONATIONREMAIN,TRAININGTOTAL,TRAININGCERTCOUNT,HEMATOPOIETICSTEMCELLCOUNT,HEMATOPOIETICSTEMCELLPAIR,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_STUDASSOCIATIONSTATISTICS 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDStudassociationstatistics" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,COMMUNITYID,ACTIVITYCOUNT,PARTICIPANTINACTIVITY,MEMBERTOTAL,EMPLOYEEMEMBERNUM,STUDENTMEMBERNUM,DUENUM,HANDINNUM,REMAINNUM,ACTIVITYFUND,ACTIVITYDUE,ACTIVITYFUNDFROMSCHOOL,ACTIVITYREMAIN,ACTIVITYOTHERS,DONATIONTOTAL,DONATIONHANDIN,DONATIONREMAIN,TRAININGTOTAL,TRAININGCERTCOUNT,HEMATOPOIETICSTEMCELLCOUNT,HEMATOPOIETICSTEMCELLPAIR,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_STUDASSOCIATIONSTATISTICS 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDStudassociationstatistics">
+ INSERT INTO QAS_D_STUDASSOCIATIONSTATISTICS   ( ID,COMMUNITYID,ACTIVITYCOUNT,PARTICIPANTINACTIVITY,MEMBERTOTAL,EMPLOYEEMEMBERNUM,STUDENTMEMBERNUM,DUENUM,HANDINNUM,REMAINNUM,ACTIVITYFUND,ACTIVITYDUE,ACTIVITYFUNDFROMSCHOOL,ACTIVITYREMAIN,ACTIVITYOTHERS,DONATIONTOTAL,DONATIONHANDIN,DONATIONREMAIN,TRAININGTOTAL,TRAININGCERTCOUNT,HEMATOPOIETICSTEMCELLCOUNT,HEMATOPOIETICSTEMCELLPAIR,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{communityid},#{activitycount},#{participantinactivity},#{membertotal},#{employeemembernum},#{studentmembernum},#{duenum},#{handinnum},#{remainnum},#{activityfund},#{activitydue},#{activityfundfromschool},#{activityremain},#{activityothers},#{donationtotal},#{donationhandin},#{donationremain},#{trainingtotal},#{trainingcertcount},#{hematopoieticstemcellcount},#{hematopoieticstemcellpair},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDStudassociationstatistics">
+ UPDATE QAS_D_STUDASSOCIATIONSTATISTICS SET  ID=#{id},COMMUNITYID=#{communityid},ACTIVITYCOUNT=#{activitycount},PARTICIPANTINACTIVITY=#{participantinactivity},MEMBERTOTAL=#{membertotal},EMPLOYEEMEMBERNUM=#{employeemembernum},STUDENTMEMBERNUM=#{studentmembernum},DUENUM=#{duenum},HANDINNUM=#{handinnum},REMAINNUM=#{remainnum},ACTIVITYFUND=#{activityfund},ACTIVITYDUE=#{activitydue},ACTIVITYFUNDFROMSCHOOL=#{activityfundfromschool},ACTIVITYREMAIN=#{activityremain},ACTIVITYOTHERS=#{activityothers},DONATIONTOTAL=#{donationtotal},DONATIONHANDIN=#{donationhandin},DONATIONREMAIN=#{donationremain},TRAININGTOTAL=#{trainingtotal},TRAININGCERTCOUNT=#{trainingcertcount},HEMATOPOIETICSTEMCELLCOUNT=#{hematopoieticstemcellcount},HEMATOPOIETICSTEMCELLPAIR=#{hematopoieticstemcellpair},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_STUDASSOCIATIONSTATISTICS WHERE   ID=#{id}
+</delete>
+
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_STUDASSOCIATIONSTATISTICS WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDStudassociationstatistics">
+ UPDATE QAS_D_STUDASSOCIATIONSTATISTICS 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="communityid != null">  COMMUNITYID = #{communityid},</if>
+<if test="activitycount != null">  ACTIVITYCOUNT = #{activitycount},</if>
+<if test="participantinactivity != null">  PARTICIPANTINACTIVITY = #{participantinactivity},</if>
+<if test="membertotal != null">  MEMBERTOTAL = #{membertotal},</if>
+<if test="employeemembernum != null">  EMPLOYEEMEMBERNUM = #{employeemembernum},</if>
+<if test="studentmembernum != null">  STUDENTMEMBERNUM = #{studentmembernum},</if>
+<if test="duenum != null">  DUENUM = #{duenum},</if>
+<if test="handinnum != null">  HANDINNUM = #{handinnum},</if>
+<if test="remainnum != null">  REMAINNUM = #{remainnum},</if>
+<if test="activityfund != null">  ACTIVITYFUND = #{activityfund},</if>
+<if test="activitydue != null">  ACTIVITYDUE = #{activitydue},</if>
+<if test="activityfundfromschool != null">  ACTIVITYFUNDFROMSCHOOL = #{activityfundfromschool},</if>
+<if test="activityremain != null">  ACTIVITYREMAIN = #{activityremain},</if>
+<if test="activityothers != null">  ACTIVITYOTHERS = #{activityothers},</if>
+<if test="donationtotal != null">  DONATIONTOTAL = #{donationtotal},</if>
+<if test="donationhandin != null">  DONATIONHANDIN = #{donationhandin},</if>
+<if test="donationremain != null">  DONATIONREMAIN = #{donationremain},</if>
+<if test="trainingtotal != null">  TRAININGTOTAL = #{trainingtotal},</if>
+<if test="trainingcertcount != null">  TRAININGCERTCOUNT = #{trainingcertcount},</if>
+<if test="hematopoieticstemcellcount != null">  HEMATOPOIETICSTEMCELLCOUNT = #{hematopoieticstemcellcount},</if>
+<if test="hematopoieticstemcellpair != null">  HEMATOPOIETICSTEMCELLPAIR = #{hematopoieticstemcellpair},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_STUDASSOCIATIONSTATISTICS config end********************************  -->
+
+</mapper>

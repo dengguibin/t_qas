@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.diagnoseformat.task.mapper.QasTDiagnosetaskdatesMapper">
+<!--  ********************************QAS_T_DIAGNOSETASKDATES config begnin********************************  -->
+
+<select id="select" resultType="QasTDiagnosetaskdates"> 
+ SELECT ID,DIAGNOSETASKID,DIAGNOSESTATUS,EXECUTEDATE,DIAGNOSEFORTIME,TENANTID FROM  QAS_T_DIAGNOSETASKDATES 
+ WHERE   DIAGNOSETASKID=#{id}
+</select>
+
+<select id="list" parameterType="QasTDiagnosetaskdates" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,DIAGNOSETASKID,DIAGNOSESTATUS,EXECUTEDATE,DIAGNOSEFORTIME,TENANTID FROM  QAS_T_DIAGNOSETASKDATES 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasTDiagnosetaskdates">
+ INSERT INTO QAS_T_DIAGNOSETASKDATES   ( ID,DIAGNOSETASKID,DIAGNOSESTATUS,EXECUTEDATE,DIAGNOSEFORTIME,TENANTID)
+  VALUES ( #{id},#{diagnosetaskid},#{diagnosestatus},#{executedate},#{diagnosefortime},#{tenantid} )
+</insert>
+
+ <update id="update" parameterType="QasTDiagnosetaskdates">
+ UPDATE QAS_T_DIAGNOSETASKDATES SET  ID=#{id},DIAGNOSETASKID=#{diagnosetaskid},DIAGNOSESTATUS=#{diagnosestatus},EXECUTEDATE=#{executedate},DIAGNOSEFORTIME=#{diagnosefortime},TENANTID=#{tenantid} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_T_DIAGNOSETASKDATES WHERE   ID=#{id}
+</delete>
+
+
+ <update id="updateWithDyna" parameterType="QasTDiagnosetaskdates">
+ UPDATE QAS_T_DIAGNOSETASKDATES 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="diagnosetaskid != null">  DIAGNOSETASKID = #{diagnosetaskid},</if>
+<if test="diagnosestatus != null">  DIAGNOSESTATUS = #{diagnosestatus},</if>
+<if test="executedate != null">  EXECUTEDATE = #{executedate},</if>
+<if test="diagnosefortime != null">  DIAGNOSEFORTIME = #{diagnosefortime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_T_DIAGNOSETASKDATES config end********************************  -->
+
+</mapper>

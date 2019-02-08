@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_ROOMS config end********************************  -->
+
+<package name="QasDRooms" extends="default"
+		namespace="/data/school/rooms">
+		
+		<action name="queryInfo" class="qasDRoomsAction" method="queryInfo">
+			<result name="select">/pages/data/school/rooms/QasDRoomsInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDRoomsAction" method="queryList">
+			<result name="list">/pages/data/school/rooms/QasDRoomsList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDRoomsAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDRoomsAction" method="toEdit">
+			<result name="toEdit">/pages/data/school/rooms/QasDRoomsEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDRoomsAction" method="save">
+			<result name="save" type="redirect">
+			/data/school/rooms/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_ROOMS config end********************************  -->
+</struts>

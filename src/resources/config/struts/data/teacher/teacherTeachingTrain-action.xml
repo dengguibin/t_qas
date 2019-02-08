@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_TEACHERTEACHINGTRAIN config end********************************  -->
+
+<package name="QasDTeacherteachingtrain" extends="default"
+		namespace="/data/teacher/teacherTeachingTrain">
+		
+		<action name="queryInfo" class="qasDTeacherteachingtrainAction" method="queryInfo">
+			<result name="select">/pages/data/teacher/teacherTeachingTrain/QasDTeacherteachingtrainInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDTeacherteachingtrainAction" method="queryList">
+			<result name="list">/pages/data/teacher/teacherTeachingTrain/QasDTeacherteachingtrainList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDTeacherteachingtrainAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDTeacherteachingtrainAction" method="toEdit">
+			<result name="toEdit">/pages/data/teacher/teacherTeachingTrain/QasDTeacherteachingtrainEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDTeacherteachingtrainAction" method="save">
+			<result name="save" type="redirect">
+			/data/teacher/teacherTeachingTrain/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_TEACHERTEACHINGTRAIN config end********************************  -->
+</struts>

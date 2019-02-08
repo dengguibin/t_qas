@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_TECHNOLOGYINNOVATIONCENTER config end********************************  -->
+
+<package name="QasDTechnologyinnovationcenter" extends="default"
+		namespace="/data/teaching/technologyinnovationcenter">
+		
+		<action name="queryInfo" class="qasDTechnologyinnovationcenterAction" method="queryInfo">
+			<result name="select">/pages/data/teaching/technologyInnovationCenter/QasDTechnologyinnovationcenterInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDTechnologyinnovationcenterAction" method="queryList">
+			<result name="list">/pages/data/teaching/technologyInnovationCenter/QasDTechnologyinnovationcenterList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDTechnologyinnovationcenterAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDTechnologyinnovationcenterAction" method="toEdit">
+			<result name="toEdit">/pages/data/teaching/technologyInnovationCenter/QasDTechnologyinnovationcenterEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDTechnologyinnovationcenterAction" method="save">
+			<result name="save" type="redirect">
+			/data/teaching/technologyinnovationcenter/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_TECHNOLOGYINNOVATIONCENTER config end********************************  -->
+</struts>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.system.majordirection.mapper.QasDMajordirectionMapper">
+<!--  ********************************QAS_D_MAJORDIRECTION config begnin********************************  -->
+
+<select id="select" resultType="QasDMajordirection"> 
+ SELECT ID,MAJORID,DIRECTIONCODE,DIRECTIONNAME,SETUPDATE,FIRSTRECRUITDATE,STUDYDURATION,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_MAJORDIRECTION 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDMajordirection" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,MAJORID,DIRECTIONCODE,DIRECTIONNAME,SETUPDATE,FIRSTRECRUITDATE,STUDYDURATION,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_MAJORDIRECTION 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDMajordirection">
+ INSERT INTO QAS_D_MAJORDIRECTION   ( ID,MAJORID,DIRECTIONCODE,DIRECTIONNAME,SETUPDATE,FIRSTRECRUITDATE,STUDYDURATION,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{majorid},#{directioncode},#{directionname},#{setupdate},#{firstrecruitdate},#{studyduration},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDMajordirection">
+ UPDATE QAS_D_MAJORDIRECTION SET  ID=#{id},MAJORID=#{majorid},DIRECTIONCODE=#{directioncode},DIRECTIONNAME=#{directionname},SETUPDATE=#{setupdate},FIRSTRECRUITDATE=#{firstrecruitdate},STUDYDURATION=#{studyduration},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_MAJORDIRECTION WHERE   ID=#{id}
+</delete>
+
+
+ <update id="updateWithDyna" parameterType="QasDMajordirection">
+ UPDATE QAS_D_MAJORDIRECTION 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="majorid != null">  MAJORID = #{majorid},</if>
+<if test="directioncode != null">  DIRECTIONCODE = #{directioncode},</if>
+<if test="directionname != null">  DIRECTIONNAME = #{directionname},</if>
+<if test="setupdate != null">  SETUPDATE = #{setupdate},</if>
+<if test="firstrecruitdate != null">  FIRSTRECRUITDATE = #{firstrecruitdate},</if>
+<if test="studyduration != null">  STUDYDURATION = #{studyduration},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_MAJORDIRECTION config end********************************  -->
+
+</mapper>

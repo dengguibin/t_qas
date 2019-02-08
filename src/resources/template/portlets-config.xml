@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<elink>
+    <description>门户的方案展示定义信息</description>
+    <version>1.0.0</version>
+	<modules>
+		<!-- 
+			规定在每个style里面定义height高度。否则在每个div跨行的时候会出现div重叠问题
+		
+		 -->
+		<!-- <module id="aqjcpf1">
+			<title><![CDATA[最新事件]]></title>模块的标题，允许使用 HTML
+			<method>AJAX</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/datas/portlets/queryEventList.action]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="aqjcpf2">
+			<title><![CDATA[本单位最新事件]]></title>模块的标题，允许使用 HTML
+			<method>AJAX</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/datas/portlets/queryDeptEventList.action]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="aqjcpf3">
+			<title><![CDATA[本单位漏洞]]></title>模块的标题，允许使用 HTML
+			<method>AJAX</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/datas/portlets/queryDeptLeakList.action]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="aqjcpf4">
+			<title><![CDATA[最新漏洞]]></title>模块的标题，允许使用 HTML
+			<method>AJAX</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/datas/portlets/queryLeakList.action]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="aqjcpf5">
+			<title><![CDATA[事件告警态势]]></title>模块的标题，允许使用 HTML
+			<method>INCLUDE</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/pages/analysis/portlets/includeController.jsp?methodName=queryGJEventSum]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="aqjcpf6">
+			<title><![CDATA[本单位事件告警态势]]></title>模块的标题，允许使用 HTML
+			<method>INCLUDE</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/pages/analysis/portlets/includeController.jsp?methodName=queryDeptGJEventSum]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="aqjcpf7">
+			<title><![CDATA[事件单位排名]]></title>模块的标题，允许使用 HTML
+			<method>INCLUDE</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/pages/analysis/portlets/includeController.jsp?methodName=deptEventSort]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="aqjcpf8">
+			<title><![CDATA[漏洞告警态势]]></title>模块的标题，允许使用 HTML
+			<method>INCLUDE</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/pages/analysis/portlets/includeController.jsp?methodName=queryGJLeakSum]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="aqjcpf9">
+			<title><![CDATA[本单位漏洞告警态势]]></title>模块的标题，允许使用 HTML
+			<method>INCLUDE</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/pages/analysis/portlets/includeController.jsp?methodName=queryDeptGJLeakSum]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="aqjcpf10">
+			<title><![CDATA[漏洞单位排名]]></title>模块的标题，允许使用 HTML
+			<method>INCLUDE</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/pages/analysis/portlets/includeController.jsp?methodName=deptLeakSort]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="aqjcpf11">
+			<title><![CDATA[告警事件前五排名]]></title>模块的标题，允许使用 HTML
+			<method>INCLUDE</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/pages/analysis/portlets/includeController.jsp?methodName=queryEventGJSubType]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="aqjcpf12">
+			<title><![CDATA[告警漏洞前五排名]]></title>模块的标题，允许使用 HTML
+			<method>INCLUDE</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/pages/analysis/portlets/includeController.jsp?methodName=queryLeakGJType]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="aqjcpf13">
+			<title><![CDATA[资产整体概述]]></title>模块的标题，允许使用 HTML
+			<method>INCLUDE</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/pages/analysis/portlets/showtable.jsp?methodName=queryTypeList]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="aqjcpf14">
+			<title><![CDATA[本单位资产整体概述]]></title>模块的标题，允许使用 HTML
+			<method>INCLUDE</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/pages/analysis/portlets/showtable.jsp?methodName=queryDeptTypeList]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="aqjcpf15">
+			<title><![CDATA[业务系统安全等级统计]]></title>模块的标题，允许使用 HTML
+			<method>INCLUDE</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/pages/analysis/portlets/includeController.jsp?methodName=querySystemList]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="aqjcpf16">
+			<title><![CDATA[本单位业务系统安全等级统计]]></title>模块的标题，允许使用 HTML
+			<method>INCLUDE</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/pages/analysis/portlets/includeController.jsp?methodName=queryDeptSystemList]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="aqjcpf17">
+			<title><![CDATA[安全漏洞信息]]></title>模块的标题，允许使用 HTML
+			<method>AJAX</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/datas/portlets/queryNewestLeakList.action]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="aqjcpf18">
+			<title><![CDATA[安全报告查看]]></title>模块的标题，允许使用 HTML
+			<method>AJAX</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/datas/portlets/queryDeptNewestReportList.action]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="asset1">
+			<title><![CDATA[当前待确认资产]]></title>模块的标题，允许使用 HTML
+			<method>INCLUDE</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/pages/analysis/portlets/includeController.jsp?methodName=queryConfirmAsset]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="asset2">
+			<title><![CDATA[本单位当前待确认资产]]></title>模块的标题，允许使用 HTML
+			<method>INCLUDE</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/pages/analysis/portlets/includeController.jsp?methodName=queryDeptConfirmAsset]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="asset3">
+			<title><![CDATA[资产国产化情况]]></title>模块的标题，允许使用 HTML
+			<method>INCLUDE</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/pages/analysis/portlets/includeController.jsp?methodName=queryChinaAsset]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="asset4">
+			<title><![CDATA[本单位资产国产化情况]]></title>模块的标题，允许使用 HTML
+			<method>INCLUDE</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/pages/analysis/portlets/includeController.jsp?methodName=queryDeptChinaAsset]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="asset5">
+			<title><![CDATA[资产总体状况]]></title>模块的标题，允许使用 HTML
+			<method>INCLUDE</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/pages/analysis/portlets/includeController.jsp?methodName=queryTypeAsset]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="asset6">
+			<title><![CDATA[本单位资产总体状况]]></title>模块的标题，允许使用 HTML
+			<method>INCLUDE</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/pages/analysis/portlets/includeController.jsp?methodName=queryDeptTypeAsset]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="asset7">
+			<title><![CDATA[各单位业务系统数量TOP10]]></title>模块的标题，允许使用 HTML
+			<method>INCLUDE</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/pages/analysis/portlets/includeController.jsp?methodName=queryDeptSystemNum]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="asset8">
+			<title><![CDATA[各单位资产数量TOP10]]></title>模块的标题，允许使用 HTML
+			<method>INCLUDE</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/pages/analysis/portlets/includeController.jsp?methodName=listDeptAssetNum]]></url>模块的连接地址
+			<style><![CDATA[height:237px]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复
+		<module id="service1">
+			<title><![CDATA[我的知识信息]]></title>模块的标题，允许使用 HTML
+			<method>INCLUDE</method>模块的加载方式[AJAX,INCLUDE]
+			<url><![CDATA[/pages/analysis/portlets/includeController.jsp?methodName=queryMyResourceList]]></url>模块的连接地址
+			<style><![CDATA[]]></style>模块DIV的样式
+			<author></author>模块编写人
+			<description></description>
+		</module>定义一个模块 ，ID不允许重复 -->
+	</modules>
+	<portlets>
+		<!-- 
+		movable :boolean[true]   是否可移动  默认为 可以拖动
+		closed  :boolean[true]   是否可关闭 ，默认可以关闭
+		show    :boolean[true]   默认是否加载 显示，默认是显示
+		
+		<project name="系统首页" id="home"  >
+		    <column id="column1" style="width:50%">
+		    	<row id="rowId1" ref="aqjcpf1" movable="true" closed="true" show="true" />
+		    	<row id="rowId2" ref="aqjcpf2"/>
+		    </column >
+		    <column id="column2" style="width:50%" >
+		    	<row  id="rowId3" ref="aqjcpf3"/>
+		    	<row  id="rowId4"  ref="aqjcpf4"/>
+		    </column>
+		</project>
+			
+			
+			
+		
+		 -->
+		<project name="系统首页" id="page2">
+		    <column  id="column1" style="width:30%">
+		    	<row id="rowId1" ref="aqjcpf1" movable="false" closed="false" show="true" />
+		    	<row  id="rowId2" ref="aqjcpf2"/>
+		    	<row id="rowId3" ref="aqjcpf3"/>
+		    	<row id="rowId4"  ref="aqjcpf4"/>
+		    	<row  id="rowId5" ref="aqjcpf5" movable="false" closed="false" show="true" />
+		    	<row  id="rowId6" ref="aqjcpf6"/>
+		    </column>
+		    <column  id="column2" style="width:40%" >
+		    	<row id="rowId7" ref="aqjcpf7" movable="true" closed="false" show="true" />
+		    	<row  id="rowId8" ref="aqjcpf8"/>
+		    	<row id="rowId9" ref="aqjcpf9"/>
+		    	<row id="rowId10"  ref="aqjcpf10"/>
+		    	<row  id="rowId11" ref="aqjcpf11" movable="true" closed="false" show="true" />
+		    	<row  id="rowId12" ref="aqjcpf12"/>
+		    </column>
+		    <column  id="column3" style="width:30%">
+		   		<row id="rowId13" ref="aqjcpf13"/>
+		    	<row id="rowId14"  ref="aqjcpf14"/>
+		    	<row  id="rowId19" ref="service1" movable="true" closed="false" show="true" />
+		    	<row  id="rowId15" ref="aqjcpf15" movable="true" closed="false" show="true" />
+		    	<row  id="rowId16" ref="aqjcpf16"/>
+		    	<row  id="rowId17" ref="aqjcpf17"/>
+		    	<row  id="rowId18" ref="aqjcpf18"/>
+		    </column>
+		</project>
+		<project name="资产模块首页" id="assethome">
+		    <column  id="column1" style="width:50%;">
+		    	<row  id="rowId15" ref="aqjcpf15" />
+		    	<row  id="rowId1" ref="asset1" />
+		    	<row  id="rowId2" ref="asset2" />
+		     	<row  id="rowId16" ref="aqjcpf16"/>
+		    	<row  id="rowId3" ref="asset3" />
+		    </column>
+		    <column  id="column2" style="width:50%" >
+		    	<row  id="rowId5" ref="asset5" movable="false" closed="true" show="true"/>
+		    	<row  id="rowId6" ref="asset6" movable="false" closed="true" show="true" />
+		    	<row  id="rowId7" ref="asset7"/>
+		    	<row  id="rowId8" ref="asset8"/>
+		    	<row  id="rowId4" ref="asset4" />
+		    </column>
+		</project>
+	</portlets>
+</elink>	

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.common.modules.mapper.TCommonMessagesReciversMapper">
+<!--  ********************************T_COMMON_MESSAGES_RECIVERS config begnin********************************  -->
+
+<select id="select" resultType="TCommonMessagesRecivers"> 
+ SELECT PTID,TID,MTYPE,RECIVER,ADDRESS,PHONE,UNID,SRESULT,SMARK,SDATE,STAT,CJSJ,CJR,XGR,XGSJ FROM  T_COMMON_MESSAGES_RECIVERS 
+ WHERE   TID=#{tid}
+</select>
+
+<select id="list" useCache="false"   resultType ="TCommonMessagesRecivers" >  
+ SELECT PTID,TID,MTYPE,RECIVER,ADDRESS,PHONE,UNID,SRESULT,SMARK,SDATE,STAT,CJSJ,CJR,XGR,XGSJ FROM  T_COMMON_MESSAGES_RECIVERS 
+ WHERE   PTID=#{ptid}
+</select>
+
+<select id="listqueue" parameterType="java.lang.Integer" resultType="TCommonMessagesRecivers"> 
+SELECT R.* FROM ( 
+ SELECT TID FROM (
+SELECT T.TID FROM T_COMMON_MESSAGES T
+ WHERE STAT = 0 ORDER BY T.CJSJ ASC 
+ ) AS A LIMIT 0, #{value}
+ ) AS V INNER JOIN T_COMMON_MESSAGES_RECIVERS R ON V.TID = R.PTID
+  WHERE R.STAT = 0
+</select>
+
+ <insert id="insert" parameterType="TCommonMessagesRecivers">
+ INSERT INTO T_COMMON_MESSAGES_RECIVERS   ( PTID,TID,MTYPE,RECIVER,ADDRESS,PHONE,UNID,SRESULT,SMARK,SDATE,STAT,CJSJ,CJR,XGR,XGSJ)
+  VALUES ( #{ptid},#{tid},#{mtype},#{reciver},#{address},#{phone},#{unid},#{sresult},#{smark},#{sdate},#{stat},#{cjsj},#{cjr},#{xgr},#{xgsj} )
+</insert>
+ <insert id="batchInsert" parameterType="java.util.List">  
+ INSERT INTO T_COMMON_MESSAGES_RECIVERS   ( PTID,TID,MTYPE,RECIVER,ADDRESS,PHONE,UNID,SRESULT,SMARK,SDATE,STAT,CJSJ,CJR,XGR,XGSJ)
+  VALUES <foreach collection="list" item="item" index="index" separator="," >  
+  ( #{item.ptid},#{item.tid},#{item.mtype},#{item.reciver},#{item.address},#{item.phone},#{item.unid},#{item.sresult},#{item.smark},#{item.sdate},#{item.stat},#{item.cjsj},#{item.cjr},#{item.xgr},#{item.xgsj} )
+  </foreach>
+</insert>
+
+ <update id="batchUpdate" parameterType="java.util.List">  
+	 UPDATE T_COMMON_MESSAGES_RECIVERS 
+	  <trim prefix="set" suffixOverrides=",">
+              <trim prefix="SMARK =case" suffix="end," >
+                 <foreach collection="list" item="i" index="index">
+                         <if test="i.smark=null">
+                        when  TID=#{i.tid} then #{i.smark}
+                         </if>
+                 </foreach>
+              </trim>
+       <trim prefix="SDATE =case" suffix="end," >
+                  <foreach collection="list" item="i" index="index">
+                          <if test="i.sdate!=null">
+                           when  TID=#{i.tid} then #{i.sdate}
+                          </if>
+                  </foreach>
+           </trim>
+           <trim prefix="STAT =case" suffix="end," >
+                  <foreach collection="list" item="i" index="index">
+                          <if test="i.stat!=null">
+                           when  TID=#{i.tid} then #{i.stat}
+                          </if>
+                  </foreach>
+           </trim>
+             <trim prefix="XGSJ =case" suffix="end," >
+                  <foreach collection="list" item="i" index="index">
+                          <if test="i.xgsj!=null">
+                           when  TID=#{i.tid} then #{i.xgsj}
+                          </if>
+                  </foreach>
+           </trim>
+             <trim prefix="xgr =case" suffix="end," >
+                  <foreach collection="list" item="i" index="index">
+                          <if test="i.xgr!=null">
+                           when  TID=#{i.tid} then #{i.xgr}
+                          </if>
+                  </foreach>
+           </trim>
+             </trim>
+            where
+            <foreach collection="list" separator="or" item="item" index="index" >
+             TID=#{item.tid}
+          </foreach>
+</update>
+
+ <delete id="delete">
+   DELETE FROM T_COMMON_MESSAGES_RECIVERS WHERE   TID=#{tid}
+</delete>
+
+ <delete id="deleteByPid" >
+   DELETE FROM T_COMMON_MESSAGES_RECIVERS WHERE   PID=#{pid}
+</delete>
+
+<!--  ********************************T_COMMON_MESSAGES_RECIVERS config end********************************  -->
+
+</mapper>

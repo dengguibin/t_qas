@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_T_DIAGNOSESCHEME config end********************************  -->
+
+<package name="QasTDiagnosescheme" extends="default"
+		namespace="/diagnose/diagnosescheme">
+		
+		<action name="addDiagnoseScheme" class="qasTDiagnoseAction" method="addDiagnoseScheme">
+			<result name="toEdit">/pages/diagnoseformat/scheme/diagnoseSchemeAdd.jsp</result>
+		</action>
+		
+		<action name="checkIndicator" class="qasTDiagnoseAction" method="checkIndicator">
+			<result name="select">/pages/diagnoseformat/scheme/checkIndicator.jsp</result>
+		</action>
+		
+		<action name="diagnoseActionInfo" class="qasTDiagnoseAction" method="diagnoseActionInfo">
+			<result name="select">/pages/diagnoseformat/scheme/diagnoseSchemeEdit.jsp</result>
+		</action>
+		
+		<action name="checkScheme" class="qasTDiagnoseAction" method="checkScheme">
+			<result name="select">/pages/diagnoseformat/scheme/checkScheme.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasTDiagnoseAction" method="queryList">
+			<result name="list">/pages/diagnoseformat/scheme/diagnoseSchemeList.jsp</result>
+		</action>
+		
+		<action name="addTree" class="qasTDiagnoseAction" method="addTree">
+		</action>
+		
+		<action name="queryInfo" class="qasTDiagnoseAction" method="queryInfo">
+		</action>
+		
+		<action name="addScheme" class="qasTDiagnoseAction" method="addScheme">
+		</action>
+		
+		<action name="getTree" class="qasTDiagnoseAction" method="getTree">
+		</action>
+		
+		<action name="getSelectType" class="qasTDiagnoseAction" method="getSelectType">
+		</action>
+		
+		<action name="remove" class="qasTDiagnoseAction" method="remove">
+		</action>
+		
+		<action name="getSchemeCatalog" class="qasTDiagnoseAction" method="getSchemeCatalog">
+		</action>
+		<action name="getIndicatorRate" class="qasTDiagnoseAction" method="getIndicatorRate">
+		</action>
+		
+		<action name="editShcemeCatalog" class="qasTDiagnoseAction" method="editShcemeCatalog">
+		</action>
+		<action name="editIndicatorRate" class="qasTDiagnoseAction" method="editIndicatorRate">
+		</action>
+		<action name="publish" class="qasTDiagnoseAction" method="publish">
+		</action>
+		
+		<action name="toEdit" class="qasTDiagnoseAction" method="toEdit">
+			<result name="toEdit">/pages/diagnoseformat/scheme/diagnoseSchemeEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasTDiagnoseAction" method="save">
+			<result name="toEdit">/pages/diagnoseformat/scheme/diagnoseSchemeEdit.jsp</result>
+		</action>
+		<!-- <action name="save" class="qasTDiagnoseAction" method="save">
+			<result name="save" type="redirect">
+				/diagnoseformat/scheme/diagnoseActionInfo.action?menuId=${menuId}
+			</result>
+		</action> -->
+		<!-- <action name="save" class="qasTDiagnoseAction" method="save">
+			<result name="save">/pages/diagnoseformat/scheme/diagnoseSchemeEdit.jsp</result>
+		</action> -->
+	</package>
+<!--  ********************************QAS_T_SCHEMECATALOG config end********************************  -->
+
+<package name="QasTSchemecatalog" extends="default"
+		namespace="请配置/schemecatalog">
+		
+		<action name="queryInfo" class="qasTSchemecatalogAction" method="queryInfo">
+			<result name="select">请配置/QasTSchemecatalogInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasTSchemecatalogAction" method="queryList">
+			<result name="list">请配置/QasTSchemecatalogList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasTSchemecatalogAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasTSchemecatalogAction" method="toEdit">
+			<result name="toEdit">请配置/QasTSchemecatalogEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasTSchemecatalogAction" method="save">
+			<result name="save" type="redirect">
+			请配置/schemecatalog/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_T_SCHEMECATALOG config end********************************  -->
+</struts>

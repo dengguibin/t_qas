@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.major.recruit.mapper.QasDRecruitMapper">
+<!--  ********************************QAS_D_RECRUIT config begnin********************************  -->
+
+<select id="select" resultType="QasDRecruit"> 
+ SELECT ID,DIRECTIONID,PLANENROLNUM,ENROLEDNUM,REGNUM,LOCALREGNUM,PROVREGNUM,AREAREGNUM,BRANDRSNNUM,HOBBIESRSNNUM,EMPRSNNUM,TRAINRSNNUM,SITERSNNUM,RECOMMENDRSNNUM,OTHERRSNNUM,OVERLASTYEARSCORE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_RECRUIT 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDRecruit" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,DIRECTIONID,PLANENROLNUM,ENROLEDNUM,REGNUM,LOCALREGNUM,PROVREGNUM,AREAREGNUM,BRANDRSNNUM,HOBBIESRSNNUM,EMPRSNNUM,TRAINRSNNUM,SITERSNNUM,RECOMMENDRSNNUM,OTHERRSNNUM,OVERLASTYEARSCORE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_RECRUIT 
+ WHERE  1 = 1
+ <if test="directionid != null and directionid != ''">
+ AND directionid LIKE '%' #{directionid}  '%'
+ </if>
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDRecruit">
+ INSERT INTO QAS_D_RECRUIT   ( ID,DIRECTIONID,PLANENROLNUM,ENROLEDNUM,REGNUM,LOCALREGNUM,PROVREGNUM,AREAREGNUM,BRANDRSNNUM,HOBBIESRSNNUM,EMPRSNNUM,TRAINRSNNUM,SITERSNNUM,RECOMMENDRSNNUM,OTHERRSNNUM,OVERLASTYEARSCORE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{directionid},#{planenrolnum},#{enrolednum},#{regnum},#{localregnum},#{provregnum},#{arearegnum},#{brandrsnnum},#{hobbiesrsnnum},#{emprsnnum},#{trainrsnnum},#{sitersnnum},#{recommendrsnnum},#{otherrsnnum},#{overlastyearscore},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDRecruit">
+ UPDATE QAS_D_RECRUIT SET  ID=#{id},DIRECTIONID=#{directionid},PLANENROLNUM=#{planenrolnum},ENROLEDNUM=#{enrolednum},REGNUM=#{regnum},LOCALREGNUM=#{localregnum},PROVREGNUM=#{provregnum},AREAREGNUM=#{arearegnum},BRANDRSNNUM=#{brandrsnnum},HOBBIESRSNNUM=#{hobbiesrsnnum},EMPRSNNUM=#{emprsnnum},TRAINRSNNUM=#{trainrsnnum},SITERSNNUM=#{sitersnnum},RECOMMENDRSNNUM=#{recommendrsnnum},OTHERRSNNUM=#{otherrsnnum},OVERLASTYEARSCORE=#{overlastyearscore},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_RECRUIT WHERE   ID=#{id}
+</delete>
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_RECRUIT WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDRecruit">
+ UPDATE QAS_D_RECRUIT 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="directionid != null">  DIRECTIONID = #{directionid},</if>
+<if test="planenrolnum != null">  PLANENROLNUM = #{planenrolnum},</if>
+<if test="enrolednum != null">  ENROLEDNUM = #{enrolednum},</if>
+<if test="regnum != null">  REGNUM = #{regnum},</if>
+<if test="localregnum != null">  LOCALREGNUM = #{localregnum},</if>
+<if test="provregnum != null">  PROVREGNUM = #{provregnum},</if>
+<if test="arearegnum != null">  AREAREGNUM = #{arearegnum},</if>
+<if test="brandrsnnum != null">  BRANDRSNNUM = #{brandrsnnum},</if>
+<if test="hobbiesrsnnum != null">  HOBBIESRSNNUM = #{hobbiesrsnnum},</if>
+<if test="emprsnnum != null">  EMPRSNNUM = #{emprsnnum},</if>
+<if test="trainrsnnum != null">  TRAINRSNNUM = #{trainrsnnum},</if>
+<if test="sitersnnum != null">  SITERSNNUM = #{sitersnnum},</if>
+<if test="recommendrsnnum != null">  RECOMMENDRSNNUM = #{recommendrsnnum},</if>
+<if test="otherrsnnum != null">  OTHERRSNNUM = #{otherrsnnum},</if>
+<if test="overlastyearscore != null">  OVERLASTYEARSCORE = #{overlastyearscore},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_RECRUIT config end********************************  -->
+
+</mapper>

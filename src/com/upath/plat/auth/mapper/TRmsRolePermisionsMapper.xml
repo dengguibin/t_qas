@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.auth.mapper.TRmsRolePermisionsMapper">
+<!--  ********************************T_RMS_ROLE_PERMISIONS config begnin********************************  -->
+
+<select id="select" resultType="TRmsRolePermisions"> 
+ SELECT JSQXGXID,JSID,QXID FROM  T_RMS_ROLE_PERMISIONS 
+ WHERE   JSQXGXID=#{jsqxgxid}
+</select>
+
+<select id="list" parameterType="TRmsRolePermisions" useCache="false"   resultType ="TRmsRolePermisions" >  
+ SELECT JSQXGXID,JSID,QXID FROM  T_RMS_ROLE_PERMISIONS 
+ WHERE   JSID=#{jsid}
+</select>
+
+ <insert id="insert" parameterType="TRmsRolePermisions">
+ INSERT INTO T_RMS_ROLE_PERMISIONS   ( JSQXGXID,JSID,QXID)
+  VALUES ( #{jsqxgxid},#{jsid},#{qxid} )
+</insert>
+
+ <update id="update" parameterType="TRmsRolePermisions">
+ UPDATE T_RMS_ROLE_PERMISIONS SET  JSQXGXID=#{jsqxgxid},JSID=#{jsid},QXID=#{qxid} 
+ WHERE  JSQXGXID=#{jsqxgxid}
+</update>
+
+<delete id="delete" parameterType="TRmsRolePermisions">
+   DELETE FROM T_RMS_ROLE_PERMISIONS WHERE   JSID=#{jsid}
+</delete>
+
+<!--  ********************************T_RMS_ROLE_PERMISIONS config end********************************  -->
+
+</mapper>

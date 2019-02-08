@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.school.practiceBaseInCampus.mapper.QasDPracticebaseincampusMapper">
+<!--  ********************************QAS_D_PRACTICEBASEINCAMPUS config begnin********************************  -->
+
+<select id="select" resultType="QasDPracticebaseincampus"> 
+ SELECT ID,NAME,SUPPORTDEPARTMENT,APPROVALDATE,CONSTRUCTIONAREA,ISCOCONSTRUCTION,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_PRACTICEBASEINCAMPUS 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="java.util.HashMap" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,NAME,SUPPORTDEPARTMENT,APPROVALDATE,CONSTRUCTIONAREA,ISCOCONSTRUCTION,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_PRACTICEBASEINCAMPUS 
+ WHERE  1 = 1
+ 
+  <if test="name != null and name != ''">
+	 	AND NAME LIKE concat('%',#{name},'%')
+  </if>
+  
+  <if test="supportdepartment != null and supportdepartment != ''">
+	 	AND SUPPORTDEPARTMENT LIKE concat('%',#{supportdepartment},'%')
+  </if>
+  
+  <if test="approvaldate != null and approvaldate != ''">
+	 	AND APPROVALDATE =#{approvaldate}
+  </if>
+  <if test="minconstructionareaScope != null and maxconstructionareaScope !=null">
+	 	AND CONSTRUCTIONAREA between #{minconstructionareaScope} and #{maxconstructionareaScope}
+  </if>
+
+  <if test="constructionareaScope != null">
+	 	AND CONSTRUCTIONAREA >= #{constructionareaScope}
+  </if>
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDPracticebaseincampus">
+ INSERT INTO QAS_D_PRACTICEBASEINCAMPUS   ( ID,NAME,SUPPORTDEPARTMENT,APPROVALDATE,CONSTRUCTIONAREA,ISCOCONSTRUCTION,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{name},#{supportdepartment},#{approvaldate},#{constructionarea},#{iscoconstruction},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDPracticebaseincampus">
+ UPDATE QAS_D_PRACTICEBASEINCAMPUS SET  ID=#{id},NAME=#{name},SUPPORTDEPARTMENT=#{supportdepartment},APPROVALDATE=#{approvaldate},CONSTRUCTIONAREA=#{constructionarea},ISCOCONSTRUCTION=#{iscoconstruction},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_PRACTICEBASEINCAMPUS WHERE   ID=#{id}
+</delete>
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_PRACTICEBASEINCAMPUS WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDPracticebaseincampus">
+ UPDATE QAS_D_PRACTICEBASEINCAMPUS 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="name != null">  NAME = #{name},</if>
+<if test="supportdepartment != null">  SUPPORTDEPARTMENT = #{supportdepartment},</if>
+<if test="approvaldate != null">  APPROVALDATE = #{approvaldate},</if>
+<if test="constructionarea != null">  CONSTRUCTIONAREA = #{constructionarea},</if>
+<if test="iscoconstruction != null">  ISCOCONSTRUCTION = #{iscoconstruction},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_PRACTICEBASEINCAMPUS config end********************************  -->
+
+</mapper>

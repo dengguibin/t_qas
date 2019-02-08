@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.datacollector.mapper.TDatasCollectorMapper">
+<!--  ********************************T_DATAS_COLLECTOR config begnin********************************  -->
+
+<select id="select" resultType="TDatasCollector"> 
+ SELECT TID,NAME,TYPE,PARAMS,SOURCE,REMARK,MARKS,VALID,RDATE,STATE,COSTS,LOGS,CREATOR,CDATE,UPDATOR,UDATE FROM  T_DATAS_COLLECTOR 
+ WHERE   TID=#{tid}
+</select>
+
+<select id="list" parameterType="TDatasCollector" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT TID,NAME,TYPE,PARAMS,SOURCE,REMARK,MARKS,VALID,RDATE,STATE,COSTS,LOGS,CREATOR,CDATE,UPDATOR,UDATE FROM  T_DATAS_COLLECTOR 
+ WHERE  1 = 1
+ <if test=" valid != null ">
+ 	AND VALID = #{valid}
+ </if>
+ 
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="TDatasCollector">
+ INSERT INTO T_DATAS_COLLECTOR   ( TID,NAME,TYPE,PARAMS,SOURCE,REMARK,MARKS,VALID,RDATE,STATE,COSTS,LOGS,CREATOR,CDATE,UPDATOR,UDATE)
+  VALUES ( #{tid},#{name},#{type},#{params},#{source},#{remark},#{marks},#{valid},#{rdate},#{state},#{costs},#{logs},#{creator},#{cdate},#{updator},#{udate} )
+</insert>
+
+ <update id="update" parameterType="TDatasCollector">
+ UPDATE T_DATAS_COLLECTOR SET  TID=#{tid},NAME=#{name},TYPE=#{type},PARAMS=#{params},SOURCE=#{source},REMARK=#{remark},MARKS=#{marks},VALID=#{valid},RDATE=#{rdate},STATE=#{state},COSTS=#{costs},LOGS=#{logs},CREATOR=#{creator},CDATE=#{cdate},UPDATOR=#{updator},UDATE=#{udate} 
+ WHERE  TID=#{tid}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM T_DATAS_COLLECTOR WHERE   TID=#{tid}
+</delete>
+
+<!--动态进行更新 如果有需要请开启，否则请删除-->
+ <update id="updateWithDyna" parameterType="TDatasCollector">
+ UPDATE T_DATAS_COLLECTOR 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="tid != null">  TID = #{tid},</if>
+<if test="name != null">  NAME = #{name},</if>
+<if test="type != null">  TYPE = #{type},</if>
+<if test="params != null">  PARAMS = #{params},</if>
+<if test="source != null">  SOURCE = #{source},</if>
+<if test="remark != null">  REMARK = #{remark},</if>
+<if test="marks != null">  MARKS = #{marks},</if>
+<if test="valid != null">  VALID = #{valid},</if>
+<if test="rdate != null">  RDATE = #{rdate},</if>
+<if test="state != null">  STATE = #{state},</if>
+<if test="costs != null">  COSTS = #{costs},</if>
+<if test="logs != null">  LOGS = #{logs},</if>
+<if test="creator != null">  CREATOR = #{creator},</if>
+<if test="cdate != null">  CDATE = #{cdate},</if>
+<if test="updator != null">  UPDATOR = #{updator},</if>
+<if test="udate != null">  UDATE = #{udate},</if>
+
+ </trim>  
+ WHERE  TID=#{tid}
+</update>
+
+<!--  ********************************T_DATAS_COLLECTOR config end********************************  -->
+
+</mapper>

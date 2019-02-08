@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_MAJORSYSINNOVATION config end********************************  -->
+
+<package name="QasDMajorsysinnovation" extends="default"
+		namespace="/data/teaching/majorSysInnovation">
+		
+		<action name="queryInfo" class="qasDMajorsysinnovationAction" method="queryInfo">
+			<result name="select">/pages/data/teaching/majorSysInnovation/QasDMajorsysinnovationInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDMajorsysinnovationAction" method="queryList">
+			<result name="list">/pages/data/teaching/majorSysInnovation/QasDMajorsysinnovationList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDMajorsysinnovationAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDMajorsysinnovationAction" method="toEdit">
+			<result name="toEdit">/pages/data/teaching/majorSysInnovation/QasDMajorsysinnovationEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDMajorsysinnovationAction" method="save">
+			<result name="save" type="redirect">
+			/data/teaching/majorSysInnovation/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_MAJORSYSINNOVATION config end********************************  -->
+</struts>

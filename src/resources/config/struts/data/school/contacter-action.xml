@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_SCHOOLCONTACTER config end********************************  -->
+
+<package name="QasDSchoolcontacter" extends="default"
+		namespace="/data/school/contacter">
+		
+		<action name="queryInfo" class="qasDSchoolcontacterAction" method="queryInfo">
+			<result name="select">/pages/data/school/contacter/QasDSchoolcontacterInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDSchoolcontacterAction" method="queryList">
+			<result name="list">/pages/data/school/contacter/QasDSchoolcontacterList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDSchoolcontacterAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDSchoolcontacterAction" method="toEdit">
+			<result name="toEdit">/pages/data/school/contacter/QasDSchoolcontacterEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDSchoolcontacterAction" method="save">
+			<result name="save" type="redirect">
+			/data/school/contacter/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_SCHOOLCONTACTER config end********************************  -->
+</struts>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.diagnoseformat.scheme.mapper.QasTDiagnoseschemeMapper">
+<!--  ********************************QAS_T_DIAGNOSESCHEME config begnin********************************  -->
+
+<select id="select" resultType="QasTDiagnosescheme"> 
+ SELECT ID,SOURCESCHEMEID,SCHEMENAME,SCHEMETYPE,RANGETYPE,STATUS
+ FROM QAS_T_DIAGNOSESCHEME 
+ WHERE ID=#{id}
+</select>
+
+<select id="findtype" parameterType="QasTDiagnosescheme" useCache="false" resultType="hashmap"> 
+ SELECT ID,SOURCESCHEMEID,SCHEMENAME,SCHEMETYPE,RANGETYPE,STATUS
+ FROM QAS_T_DIAGNOSESCHEME 
+ WHERE RANGETYPE=#{rangetype}
+</select>
+
+<select id="list" parameterType="QasTDiagnosescheme" useCache="false"   resultType ="QasTDiagnosescheme" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,SOURCESCHEMEID,SCHEMENAME,SCHEMETYPE,RANGETYPE,STATUS 
+ FROM  QAS_T_DIAGNOSESCHEME 
+ where 1=1	
+  <if test="rangetype!=null and rangetype!=''"> 
+ 	AND RANGETYPE =#{rangetype}
+ </if>
+ <if test="id!=null and id!=''"> 
+ 	AND ID !=#{id}
+ </if>														
+ <if test="schemename!=null and schemename!=''"> 
+ 	AND SCHEMENAME LIKE CONCAT(CONCAT('%',#{schemename}),'%')
+ </if>
+ <if test="updatedtime!=null"> 
+ 	 ORDER BY CREATEDTIME desc
+ </if>
+ <if test="rangetype!=null"> 
+ 	ORDER BY RANGETYPE DESC
+ </if>
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+<select id="typeList" parameterType="QasTDiagnosescheme" useCache="false"   resultType ="QasTDiagnosescheme" >  
+ SELECT ID,SOURCESCHEMEID,SCHEMENAME,SCHEMETYPE,RANGETYPE,STATUS,DATE_FORMAT(CREATEDTIME, '%Y') as YEAR 
+ FROM  QAS_T_DIAGNOSESCHEME 
+ where 1=1															
+ <if test="schemename!=null and schemename!=''"> 
+ 	AND SCHEMENAME LIKE CONCAT(CONCAT('%',#{schemename}),'%')
+ </if>
+ 	 ORDER BY CREATEDTIME DESC 
+</select>
+
+<insert id="insert" parameterType="QasTDiagnosescheme">
+ INSERT INTO QAS_T_DIAGNOSESCHEME (ID,SOURCESCHEMEID,SCHEMENAME,SCHEMETYPE,RANGETYPE,STATUS,CREATEDBY,CREATEDTIME)
+  VALUES (#{id},#{sourceschemeid},#{schemename},#{schemetype},#{rangetype},#{status},#{createdby},#{createdtime})
+</insert>																							
+
+<delete id="delete">
+   DELETE FROM QAS_T_DIAGNOSESCHEME WHERE ID=#{id}
+</delete>
+
+<update id="updateWithDyna" parameterType="QasTDiagnosescheme">
+ UPDATE QAS_T_DIAGNOSESCHEME 
+ <trim prefix="SET" suffixOverrides=",">
+	<if test="id != null">  ID = #{id},</if>
+	<if test="sourceschemeid != null">  SOURCESCHEMEID = #{sourceschemeid},</if>
+	<if test="schemename != null">  SCHEMENAME = #{schemename},</if>
+	<if test="schemetype != null">  SCHEMETYPE = #{schemetype},</if>
+	<if test="rangetype != null">  RANGETYPE = #{rangetype},</if>
+	<if test="status != null">  STATUS = #{status},</if>
+	<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+	<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+ </trim>  
+ WHERE ID=#{id}
+</update>
+
+<select id="selectBean" resultType ="QasTDiagnosescheme">
+	 SELECT ID,SOURCESCHEMEID,SCHEMENAME,SCHEMETYPE,RANGETYPE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME
+	 FROM QAS_T_DIAGNOSESCHEME 
+	<trim prefix="where" prefixOverrides="AND">
+		<if test="sourceschemeid != null">AND  SOURCESCHEMEID = #{sourceschemeid}</if>
+		<if test="schemename != null">AND  SCHEMENAME = #{schemename}</if>
+		<if test="schemetype != null">AND  SCHEMETYPE = #{schemetype}</if>
+		<if test="rangetype != null">AND  RANGETYPE = #{rangetype}</if>
+		<if test="status != null">AND  STATUS = #{status}</if>
+		<if test="createdby != null"> AND CREATEDBY = #{createdby}</if>
+		<if test="createdtime != null"> AND CREATEDTIME = #{createdtime}</if>
+		<if test="updatedby != null"> AND UPDATEDBY = #{updatedby}</if>
+		<if test="updatedtime != null">AND  UPDATEDTIME = #{updatedtime}</if>
+	</trim>
+</select>
+
+<select id="selectTask" resultType="java.lang.Integer">
+	SELECT COUNT(1) FROM QAS_T_DIAGNOSETASK WHERE SCHEMEID=#{id}
+</select>
+<!--  ********************************QAS_T_DIAGNOSESCHEME config end********************************  -->
+
+</mapper>

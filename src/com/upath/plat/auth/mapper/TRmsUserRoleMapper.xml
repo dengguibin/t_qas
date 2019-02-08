@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.auth.mapper.TRmsUserRoleMapper">
+<!--  ********************************T_RMS_USER_ROLE config begnin********************************  -->
+
+<select id="select" resultType="TRmsUserRole"> 
+ SELECT YHJSGXID,YHID,JSID FROM  T_RMS_USER_ROLE 
+ WHERE   YHJSGXID=#{yhjsgxid}
+</select>
+
+<select id="list" parameterType="TRmsUserRole" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT YHJSGXID,YHID,JSID FROM  T_RMS_USER_ROLE 
+ WHERE   YHJSGXID=#{yhjsgxid}
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="TRmsUserRole">
+ INSERT INTO T_RMS_USER_ROLE   ( YHJSGXID,YHID,JSID)
+  VALUES ( #{yhjsgxid},#{yhid},#{jsid} )
+</insert>
+
+ <update id="update" parameterType="TRmsUserRole">
+ UPDATE T_RMS_USER_ROLE SET  YHJSGXID=#{yhjsgxid},YHID=#{yhid},JSID=#{jsid} 
+ WHERE  YHJSGXID=#{yhjsgxid}
+</update>
+
+ <delete id="delete" parameterType="TRmsUserRole">
+   DELETE FROM T_RMS_USER_ROLE WHERE   JSID=#{jsid}
+   <if test="yhid != null">
+    AND YHID=#{yhid}
+   </if>
+</delete>
+
+<!--  ********************************T_RMS_USER_ROLE config end********************************  -->
+
+</mapper>

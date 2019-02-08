@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.major.graduateEmployment.mapper.QasDGraduateemploymentMapper">
+<!--  ********************************QAS_D_GRADUATEEMPLOYMENT config begnin********************************  -->
+
+<select id="select" resultType="QasDGraduateemployment"> 
+ SELECT ID,DIRECTIONID,EMPNUM,CITYEMPNUM,PRIVINCENUM,COLUMN_13AREANUM,OTHERNUM,EMPSALARY,SAMEPFSNUM,HIGHTSCHGRADNUM,HIGHTSCHNUM,TRISCHGRADNUM,TRISCHNUM,THREEADDTOWGRADNUM,THREEADDTOWNUM,COLLEGEGRADNUM,COLLEGENUM,DIFSKNOWSKGRAD,DIFSKNOWSKNUM,DIFSSAMEPFSGRAD,DIFSSAMEPFSNUM,DIFSSGLEXAMGRAD,DIFSSGLEXAMNUM,DIFSMULESTGRAD,DIFSMULESTNUM,DIFSMIDHIGGRAD,DIFSMIDHIGNUM,DIFSNOEXAMGRAD,DIFSNOEXAMNUM,DIFSOTHERGRAD,DIFSOTHERNUM,GRADNUM,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_GRADUATEEMPLOYMENT 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDGraduateemployment" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,DIRECTIONID,EMPNUM,CITYEMPNUM,PRIVINCENUM,COLUMN_13AREANUM,OTHERNUM,EMPSALARY,SAMEPFSNUM,HIGHTSCHGRADNUM,HIGHTSCHNUM,TRISCHGRADNUM,TRISCHNUM,THREEADDTOWGRADNUM,THREEADDTOWNUM,COLLEGEGRADNUM,COLLEGENUM,DIFSKNOWSKGRAD,DIFSKNOWSKNUM,DIFSSAMEPFSGRAD,DIFSSAMEPFSNUM,DIFSSGLEXAMGRAD,DIFSSGLEXAMNUM,DIFSMULESTGRAD,DIFSMULESTNUM,DIFSMIDHIGGRAD,DIFSMIDHIGNUM,DIFSNOEXAMGRAD,DIFSNOEXAMNUM,DIFSOTHERGRAD,DIFSOTHERNUM,GRADNUM,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_GRADUATEEMPLOYMENT 
+ WHERE  1 = 1
+ <if test="directionid != null and directionid != ''">
+ AND DIRECTIONID LIKE '%' #{directionid}  '%'
+ </if>
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDGraduateemployment">
+ INSERT INTO QAS_D_GRADUATEEMPLOYMENT   ( ID,DIRECTIONID,EMPNUM,CITYEMPNUM,PRIVINCENUM,COLUMN_13AREANUM,OTHERNUM,EMPSALARY,SAMEPFSNUM,HIGHTSCHGRADNUM,HIGHTSCHNUM,TRISCHGRADNUM,TRISCHNUM,THREEADDTOWGRADNUM,THREEADDTOWNUM,COLLEGEGRADNUM,COLLEGENUM,DIFSKNOWSKGRAD,DIFSKNOWSKNUM,DIFSSAMEPFSGRAD,DIFSSAMEPFSNUM,DIFSSGLEXAMGRAD,DIFSSGLEXAMNUM,DIFSMULESTGRAD,DIFSMULESTNUM,DIFSMIDHIGGRAD,DIFSMIDHIGNUM,DIFSNOEXAMGRAD,DIFSNOEXAMNUM,DIFSOTHERGRAD,DIFSOTHERNUM,GRADNUM,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{directionid},#{empnum},#{cityempnum},#{privincenum},#{column_13areanum},#{othernum},#{empsalary},#{samepfsnum},#{hightschgradnum},#{hightschnum},#{trischgradnum},#{trischnum},#{threeaddtowgradnum},#{threeaddtownum},#{collegegradnum},#{collegenum},#{difsknowskgrad},#{difsknowsknum},#{difssamepfsgrad},#{difssamepfsnum},#{difssglexamgrad},#{difssglexamnum},#{difsmulestgrad},#{difsmulestnum},#{difsmidhiggrad},#{difsmidhignum},#{difsnoexamgrad},#{difsnoexamnum},#{difsothergrad},#{difsothernum},#{gradnum},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDGraduateemployment">
+ UPDATE QAS_D_GRADUATEEMPLOYMENT SET  ID=#{id},DIRECTIONID=#{directionid},EMPNUM=#{empnum},CITYEMPNUM=#{cityempnum},PRIVINCENUM=#{privincenum},COLUMN_13AREANUM=#{column_13areanum},OTHERNUM=#{othernum},EMPSALARY=#{empsalary},SAMEPFSNUM=#{samepfsnum},HIGHTSCHGRADNUM=#{hightschgradnum},HIGHTSCHNUM=#{hightschnum},TRISCHGRADNUM=#{trischgradnum},TRISCHNUM=#{trischnum},THREEADDTOWGRADNUM=#{threeaddtowgradnum},THREEADDTOWNUM=#{threeaddtownum},COLLEGEGRADNUM=#{collegegradnum},COLLEGENUM=#{collegenum},DIFSKNOWSKGRAD=#{difsknowskgrad},DIFSKNOWSKNUM=#{difsknowsknum},DIFSSAMEPFSGRAD=#{difssamepfsgrad},DIFSSAMEPFSNUM=#{difssamepfsnum},DIFSSGLEXAMGRAD=#{difssglexamgrad},DIFSSGLEXAMNUM=#{difssglexamnum},DIFSMULESTGRAD=#{difsmulestgrad},DIFSMULESTNUM=#{difsmulestnum},DIFSMIDHIGGRAD=#{difsmidhiggrad},DIFSMIDHIGNUM=#{difsmidhignum},DIFSNOEXAMGRAD=#{difsnoexamgrad},DIFSNOEXAMNUM=#{difsnoexamnum},DIFSOTHERGRAD=#{difsothergrad},DIFSOTHERNUM=#{difsothernum},GRADNUM=#{gradnum},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_GRADUATEEMPLOYMENT WHERE   ID=#{id}
+</delete>
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_GRADUATEEMPLOYMENT WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDGraduateemployment">
+ UPDATE QAS_D_GRADUATEEMPLOYMENT 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="directionid != null">  DIRECTIONID = #{directionid},</if>
+<if test="empnum != null">  EMPNUM = #{empnum},</if>
+<if test="cityempnum != null">  CITYEMPNUM = #{cityempnum},</if>
+<if test="privincenum != null">  PRIVINCENUM = #{privincenum},</if>
+<if test="column_13areanum != null">  COLUMN_13AREANUM = #{column_13areanum},</if>
+<if test="othernum != null">  OTHERNUM = #{othernum},</if>
+<if test="empsalary != null">  EMPSALARY = #{empsalary},</if>
+<if test="samepfsnum != null">  SAMEPFSNUM = #{samepfsnum},</if>
+<if test="hightschgradnum != null">  HIGHTSCHGRADNUM = #{hightschgradnum},</if>
+<if test="hightschnum != null">  HIGHTSCHNUM = #{hightschnum},</if>
+<if test="trischgradnum != null">  TRISCHGRADNUM = #{trischgradnum},</if>
+<if test="trischnum != null">  TRISCHNUM = #{trischnum},</if>
+<if test="threeaddtowgradnum != null">  THREEADDTOWGRADNUM = #{threeaddtowgradnum},</if>
+<if test="threeaddtownum != null">  THREEADDTOWNUM = #{threeaddtownum},</if>
+<if test="collegegradnum != null">  COLLEGEGRADNUM = #{collegegradnum},</if>
+<if test="collegenum != null">  COLLEGENUM = #{collegenum},</if>
+<if test="difsknowskgrad != null">  DIFSKNOWSKGRAD = #{difsknowskgrad},</if>
+<if test="difsknowsknum != null">  DIFSKNOWSKNUM = #{difsknowsknum},</if>
+<if test="difssamepfsgrad != null">  DIFSSAMEPFSGRAD = #{difssamepfsgrad},</if>
+<if test="difssamepfsnum != null">  DIFSSAMEPFSNUM = #{difssamepfsnum},</if>
+<if test="difssglexamgrad != null">  DIFSSGLEXAMGRAD = #{difssglexamgrad},</if>
+<if test="difssglexamnum != null">  DIFSSGLEXAMNUM = #{difssglexamnum},</if>
+<if test="difsmulestgrad != null">  DIFSMULESTGRAD = #{difsmulestgrad},</if>
+<if test="difsmulestnum != null">  DIFSMULESTNUM = #{difsmulestnum},</if>
+<if test="difsmidhiggrad != null">  DIFSMIDHIGGRAD = #{difsmidhiggrad},</if>
+<if test="difsmidhignum != null">  DIFSMIDHIGNUM = #{difsmidhignum},</if>
+<if test="difsnoexamgrad != null">  DIFSNOEXAMGRAD = #{difsnoexamgrad},</if>
+<if test="difsnoexamnum != null">  DIFSNOEXAMNUM = #{difsnoexamnum},</if>
+<if test="difsothergrad != null">  DIFSOTHERGRAD = #{difsothergrad},</if>
+<if test="difsothernum != null">  DIFSOTHERNUM = #{difsothernum},</if>
+<if test="gradnum != null">  GRADNUM = #{gradnum},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_GRADUATEEMPLOYMENT config end********************************  -->
+
+</mapper>

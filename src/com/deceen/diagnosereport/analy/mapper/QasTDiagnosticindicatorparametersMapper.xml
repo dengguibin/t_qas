@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.diagnosereport.analy.mapper.QasTDiagnosticindicatorparametersMapper">
+<!--  ********************************QAS_T_DIAGNOSTICINDICATORPARAMETERS config begnin********************************  -->
+
+<select id="select" resultType="QasTDiagnosticindicatorparameters"> 
+ SELECT ID,DIAGNOSTICINDICATORID,PARAMETERNAME,DIAGNOSTICSCORE,TENANTID FROM  QAS_T_DIAGNOSTICINDICATORPARAMETERS 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasTDiagnosticindicatorparameters" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,DIAGNOSTICINDICATORID,PARAMETERNAME,DIAGNOSTICSCORE,TENANTID FROM  QAS_T_DIAGNOSTICINDICATORPARAMETERS 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasTDiagnosticindicatorparameters">
+ INSERT INTO QAS_T_DIAGNOSTICINDICATORPARAMETERS   ( ID,DIAGNOSTICINDICATORID,PARAMETERNAME,DIAGNOSTICSCORE,TENANTID)
+  VALUES ( #{id},#{diagnosticindicatorid},#{parametername},#{diagnosticscore},#{tenantid} )
+</insert>
+
+ <update id="update" parameterType="QasTDiagnosticindicatorparameters">
+ UPDATE QAS_T_DIAGNOSTICINDICATORPARAMETERS SET  ID=#{id},DIAGNOSTICINDICATORID=#{diagnosticindicatorid},PARAMETERNAME=#{parametername},DIAGNOSTICSCORE=#{diagnosticscore},TENANTID=#{tenantid} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_T_DIAGNOSTICINDICATORPARAMETERS WHERE   ID=#{id}
+</delete>
+
+<!--动态进行更新 如果有需要请开启，否则请删除
+ <update id="updateWithDyna" parameterType="QasTDiagnosticindicatorparameters">
+ UPDATE QAS_T_DIAGNOSTICINDICATORPARAMETERS 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="diagnosticindicatorid != null">  DIAGNOSTICINDICATORID = #{diagnosticindicatorid},</if>
+<if test="parametername != null">  PARAMETERNAME = #{parametername},</if>
+<if test="diagnosticscore != null">  DIAGNOSTICSCORE = #{diagnosticscore},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+-->
+<!--  ********************************QAS_T_DIAGNOSTICINDICATORPARAMETERS config end********************************  -->
+
+</mapper>

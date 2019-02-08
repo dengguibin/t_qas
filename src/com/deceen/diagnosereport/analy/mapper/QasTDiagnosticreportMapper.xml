@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.diagnosereport.analy.mapper.QasTDiagnosticreportMapper">
+<!--  ********************************QAS_T_DIAGNOSTICREPORT config begnin********************************  -->
+
+<!-- <select id="select" resultType="hashmap">  -->
+<select id="select" resultType="QasTDiagnosticreport"> 
+ SELECT ID,DIAGNOSETASKID,DIAGNOSEDATATIME,DIAGNOSEWAY,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID FROM  QAS_T_DIAGNOSTICREPORT 
+ WHERE  DIAGNOSETASKID=#{diagnosetaskid}  order by DIAGNOSEDATATIME desc
+</select>
+
+<select id="selectDiagnosetaskId" resultType="hashmap"> 
+ SELECT ID,DIAGNOSETASKID,max(DIAGNOSEDATATIME) DIAGNOSEDATATIME,DIAGNOSEWAY,CREATEDBY,CREATEDTIME,
+UPDATEDBY,UPDATEDTIME, TENANTID FROM QAS_T_DIAGNOSTICREPORT 
+group by DiagnoseTaskId
+order by DIAGNOSEDATATIME desc 
+</select>
+
+<select id="selectById" resultType="QasTDiagnosticreport"> 
+ SELECT ID,DIAGNOSETASKID,DIAGNOSEDATATIME,DIAGNOSEWAY,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID FROM  QAS_T_DIAGNOSTICREPORT 
+ WHERE ID=#{id}
+</select>
+
+<select id="list" parameterType="QasTDiagnosticreport" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,DIAGNOSETASKID,DIAGNOSEDATATIME,DIAGNOSEWAY,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID FROM  QAS_T_DIAGNOSTICREPORT 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasTDiagnosticreport">
+ INSERT INTO QAS_T_DIAGNOSTICREPORT   ( ID,DIAGNOSETASKID,DIAGNOSEDATATIME,DIAGNOSEWAY,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID)
+  VALUES ( #{id},#{diagnosetaskid},#{diagnosedatatime},#{diagnoseway},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid} )
+</insert>
+
+ <update id="update" parameterType="QasTDiagnosticreport">
+ UPDATE QAS_T_DIAGNOSTICREPORT SET  ID=#{id},DIAGNOSETASKID=#{diagnosetaskid},DIAGNOSEDATATIME=#{diagnosedatatime},DIAGNOSEWAY=#{diagnoseway},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_T_DIAGNOSTICREPORT WHERE   ID=#{id}
+</delete>
+
+<!--动态进行更新 如果有需要请开启，否则请删除
+ <update id="updateWithDyna" parameterType="QasTDiagnosticreport">
+ UPDATE QAS_T_DIAGNOSTICREPORT 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="diagnosetaskid != null">  DIAGNOSETASKID = #{diagnosetaskid},</if>
+<if test="diagnosedatatime != null">  DIAGNOSEDATATIME = #{diagnosedatatime},</if>
+<if test="diagnoseway != null">  DIAGNOSEWAY = #{diagnoseway},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+-->
+
+<select id="selectDisgnoseObjByTaskId" parameterType="QasTDiagnosticreport" resultType="hashmap">
+SELECT obj.diagnoseObjId as ID  FROM QAS_T_DIAGNOSETASKOBJ obj,QAS_T_DiagnoseTask dia  
+where obj.DiagnoseTaskId=dia.id and PublishStatus=1 and DiagnoseTaskId=#{diagnosetaskid}
+</select>
+
+<select id="selectDisgnoseObj" parameterType="QasTDiagnosticreport" resultType="hashmap">
+
+SELECT OBJ.DIAGNOSEOBJID AS ID,OBJ.DIAGNOSEOBJNAME AS NAME,
+MA.ORGANIZATIONID AS PARENTID,
+FALSE AS ISPARENT
+FROM QAS_T_DIAGNOSETASKOBJ OBJ
+LEFT JOIN QAS_D_MAJOR MA ON OBJ.DIAGNOSEOBJID = MA.ID
+WHERE 1=1 AND OBJ.DIAGNOSEOBJIDTYPE = '2' AND OBJ.DIAGNOSETASKID = #{diagnosetaskid}
+
+UNION ALL 
+
+SELECT DISTINCT DEPT.BMID AS ID,DEPT.BMMC AS NAME,
+NULL AS PARENTID,
+TRUE AS ISPARENT  
+FROM QAS_T_DIAGNOSETASKOBJ OBJ
+LEFT JOIN QAS_D_MAJOR MA ON OBJ.DIAGNOSEOBJID = MA.ID
+LEFT JOIN T_RMS_DEPTMENT DEPT ON MA.ORGANIZATIONID = DEPT.BMID
+WHERE 1=1 AND OBJ.DIAGNOSEOBJIDTYPE = '2' AND OBJ.DIAGNOSETASKID = #{diagnosetaskid}
+
+UNION ALL
+
+SELECT OBJ.DIAGNOSEOBJID AS ID,OBJ.DIAGNOSEOBJNAME AS NAME,
+DEPT.FBMID AS PARENTID,
+FALSE AS ISPARENT
+FROM QAS_T_DIAGNOSETASKOBJ OBJ
+LEFT JOIN T_RMS_DEPTMENT DEPT ON OBJ.DIAGNOSEOBJID = DEPT.BMID
+WHERE 1=1 AND OBJ.DIAGNOSEOBJIDTYPE = '1' AND OBJ.DIAGNOSETASKID = #{diagnosetaskid}
+
+UNION ALL
+SELECT DISTINCT DEPT.BMID AS ID,DEPT.BMMC AS NAME,
+NULL AS PARENTID,
+TRUE AS ISPARENT  
+FROM QAS_T_DIAGNOSETASKOBJ OBJ
+LEFT JOIN T_RMS_DEPTMENT DEPT ON OBJ.DIAGNOSEOBJID = DEPT.BMID
+WHERE 1=1 AND OBJ.DIAGNOSEOBJIDTYPE = '1' AND OBJ.DIAGNOSETASKID = #{diagnosetaskid}
+
+</select>
+
+<!--  ********************************QAS_T_DIAGNOSTICREPORT config end********************************  -->
+
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_EMPOLYEE config end********************************  -->
+
+<package name="QasDEmpolyee" extends="default"
+		namespace="/data/base/empolyee">
+		
+		<action name="queryInfo" class="qasDEmpolyeeAction" method="queryInfo">
+			<result name="select">/pages/data/base/empolyee/QasDEmpolyeeInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDEmpolyeeAction" method="queryList">
+			<result name="list">/pages/data/base/empolyee/QasDEmpolyeeList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDEmpolyeeAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDEmpolyeeAction" method="toEdit">
+			<result name="toEdit">/pages/data/base/empolyee/QasDEmpolyeeEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDEmpolyeeAction" method="save">
+			<result name="save" type="redirect">
+			/data/base/empolyee/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_EMPOLYEE config end********************************  -->
+</struts>

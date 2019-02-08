@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_STUDREGIONINFO config end********************************  -->
+
+<package name="QasDStudregioninfo" extends="default"
+		namespace="/data/student/studRegionInfo">
+		
+		<action name="queryInfo" class="qasDStudregioninfoAction" method="queryInfo">
+			<result name="select">/pages/data/student/studRegionInfo/QasDStudregioninfoInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDStudregioninfoAction" method="queryList">
+			<result name="list">/pages/data/student/studRegionInfo/QasDStudregioninfoList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDStudregioninfoAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDStudregioninfoAction" method="toEdit">
+			<result name="toEdit">/pages/data/student/studRegionInfo/QasDStudregioninfoEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDStudregioninfoAction" method="save">
+			<result name="save" type="redirect">
+			/data/student/studRegionInfo/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_STUDREGIONINFO config end********************************  -->
+</struts>

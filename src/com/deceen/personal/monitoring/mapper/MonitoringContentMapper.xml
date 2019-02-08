@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.personal.monitoring.mapper.MonitoringContentMapper">
+	
+	<select id="findNameBywarning" resultType="monitoringcontent">
+	    SELECT cont.id id,cont.Name_ name_
+		FROM QAS_T_INDICATORCATALOG cont 
+		INNER JOIN qas_t_userindicatorearlywarning  warning ON cont.id=warning.r_indicatorID 
+		INNER JOIN t_rms_user users ON warning.r_userID=users.YHID 
+		WHERE warning.r_userID=#{user}
+	</select>
+	
+	<select id="findDetailsById" resultType="IndicatorSchemeCatalog">
+		SELECT c.Name_ indicatorCatalogName,t.IndicatorDataType  indicatorDataType
+		FROM qas_t_indicatorcatalog c 
+		INNER JOIN  qas_t_indicatorcontent t ON c.Id=t.IndicatorCatalogId
+		WHERE c.Id=#{id}
+	</select>
+</mapper>

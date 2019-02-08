@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.student.studAssociation.mapper.QasDStudassociationMapper">
+<!--  ********************************QAS_D_STUDASSOCIATION config begnin********************************  -->
+
+<select id="select" resultType="QasDStudassociation"> 
+ SELECT ID,COMMUNITYCODE,COMMUNITYNAME,COMMUNITYTYPE,REGISTRATIONDATE,APPROVALUNIT,REGISTRATIONUNIT,MEMBERCOUNT,HEADNAME,HEADINGRADE,HEADDUTY,ISCREDIT,GUIDANCEDEPARTMENT,GUIDANCETEACHER,ACTIVITYCONTENT,MANAGEMENT,ACTIVITYFUND,ISAWARD,SOURCE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_STUDASSOCIATION 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDStudassociation" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,COMMUNITYCODE,COMMUNITYNAME,COMMUNITYTYPE,REGISTRATIONDATE,APPROVALUNIT,REGISTRATIONUNIT,MEMBERCOUNT,HEADNAME,HEADINGRADE,HEADDUTY,ISCREDIT,GUIDANCEDEPARTMENT,GUIDANCETEACHER,ACTIVITYCONTENT,MANAGEMENT,ACTIVITYFUND,ISAWARD,SOURCE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_STUDASSOCIATION 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDStudassociation">
+ INSERT INTO QAS_D_STUDASSOCIATION   ( ID,COMMUNITYCODE,COMMUNITYNAME,COMMUNITYTYPE,REGISTRATIONDATE,APPROVALUNIT,REGISTRATIONUNIT,MEMBERCOUNT,HEADNAME,HEADINGRADE,HEADDUTY,ISCREDIT,GUIDANCEDEPARTMENT,GUIDANCETEACHER,ACTIVITYCONTENT,MANAGEMENT,ACTIVITYFUND,ISAWARD,SOURCE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{communitycode},#{communityname},#{communitytype},#{registrationdate},#{approvalunit},#{registrationunit},#{membercount},#{headname},#{headingrade},#{headduty},#{iscredit},#{guidancedepartment},#{guidanceteacher},#{activitycontent},#{management},#{activityfund},#{isaward},#{source},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDStudassociation">
+ UPDATE QAS_D_STUDASSOCIATION SET  ID=#{id},COMMUNITYCODE=#{communitycode},COMMUNITYNAME=#{communityname},COMMUNITYTYPE=#{communitytype},REGISTRATIONDATE=#{registrationdate},APPROVALUNIT=#{approvalunit},REGISTRATIONUNIT=#{registrationunit},MEMBERCOUNT=#{membercount},HEADNAME=#{headname},HEADINGRADE=#{headingrade},HEADDUTY=#{headduty},ISCREDIT=#{iscredit},GUIDANCEDEPARTMENT=#{guidancedepartment},GUIDANCETEACHER=#{guidanceteacher},ACTIVITYCONTENT=#{activitycontent},MANAGEMENT=#{management},ACTIVITYFUND=#{activityfund},ISAWARD=#{isaward},SOURCE=#{source},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_STUDASSOCIATION WHERE   ID=#{id}
+</delete>
+
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_STUDASSOCIATION WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDStudassociation">
+ UPDATE QAS_D_STUDASSOCIATION 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="communitycode != null">  COMMUNITYCODE = #{communitycode},</if>
+<if test="communityname != null">  COMMUNITYNAME = #{communityname},</if>
+<if test="communitytype != null">  COMMUNITYTYPE = #{communitytype},</if>
+<if test="registrationdate != null">  REGISTRATIONDATE = #{registrationdate},</if>
+<if test="approvalunit != null">  APPROVALUNIT = #{approvalunit},</if>
+<if test="registrationunit != null">  REGISTRATIONUNIT = #{registrationunit},</if>
+<if test="membercount != null">  MEMBERCOUNT = #{membercount},</if>
+<if test="headname != null">  HEADNAME = #{headname},</if>
+<if test="headingrade != null">  HEADINGRADE = #{headingrade},</if>
+<if test="headduty != null">  HEADDUTY = #{headduty},</if>
+<if test="iscredit != null">  ISCREDIT = #{iscredit},</if>
+<if test="guidancedepartment != null">  GUIDANCEDEPARTMENT = #{guidancedepartment},</if>
+<if test="guidanceteacher != null">  GUIDANCETEACHER = #{guidanceteacher},</if>
+<if test="activitycontent != null">  ACTIVITYCONTENT = #{activitycontent},</if>
+<if test="management != null">  MANAGEMENT = #{management},</if>
+<if test="activityfund != null">  ACTIVITYFUND = #{activityfund},</if>
+<if test="isaward != null">  ISAWARD = #{isaward},</if>
+<if test="source != null">  SOURCE = #{source},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_STUDASSOCIATION config end********************************  -->
+
+</mapper>

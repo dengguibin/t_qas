@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_MAJORCOURSE config end********************************  -->
+
+<package name="QasDMajorcourse" extends="default"
+		namespace="/data/major/majorCourse">
+		
+		<action name="queryInfo" class="qasDMajorcourseAction" method="queryInfo">
+			<result name="select">/pages/data/major/majorCourse/QasDMajorcourseInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDMajorcourseAction" method="queryList">
+			<result name="list">/pages/data/major/majorCourse/QasDMajorcourseList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDMajorcourseAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDMajorcourseAction" method="toEdit">
+			<result name="toEdit">/pages/data/major/majorCourse/QasDMajorcourseEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDMajorcourseAction" method="save">
+			<result name="save" type="redirect">
+			/data/major/majorCourse/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_MAJORCOURSE config end********************************  -->
+</struts>

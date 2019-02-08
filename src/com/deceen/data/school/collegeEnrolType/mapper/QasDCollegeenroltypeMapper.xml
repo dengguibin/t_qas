@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.school.collegeEnrolType.mapper.QasDCollegeenroltypeMapper">
+<!--  ********************************QAS_D_COLLEGEENROLTYPE config begnin********************************  -->
+
+<select id="select" resultType="QasDCollegeenroltype"> 
+ SELECT ID,COLLEGENUM,SENIOREXAMNUM,SAMEPFSNUM,SINGLEEXAMNUM,MULESTIMATENUM,MIDHIGCONNUM,NOEXAMNUM,OTHERNUM,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_COLLEGEENROLTYPE 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="java.util.HashMap" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,COLLEGENUM,SENIOREXAMNUM,SAMEPFSNUM,SINGLEEXAMNUM,MULESTIMATENUM,MIDHIGCONNUM,NOEXAMNUM,OTHERNUM,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_COLLEGEENROLTYPE 
+ WHERE  1 = 1
+
+  <if test="mincollegenumScope != null and maxcollegenumScope !=null">
+	 	AND CollegeNum between #{mincollegenumScope} and #{maxcollegenumScope}
+  </if>
+   <if test="minseniorexamnumScope != null and maxseniorexamnumScope !=null">
+	 	AND SeniorExamNum between #{minseniorexamnumScope} and #{maxseniorexamnumScope}
+  </if>
+   <if test="minsamepfsnumScope != null and maxsamepfsnumScope !=null">
+	 	AND SamePfsNum between #{minsamepfsnumScope} and #{maxsamepfsnumScope}
+  </if>
+   <if test="minsingleexamnumScope != null and maxsingleexamnumScope !=null">
+	 	AND SingleExamNum between #{minsingleexamnumScope} and #{maxsingleexamnumScope}
+  </if>
+   <if test="minmulestimatenumScope != null and maxmulestimatenumScope !=null">
+	 	AND MulEstimateNum between #{minmulestimatenumScope} and #{maxmulestimatenumScope}
+  </if>
+   <if test="minmidhigconnumScope != null and maxmidhigconnumScope !=null">
+	 	AND MidhigConNum between #{minmidhigconnumScope} and #{maxmidhigconnumScope}
+  </if>
+   <if test="minnoexamnumScope != null and maxnoexamnumScope !=null">
+	 	AND NoExamNum between #{minnoexamnumScope} and #{maxnoexamnumScope}
+  </if>
+  
+  
+  <if test="collegenumScope != null">
+	 	AND CollegeNum >= #{collegenumScope}
+  </if>
+   <if test="seniorexamnumScope != null">
+	 	AND SeniorExamNum >=  #{seniorexamnumScope}
+  </if>
+   <if test="samepfsnumScope != null">
+	 	AND SamePfsNum  >=  #{samepfsnumScope}
+  </if>
+   <if test="singleexamnumScope != null">
+	 	AND SingleExamNum  >=  #{singleexamnumScope}
+  </if>
+   <if test="mulestimatenumScope != null">
+	 	AND MulEstimateNum  >=  #{mulestimatenumScope}
+  </if>
+   <if test="midhigconnumScope != null">
+	 	AND MidhigConNum >=  #{midhigconnumScope}
+  </if>
+   <if test="noexamnumScope != null">
+	 	AND NoExamNum  >=  #{noexamnumScope}
+  </if>
+
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDCollegeenroltype">
+ INSERT INTO QAS_D_COLLEGEENROLTYPE   ( ID,COLLEGENUM,SENIOREXAMNUM,SAMEPFSNUM,SINGLEEXAMNUM,MULESTIMATENUM,MIDHIGCONNUM,NOEXAMNUM,OTHERNUM,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{collegenum},#{seniorexamnum},#{samepfsnum},#{singleexamnum},#{mulestimatenum},#{midhigconnum},#{noexamnum},#{othernum},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDCollegeenroltype">
+ UPDATE QAS_D_COLLEGEENROLTYPE SET  ID=#{id},COLLEGENUM=#{collegenum},SENIOREXAMNUM=#{seniorexamnum},SAMEPFSNUM=#{samepfsnum},SINGLEEXAMNUM=#{singleexamnum},MULESTIMATENUM=#{mulestimatenum},MIDHIGCONNUM=#{midhigconnum},NOEXAMNUM=#{noexamnum},OTHERNUM=#{othernum},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_COLLEGEENROLTYPE WHERE   ID=#{id}
+</delete>
+
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_COLLEGEENROLTYPE WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDCollegeenroltype">
+ UPDATE QAS_D_COLLEGEENROLTYPE 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="collegenum != null">  COLLEGENUM = #{collegenum},</if>
+<if test="seniorexamnum != null">  SENIOREXAMNUM = #{seniorexamnum},</if>
+<if test="samepfsnum != null">  SAMEPFSNUM = #{samepfsnum},</if>
+<if test="singleexamnum != null">  SINGLEEXAMNUM = #{singleexamnum},</if>
+<if test="mulestimatenum != null">  MULESTIMATENUM = #{mulestimatenum},</if>
+<if test="midhigconnum != null">  MIDHIGCONNUM = #{midhigconnum},</if>
+<if test="noexamnum != null">  NOEXAMNUM = #{noexamnum},</if>
+<if test="othernum != null">  OTHERNUM = #{othernum},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_COLLEGEENROLTYPE config end********************************  -->
+
+</mapper>

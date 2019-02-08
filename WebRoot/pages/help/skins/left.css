@@ -1,0 +1,45 @@
+@charset "utf-8";
+* {
+	border:0;
+	margin:0;
+	padding:0;
+}
+
+body {
+	background:#fff;
+	font-size:14px;
+	font-family:Verdana, Arial, Helvetica, sans-serif,'微软雅黑';
+}
+
+
+/* Tree */
+.dtree {
+	font-family: Verdana, Arial, Helvetica, sans-serif,'微软雅黑';
+	font-size: 12px;
+	color: #000;
+	white-space: nowrap;
+	padding:4px;
+}
+.dtree img {
+	border: 0px;
+	vertical-align: middle;
+}
+.dtree a {
+	color:#000;
+	text-decoration: none;
+}
+.dtree a.node, .dtree a.nodeSel {
+	white-space: nowrap;
+	padding: 1px 2px 1px 2px;
+}
+.dtree a.node:hover, .dtree a.nodeSel:hover {
+	
+	text-decoration: underline;
+}
+.dtree a.nodeSel {
+	background-color: highlight;
+	color:#fff
+}
+.dtree .clip {
+	overflow: hidden;
+}

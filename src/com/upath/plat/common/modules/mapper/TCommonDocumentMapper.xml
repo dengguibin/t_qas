@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.common.modules.mapper.TCommonDocumentMapper">
+	<!-- ********************************T_COMMON_DOCUMENT config begnin******************************** -->
+
+	<select id="select" resultType="TCommonDocument">
+	SELECT	DOCID,BUSINESSID,MODULEID,APPENDID,NAME,STATE,PATH,TYPE,CONTENT,SIZE,PROPERTY,TITLE,SUBFIX,AUTHOR,MINORSID,SYSTEMID,CJSJ,CJR,XGSJ,XGR
+		FROM T_COMMON_DOCUMENT
+		WHERE DOCID=#{docid}
+		AND STATE = 1
+		<if test="businessid != null">
+			AND businessid = #{businessid}
+		</if>
+	</select>
+
+
+	<select id="list" useCache="false" resultType="hashmap">
+		<include refid="plat.ORACLE_PAGE_HEADER" />
+		SELECT	DOCID,BUSINESSID,MODULEID,APPENDID,NAME,STATE,PATH,TYPE,CONTENT,SIZE,PROPERTY,TITLE,SUBFIX,AUTHOR,MINORSID,SYSTEMID
+		FROM T_COMMON_DOCUMENT
+		WHERE STATE = 1
+		<if test="businessid != null">AND BUSINESSID=#{businessid}</if>
+		<if test="moduleid != null"> AND MODULEID = #{moduleid}</if>
+		<include refid="plat.ORACLE_PAGE_FOOTER" />
+	</select>
+
+	<insert id="insert" parameterType="TCommonDocument">
+		INSERT INTO T_COMMON_DOCUMENT (
+		DOCID,BUSINESSID,MODULEID,APPENDID,NAME,STATE,PATH,TYPE,CONTENT,SIZE,PROPERTY,TITLE,SUBFIX,AUTHOR,MINORSID,SYSTEMID,CJSJ,CJR,XGSJ,XGR)
+		VALUES (
+		#{docid},#{businessid},#{moduleid},#{appendid},#{name},#{state},#{path},#{type},#{content},#{size},#{property},#{title},#{subfix},#{author},#{minorsid},#{systemid},#{cjsj},#{cjr},#{xgsj},#{xgr}
+		)
+	</insert>
+
+	<update id="update" parameterType="TCommonDocument">
+		UPDATE T_COMMON_DOCUMENT SET
+		DOCID=#{docid},BUSINESSID=#{businessid},MODULEID=#{moduleid},APPENDID=#{appendid},NAME=#{name},STATE=#{state},PATH=#{path},TYPE=#{type},CONTENT=#{content},SIZE=#{size},PROPERTY=#{property},TITLE=#{title},SUBFIX=#{subfix},AUTHOR=#{author},MINORSID=#{minorsid},SYSTEMID=#{systemid},CJSJ=#{cjsj},CJR=#{cjr},XGSJ=#{xgsj},XGR=#{xgr}
+		WHERE DOCID=#{docid}
+	</update>
+
+	<delete id="delete">
+		UPDATE  T_COMMON_DOCUMENT SET STATE = 0  WHERE DOCID=#{docid}
+		<if test="businessid != null">
+			AND businessid = #{businessid}
+		</if>
+	</delete>
+
+	<!-- ********************************T_COMMON_DOCUMENT config end******************************** -->
+
+</mapper>

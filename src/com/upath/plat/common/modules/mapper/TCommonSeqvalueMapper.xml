@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.common.modules.mapper.TCommonSeqvalueMapper">
+<!--  ********************************T_COMMON_SEQVALUE config begnin********************************  -->
+
+<select id="select" resultType="TCommonSeqvalue"> 
+ SELECT SEQID,SEQTYPE,TID,CVALUE,NUMS,FLAG,CJSJ,CJR,XGSJ,XGR FROM  T_COMMON_SEQVALUE 
+ WHERE   SEQID=#{seqid}  AND SEQTYPE=#{seqtype}
+</select>
+
+<select id="list" parameterType="TCommonSeqvalue" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT SEQID,SEQTYPE,TID,CVALUE,NUMS,FLAG,CJSJ,CJR,XGSJ,XGR FROM  T_COMMON_SEQVALUE 
+ WHERE   SEQID=#{seqid} 
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="TCommonSeqvalue">
+ INSERT INTO T_COMMON_SEQVALUE   ( SEQID,SEQTYPE,TID,CVALUE,NUMS,FLAG,CJSJ,CJR,XGSJ,XGR)
+  VALUES ( #{seqid},#{seqtype},#{tid},#{cvalue},#{nums},#{flag},#{cjsj},#{cjr},#{xgsj},#{xgr} )
+</insert>
+
+ <update id="update" parameterType="TCommonSeqvalue">
+ UPDATE T_COMMON_SEQVALUE SET  SEQID=#{seqid},SEQTYPE=#{seqtype},TID=#{tid},CVALUE=#{cvalue},NUMS=#{nums},FLAG=#{flag},XGSJ=#{xgsj},XGR=#{xgr} 
+ WHERE  SEQID=#{seqid}  AND SEQTYPE=#{seqtype}
+</update>
+
+ <delete id="delete" parameterType="TCommonSeqvalue">
+   DELETE FROM T_COMMON_SEQVALUE WHERE   SEQID=#{seqid}  AND SEQTYPE=#{seqtype}
+</delete>
+
+
+<select id="selectSequnce" resultType="TSequence"> 
+SELECT S.SEQID,S.NAME,S.OWNERS,S.MINVAL,S.MAXVAL,S.SPOS,S.STEPS,S.DES,V.SEQTYPE,V.TID,V.CVALUE,V.NUMS,V.FLAG FROM T_COMMON_SEQ S
+ LEFT OUTER JOIN T_COMMON_SEQVALUE V ON S.SEQID = V.SEQID AND V.SEQTYPE = #{seqtype}
+ WHERE S.NAME = #{name}
+</select>
+
+ <insert id="insertSequnce" parameterType="TSequence">
+ INSERT INTO T_COMMON_SEQVALUE   ( SEQID,SEQTYPE,TID,CVALUE,NUMS,FLAG,CJSJ,CJR,XGSJ,XGR)
+  VALUES ( #{seqid},#{seqtype},#{tid},#{cvalue},#{nums},#{flag},#{cjsj},#{cjr},#{xgsj},#{xgr} )
+</insert>
+
+
+ <update id="updateSequnce" parameterType="TSequence">
+ UPDATE T_COMMON_SEQVALUE SET  CVALUE=#{cvalue},NUMS=#{nums},FLAG=#{flag},XGSJ=#{xgsj},XGR=#{xgr} 
+ WHERE  TID=#{tid}
+</update>
+
+<!--  ********************************T_COMMON_SEQVALUE config end********************************  -->
+
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_FIXEDASSETS config end********************************  -->
+
+<package name="QasDFixedassets" extends="default"
+		namespace="/data/school/fixedAssets">
+		
+		<action name="queryInfo" class="qasDFixedassetsAction" method="queryInfo">
+			<result name="select">/pages/data/school/fixedAssets/QasDFixedassetsInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDFixedassetsAction" method="queryList">
+			<result name="list">/pages/data/school/fixedAssets/QasDFixedassetsList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDFixedassetsAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDFixedassetsAction" method="toEdit">
+			<result name="toEdit">/pages/data/school/fixedAssets/QasDFixedassetsEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDFixedassetsAction" method="save">
+			<result name="save" type="redirect">
+			/data/school/fixedAssets/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_FIXEDASSETS config end********************************  -->
+</struts>

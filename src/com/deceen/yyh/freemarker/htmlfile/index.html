@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8' />
+	    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	    <meta name='viewport' content='width=device-width, initial-scale=1'>
+		<title>诊断分析</title>
+		<!--
+			兼容ie9以下的系统
+			<script src='https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js'></script>
+	      	<script src='https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js'></script>
+		-->
+	    <!--[if lt IE 9]>
+	      	<script type='text/javascript' src='js/common/html5shiv.min.js' ></script>
+	      	<script type='text/javascript' src='js/common/respond.min.js' ></script>
+	    <![endif]-->
+		
+		<!-- 公共样式，消除浏览器标签的默认效果-->
+		<link rel='stylesheet' href='css/public.css' />
+		<!--bootstrap 3.3.7版本 已引入图标库-->
+	    <link rel='stylesheet' href='bootstrap-3.3.7-dist/css/bootstrap.min.css' />
+	    <link rel='stylesheet' href='css/diagnoisAnaly.css' />
+	    <!--jquery1.10.2版本-->
+	    <script type='text/javascript' src='js/jquery.min.js' ></script>
+	    <script type='text/javascript' src='bootstrap-3.3.7-dist/js/bootstrap.min.js' ></script>
+	    <!-- echarts图表 3.7.2开发版本，生产环境要引入生产版本echarts_3.7.2.min.js（即压缩版本，去掉注释和错误警告）-->
+	    <script type='text/javascript' src='js/echarts_3.7.2.js' ></script>
+	    <script type='text/javascript' src='js/jauery.nav.js' ></script>
+	   	<script type='text/javascript' src='js/diagnois.js' ></script>
+	   	<script type='text/javascript' src='js/chart_model.js' ></script>
+	    
+	</head>
+	<body>
+		<!--头部导航栏-->
+		<header class='header-nav clear'>
+			<div class='navbar-brand logo-title'>国泰安质量保证系统</div>
+			<div class='navbar-center'>
+				<ul class='nav nav-pills'>
+					<li role='presentation'><a href='#'>诊断任务管理</a></li>
+					<li role='presentation'><a href='#'>数据填报</a></li>
+					<li role='presentation' class='active'><a href='#'>诊断分析</a></li>
+					<li role='presentation'><a href='#'>后台管理</a></li>
+				</ul>
+			</div>
+			<div class='topinf flex align-items-center'>
+				<span class='head-img'></span>
+				<span class='user-name'>陈老师</span>
+			</div>
+		</header>
+		
+		<!--主要部分-->
+		<div class='main'>
+			<!--搜索栏-->
+			<div class='search-bar clear'>
+				<!--下拉框-->
+				<!--默认是向下弹出，向上弹出，把类名改为dropup -->
+				<div class='dropdown left'>
+					<button class='btn btn-default dropdown-toggle inputxt' type='button' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
+						请选择
+						<span class='caret'></span>
+					</button>
+					<!--下拉菜单的选项-->
+					<!-- 如果有禁用的选项，即使在给li添加类disabled-->
+					<!--如果类别的下方需要一个分割线 <li role='separator' class='divider'></li>-->
+					<ul class='dropdown-menu' aria-labelledby='dropdownMenu1'>
+						<li>
+							<a href='#'>2017学年专业诊断</a>
+						</li>
+						<li>
+							<a href='#'>2017学年学校诊断</a>
+						</li>
+					</ul>
+				</div>
+				<div class='left'>
+					<input type='date' class='inputxt btn'  />
+				</div>
+				<div class='right'>
+					<button class='btn'>诊断分析</button>
+				</div>
+			</div>
+			
+			<!--内容部分，左右分栏 栅栏系统-->
+			<!--栅栏系统必须包含在容器里面，类container-fluid表示流式布局，容器宽度100%，类container固定宽度-->
+			<div class='main-content container-fluid'>
+				<!--
+					row:行(水平方向)，col:列(垂直方向)，行里面的子元素只能包含列
+					栅栏系统一共有12列，如果一“行（row）”中包含了的“列（column）”大于 12，多余的“列（column）”所在的元素将被作为一个整体另起一行排列
+					栅格系统中的列是通过指定1到12的值来表示其跨越的范围。例如，三个等宽的列可以使用三个 .col-lg-4 来创建。
+				-->
+				<div class='row'>
+					<div class='col-lg-2 content-l'>
+						<div class='sys-class'>
+							汽车电子技术
+							<i class='glyphicon glyphicon-menu-right' aria-hidden='更多'></i>
+						</div>
+						<div class='box'></div>
+						<!-- 类名列表-->
+						<ul class='class-list'> 
+							<li class='class-item'>
+								<!--i引用的是字体图标 http://v3.bootcss.com/components/-->
+								<i class='glyphicon glyphicon-asterisk'></i>
+								<span>总体概述</span>
+							</li>
+							<li class='class-item'>
+								<i class='glyphicon glyphicon-asterisk'></i>
+								<span>专业资源</span>
+							</li>
+							<li class='class-item'>
+								<i class='glyphicon glyphicon-asterisk'></i>
+								<span>师资力量</span>
+							</li>
+							<li class='class-item'>
+								<i class='glyphicon glyphicon-asterisk'></i>
+								<span>课程体系</span>
+							</li>
+							<li class='class-item'>
+								<i class='glyphicon glyphicon-asterisk'></i>
+								<span>社会服务</span>
+							</li>
+						</ul>
+					</div>
+					<div class='col-lg-10 content-r'>
+						<!-- 一栏分布 row添加类box-->
+						<div class='row box'>
+							<div class='col-lg-12 con-top'>
+								<!--标题-->
+								<h5 class='at-1'>师资力量总体情况分析：</h5>
+								<div class='con'>
+									分析内容分析内容分析内容分析内容分析内容分析内容
+									分析内容分析内容分析内容分析内容分析内容分析内容
+									分析内容分析内容分析内容分析内容分析内容分析内容
+									分析内容分析内容分析内容分析内容分析内容分析内容
+									分析内容分析内容分析内容分析内容分析内容分析内容
+									分析内容分析内容分析内容分析内容分析内容分析内容
+									，总达标率 <span class='dis-warn'>84%</span>
+								</div>
+								<div class='con'>
+									<span>诊断结论：</span><span class='dis-warn'>改进</span>
+								</div>
+							</div>
+							<div class='col-lg-12 con-bottom'>
+								<div class='row'>
+									诊断要素的诊断情况如下：
+								</div>
+								<div class='row diag-result'>
+									<!-- 
+										诊断结果，通过的图标是glyphicon-ok-sign
+										不通过的结果是glyphicon-remove-sign
+									-->
+									<div class='col-lg-3 '>
+										<i class='glyphicon glyphicon-ok-sign'></i>
+										<span>团队结构</span>
+									</div>
+									<div class='col-lg-3'>
+										<i class='glyphicon glyphicon-remove-sign'></i>
+										<span>整体素质</span>
+									</div>
+									<div class='col-lg-3'>
+										<i class='glyphicon glyphicon-ok-sign'></i>
+										<span>团队结构</span>
+									</div>
+									<div class='col-lg-3'>
+										<i class='glyphicon glyphicon-remove-sign'></i>
+										<span>整体素质</span>
+									</div>
+									<div class='col-lg-3'>
+										<i class='glyphicon glyphicon-ok-sign'></i>
+										<span>团队结构</span>
+									</div>
+									<div class='col-lg-3'>
+										<i class='glyphicon glyphicon-remove-sign'></i>
+										<span>整体素质</span>
+									</div>
+									<div class='col-lg-3'>
+										<i class='glyphicon glyphicon-ok-sign'></i>
+										<span>团队结构</span>
+									</div>
+									<div class='col-lg-3'>
+										<i class='glyphicon glyphicon-remove-sign'></i>
+										<span>整体素质</span>
+									</div>
+									<div class='col-lg-3'>
+										<i class='glyphicon glyphicon-ok-sign'></i>
+										<span>团队结构</span>
+									</div>
+									<div class='col-lg-3'>
+										<i class='glyphicon glyphicon-remove-sign'></i>
+										<span>整体素质</span>
+									</div>
+									<div class='col-lg-3'>
+										<i class='glyphicon glyphicon-ok-sign'></i>
+										<span>团队结构</span>
+									</div>
+									<div class='col-lg-3'>
+										<i class='glyphicon glyphicon-remove-sign'></i>
+										<span>整体素质</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class='row box2'>
+							<!-- 两栏分布-->
+							<!-- 两栏至多兰分布得到row添加类box，里面的列添加box2-1，主要是为了列与列之间存在空隙，两边对齐-->
+							<div class='col-lg-6 box2-1'>
+								<div class='sbox'>
+									<div class='con-title warn'>
+										问题描述
+									</div>
+									<ul class='list'>
+										<li>
+											<h6>师资队伍整体学历偏低</h6>
+											<p>在教师学历组成中，研究生学历以上教师占比较低，教师总体学历层次不高</p>
+										</li>
+										<li>
+											<h6>双师素质教师较为缺乏</h6>
+											<p>在教师学历组成中，研究生学历以上教师占比较低，教师总体学历层次不高</p>
+										</li>
+										<li>
+											<h6>教学科研水平有待提升</h6>
+											<p>教师公开出版著作数量和省级以上在研课题数量均低于标准值，反映教师整体科研水平不高</p>
+										</li>
+									</ul>
+								</div>
+								
+							</div>
+							<div class='col-lg-6 box2-1'>
+								<div class='sbox'>
+									<div class='con-title suggest'>
+										问题描述
+									</div>
+									<ul class='list'>
+										<li>
+											<h6>师资队伍整体学历偏低</h6>
+											<p>在教师学历组成中，研究生学历以上教师占比较低，教师总体学历层次不高</p>
+										</li>
+										<li>
+											<h6>双师素质教师较为缺乏</h6>
+											<p>在教师学历组成中，研究生学历以上教师占比较低，教师总体学历层次不高</p>
+										</li>
+										<li>
+											<h6>教学科研水平有待提升</h6>
+											<p>教师公开出版著作数量和省级以上在研课题数量均低于标准值，反映教师整体科研水平不高</p>
+										</li>
+									</ul>
+								</div>
+								
+							</div>
+						</div>
+						
+						<div class='row box' id='sub_nav'>
+							<ul class='nav nav-tabs'>
+															  		<li role='presentation'><span href='#sub_con_0'>教学经费投入</span></li>
+							  		<li role='presentation'><span href='#sub_con_1'>实训基地</span></li>
+							</ul>
+						</div>
+							<div class='row box2' id='sub_con_0'>
+									<h4 class='sub-t'><span style='color: #204D74;font-weight: 600;'>|</span>教学经费投入</h4>
+									<div class='col-lg-6 box2-1'><div class='sbox'><div id='chart_1' style='height: 300px;'></div></div></div>
+							</div>
+							<div class='row box2' id='sub_con_1'>
+									<h4 class='sub-t'><span style='color: #204D74;font-weight: 600;'>|</span>实训基地</h4>
+									<div class='col-lg-6 box2-1'><div class='sbox'><div id='chart_2' style='height: 300px;'></div></div></div>
+									<div class='col-lg-6 box2-1'><div class='sbox'><div id='chart_3' style='height: 300px;'></div></div></div>
+									<div class='col-lg-12'><div id='chart_4' style='height: 300px;'></div></div>
+							</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<footer>
+			<div class='foot'>
+				<span>Copyright © 2015 GTA rights reserved </span>
+				<span style='margin: 0 30px;'>版权所有 粤ICP备05065871号 </span>
+				<span>技术支持：深圳德信软件科技有限公司</span>
+			</div>
+		</footer>
+	</body>
+</html>

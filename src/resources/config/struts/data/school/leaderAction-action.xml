@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_LEADERACTION config end********************************  -->
+
+<package name="QasDLeaderaction" extends="default"
+		namespace="/data/school/leaderAction">
+		
+		<action name="queryInfo" class="qasDLeaderactionAction" method="queryInfo">
+			<result name="select">/pages/data/school/leaderAction/QasDLeaderactionInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDLeaderactionAction" method="queryList">
+			<result name="list">/pages/data/school/leaderAction/QasDLeaderactionList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDLeaderactionAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDLeaderactionAction" method="toEdit">
+			<result name="toEdit">/pages/data/school/leaderAction/QasDLeaderactionEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDLeaderactionAction" method="save">
+			<result name="save" type="redirect">
+			/data/school/leaderAction/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_LEADERACTION config end********************************  -->
+</struts>

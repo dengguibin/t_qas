@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.common.modules.mapper.TCommonSubkeysMapper">
+<!--  ********************************T_COMMON_SUBKEYS config begnin********************************  -->
+
+<select id="select" resultType="TCommonSubkeys"> 
+ SELECT CODE,SUBCODE,TID,CNAME,VALID,SEQ,PARAMS1,PARAMS2,DES,CJSJ,CJR,XGR,XGSJ FROM  T_COMMON_SUBKEYS 
+ WHERE  SUBCODE=#{subcode}
+ 	AND CODE=#{code}
+</select>
+
+<select id="list" parameterType="TCommonSubkeys" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT CODE,SUBCODE,TID,CNAME,VALID,SEQ,PARAMS1,PARAMS2,DES,CJSJ,CJR,XGR,XGSJ FROM  T_COMMON_SUBKEYS 
+ WHERE  1 = 1
+ 	<if test="code != null">AND CODE=#{code} </if>
+ 	<if test="subcode != null">AND SUBCODE=#{subcode}</if>
+ 	ORDER BY SEQ
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="TCommonSubkeys">
+ INSERT INTO T_COMMON_SUBKEYS   ( CODE,SUBCODE,TID,CNAME,VALID,SEQ,PARAMS1,PARAMS2,DES,CJSJ,CJR,XGR,XGSJ)
+  VALUES ( #{code},#{subcode},#{tid},#{cname},#{valid},#{seq},#{params1},#{params2},#{des},#{cjsj},#{cjr},#{xgr},#{xgsj} )
+</insert>
+
+ <update id="update" parameterType="TCommonSubkeys">
+ UPDATE T_COMMON_SUBKEYS SET  CODE=#{code},SUBCODE=#{subcode},TID=#{tid},CNAME=#{cname},VALID=#{valid},SEQ=#{seq},PARAMS1=#{params1},PARAMS2=#{params2},DES=#{des},CJSJ=#{cjsj},CJR=#{cjr},XGR=#{xgr},XGSJ=#{xgsj} 
+ WHERE  CODE=#{code}  AND SUBCODE=#{subcode}
+</update>
+
+ <delete id="delete" parameterType="TCommonSubkeys">
+   DELETE FROM T_COMMON_SUBKEYS WHERE   CODE=#{code}  AND SUBCODE=#{subcode}
+</delete>
+
+<!--  ********************************T_COMMON_SUBKEYS config end********************************  -->
+
+</mapper>

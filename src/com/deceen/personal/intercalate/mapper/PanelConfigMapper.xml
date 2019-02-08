@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.personal.intercalate.mapper.PanelConfigMapper">
+
+ <!--加载出所有被监控的指标节点树  -->
+ <select id="intercalateIsMonitorTree" resultType="qasTIndicatorcatalog">
+    SELECT * FROM  (SELECT ID,NAME_,INDICATORTYPE,SORT,PARENTID,LEADDEPT,SYNERGETICDEPT,REMARK
+    FROM qas_t_indicatorcatalog 
+    WHERE IsMonitor = 1
+    <if test="vague != null and vague != ''">
+ 		AND Name_ LIKE CONCAT('%',#{vague},'%')  
+ 	</if>
+    UNION 
+    SELECT tor.ID,tor.NAME_,tor.INDICATORTYPE,tor.SORT,tor.PARENTID,tor.LEADDEPT,tor.SYNERGETICDEPT,tor.REMARK
+    FROM qas_t_indicatorcatalog tor , (SELECT Sort FROM qas_t_indicatorcatalog WHERE IsMonitor = 1 AND IndicatorType=0
+    <if test="vague != null and vague != ''">
+ 		AND Name_ LIKE CONCAT('%',#{vague},'%')  
+ 	</if>
+    ) t 
+    WHERE tor.IndicatorType != 0 AND tor.Sort IN(FLOOR(t.Sort/100),FLOOR(t.Sort/10000),FLOOR(t.Sort/1000000))
+     ) ismon
+    ORDER BY sort ASC 
+ </select>
+
+ <!--获取树形结构各层的总数  -->
+ <select id="intercalatecount" resultType="hashmap">
+ 	SELECT * FROM (
+	SELECT T1.NAME_,COUNT(T2.ID) AS COUNT,T1.SORT FROM QAS_T_INDICATORCATALOG T1 
+	LEFT JOIN (SELECT ID,SORT,INDICATORTYPE FROM QAS_T_INDICATORCATALOG WHERE IsMonitor = 1
+	 <if test="vague != null and vague != ''">
+ 		AND Name_ LIKE CONCAT('%',#{vague},'%')  
+ 	 </if>
+	) T2 ON T2.SORT LIKE CONCAT(T1.SORT,'%') AND T2.INDICATORTYPE=0 
+	WHERE T1.PARENTID IS NULL  GROUP BY T1.ID
+	UNION
+	SELECT T1.NAME_,COUNT(T2.ID) AS COUNT,T1.SORT  FROM QAS_T_INDICATORCATALOG T1 LEFT JOIN
+	(SELECT ID,SORT,INDICATORTYPE FROM QAS_T_INDICATORCATALOG WHERE IsMonitor = 1
+	 <if test="vague != null and vague != ''">
+ 		AND Name_ LIKE CONCAT('%',#{vague},'%')  
+ 	 </if>
+	) T2 ON T2.SORT LIKE CONCAT(T1.SORT,'%') AND T2.INDICATORTYPE=0 
+	WHERE T1.PARENTID =''  GROUP BY T1.ID	
+	) A ORDER BY A.SORT
+ </select>
+
+
+<!--根据指标id查询是否存在监视记录  -->
+<select id="selectEarlyWarning" resultType="com.deceen.personal.intercalate.bean.EarlyWarning">
+	SELECT r_userID userID,r_indicatorID indicatorID,warningValueCeiling,warningValueFloor
+	FROM qas_t_userindicatorearlywarning 
+	WHERE r_indicatorID=#{indicatorid} AND r_userID=#{userid}
+</select>
+
+
+<!--新增监视记录表  -->
+<insert id="insertEarlyWarning" parameterType="com.deceen.personal.intercalate.bean.EarlyWarning">
+	INSERT INTO qas_t_userindicatorearlywarning(r_userID,r_indicatorID,warningValueCeiling,warningValueFloor)
+	VALUE (#{userID},#{indicatorID},#{warningValueCeiling},#{warningValueFloor})
+</insert>
+
+
+<!--根据指标id，当前用户id修改监视记录表  -->
+<update id="updateByIndicatorid" parameterType="com.deceen.personal.intercalate.bean.EarlyWarning">
+	UPDATE qas_t_userindicatorearlywarning 
+	<trim prefix="SET" suffixOverrides=",">
+		<if test="warningValueCeiling != null"> warningValueCeiling=#{warningValueCeiling},</if>
+		<if test="warningValueFloor != null"> warningValueFloor=#{warningValueFloor}</if>
+	</trim>
+	WHERE r_userID=#{userID} AND r_indicatorID=#{indicatorID}
+</update>
+
+
+<!--根据指标id，当前用户id删除监视记录表  -->
+<delete id="delect" parameterType="com.deceen.personal.intercalate.bean.EarlyWarning">
+	DELETE 
+	FROM qas_t_userindicatorearlywarning 
+	WHERE r_userID=#{userID} AND r_indicatorID=#{indicatorID}
+</delete>
+
+</mapper>

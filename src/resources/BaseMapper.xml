@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="plat">
+<cache />
+
+	<!-- 
+	<sql id="ORACLE_PAGE_HEADER">
+		<if test="status == 0">SELECT COUNT(1) ROWS FROM (</if>
+		<if test="status != 0">SELECT * FROM ( SELECT ROWNUM ROW_INDEX, V_PVIEW.* FROM (</if>
+	</sql>
+
+	<sql id="ORACLE_PAGE_FOOTER">
+		<if test="status == 0">) V_CVIEWS</if>
+		<if test="status != 0"><![CDATA[ ) V_PVIEW  ) V_PAGE_ALL WHERE ROW_INDEX > #rowstart#  AND ROW_INDEX < #rowend# ]]></if>
+	</sql>
+	
+	<sql id="ORACLE_PAGE_HEADER">
+	<if test="page != null">
+		<if test="page.status == 0">SELECT COUNT(1) ROWNS FROM (</if>
+		<if test="page.status != 0">SELECT * FROM (</if>
+	</if>
+	</sql>
+
+	<sql id="ORACLE_PAGE_FOOTER">
+	<if test="page != null">
+		<if test="page.status == 0">) V_CVIEWS</if>
+		<if test="page.status != 0"><![CDATA[ ) V_PAGE_ALL  
+		limit #{page.rowstart},  #{page.pageSize} ]]></if>
+	</if>
+	</sql>
+	 
+	 -->
+	 
+
+	<!-- mysql page -->
+	<sql id="ORACLE_PAGE_HEADER">
+	<if test="page != null">
+		<if test="page.status == 0">SELECT COUNT(1) ROWNS FROM (</if>
+		<if test="page.status != 0">SELECT * FROM (</if>
+	</if>
+	</sql>
+
+	<sql id="ORACLE_PAGE_FOOTER">
+	<if test="page != null">
+		<if test="page.status == 0">) V_CVIEWS</if>
+		<if test="page.status != 0"><![CDATA[ ) V_PAGE_ALL WHERE 1 = 1 LIMIT #{page.rowstart} ,#{page.pageSize}]]></if>
+	</if>
+	</sql>	
+	
+	<!-- 加载系统缓存到缓存管理器当中
+		各系统信息为'SYSTEMS'
+		父字典全部绑定在 CODES 下面进行使用
+		权限信息绑定在 PERMISSION 下面
+		单位信息绑定在 在 ORGS 下面
+	 -->
+	<select id="codeCache" resultType="TCommonSubkeys" parameterType="string" useCache="false">
+	SELECT CODE,SUBCODE,CNAME,VALID,CASE WHEN SEQ IS NULL THEN 99999 ELSE SEQ END SS,PARAMS1,PARAMS2,DES FROM (
+	  SELECT CODE,SUBCODE,CNAME,VALID,SEQ,PARAMS1,PARAMS2,DES FROM  T_COMMON_SUBKEYS 
+    UNION ALL
+  SELECT 'CODES',CODE,CNAME,VALID,SEQ,PNAME1,PNAME2,DES FROM T_COMMON_KEYS
+     UNION ALL 
+    SELECT 'SYSTEMS',APPID,XTMS,1,1,XTMRSY,ORGID,DQBSLJ FROM  T_RMS_APPINFO
+      UNION ALL
+    SELECT 'PERMISSION',QXID,QXMC,SFYX,PXH,'','',QXMS FROM T_RMS_PERMISSIONSINFO
+      UNION ALL 
+    SELECT 'ORGS',BMID,BMMC,1,PXH,FBMID,BMHJR,BMMS FROM T_RMS_DEPTMENT	
+      UNION ALL
+    SELECT 'ORG',BMID,BMMC,1,PXH,FBMID,BMHJR,BMMS FROM T_RMS_DEPTMENT	WHERE CJ = '1'
+      UNION ALL
+    SELECT 'USERS',U.YHID,U.YHMC,U.SFYX,U.PXH,U.BMID,U.YHCW,U.SJHM FROM T_RMS_USER U
+ 	  UNION ALL
+    SELECT 'WORKDAYS',T.YEAR,T.LISTS,1,T.YEAR,'','','' FROM T_COMMON_WORKDAY T
+    UNION ALL
+	SELECT 'INDICATORSTYLE',ID,NAME_ATOM,1,1,'','',REMARK FROM T_MTY_ATOM
+ 	) VW WHERE VALID = 1 
+ 		<if test="value != null">
+ 		  AND  CODE=  #{value} 
+ 		</if>
+ 		ORDER BY SS ASC 
+	</select>
+	
+	
+	<select id="menuCache" resultType="Menu" useCache="false"> 
+ 	SELECT CDID,XTID,PCDID,CDMC,CDMS,CDCJ,PXH,LJDZ,CDCS,LJLX,SFYX 
+ 	FROM  T_RMS_MENUINFO WHERE SFYX = 1  ORDER BY PXH
+	</select>
+	
+	<select id="funcCache" resultType="Function" useCache="false"> 
+ 	SELECT FUNCID,CDID,NAME,CODE,FCNAME,URL,LX,DESCRIP,MARKS
+ 	FROM  T_RMS_MENUFUNC 
+	</select>
+	
+	<select id="selectPermissions" resultType="Permissions" useCache="false"> 
+ 	SELECT QXID,QXMC,QXMS,PXH,SFYX FROM  T_RMS_PERMISSIONSINFO
+	</select>
+	
+	
+	<select id="selectUser" resultType="User" useCache="false"> 
+	 SELECT YHID,YHLX,BMID,YHJC,YHMC,YHCW,DLSJ,DLIP,SJHM,DZYJ,JTDH,GZDH,SFZX,SFYX,PXH,GRZY,YHMM,UID,YHZT FROM  T_RMS_USER 
+		<if test="value != null">
+		 WHERE   YHID= #{value}
+		</if>
+	</select>
+	
+	<select id="selectDeptment" resultType="DepartMent" useCache="false"> 
+	 SELECT BMID,FBMID,BMBH,BMMC,PXH,BMHJR,BMMS FROM  T_RMS_DEPTMENT 
+	 <if test="value != null">
+		  WHERE   BMID=#{bmid}
+	 </if>
+	</select>
+	
+	<select id="selectAllRole" resultType="Role" useCache="false"> 
+	  SELECT JSID,JSMC,JSMS,PXH,SFYX FROM  T_RMS_ROLE 
+	</select>
+	
+	<select id="selectGroup" resultType="Group" useCache="false"> 
+	   SELECT YHZID,FYHZID,YHZMC,YHZMS,ZCJ,PXH,YHZLX,SFYX FROM  T_RMS_GROUPS 
+	</select>
+	
+	<select id="selectRoleUser" resultType="Relations" useCache="false"> 
+	  SELECT  YHJSGXID ID, YHID VALUE, JSID "KEY" FROM T_RMS_USER_ROLE
+	</select>
+	
+	<select id="selectRolePermissions" resultType="Relations" useCache="false"> 
+	  SELECT  T.JSQXGXID ID, T.QXID VALUE, T.JSID "KEY" FROM T_RMS_ROLE_PERMISIONS T
+	</select>
+	
+	
+	<select id="selectRoleMenu" resultType="Relations" useCache="false"> 
+	 SELECT  JSCDGXID ID, CDID VALUE, JSID "KEY",QX STAT FROM T_RMS_ROLE_MENU 
+	</select>
+	
+	<select id="selectGroupUser" resultType="Relations" useCache="false"> 
+		SELECT  T.YHZYHGXID ID, YHID VALUE, YHZID "KEY" FROM T_RMS_GROUPS_USER T
+	</select>
+	
+	
+	<!-- SQL模板管理 -->
+	<select id="selectSql" parameterType="TCommonSql" useCache="false"   resultType ="TCommonSql" >  
+ 	SELECT TID,PTID,NAME,RTYPE,TYPE,SCRIPTS,RESULT,CPATH,TIMES,COSTS,DES  FROM  T_COMMON_SQL 
+	WHERE 1 = 1
+	<if test="tid != null">
+		AND TID = #{tid}
+	</if>
+	<if test="ptid != null">
+		AND TID = #{ptid}
+	</if>
+	</select>
+</mapper>

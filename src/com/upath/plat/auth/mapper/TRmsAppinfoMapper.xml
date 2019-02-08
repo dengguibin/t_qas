@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.auth.mapper.TRmsAppinfoMapper">
+<cache />
+<!--  ********************************T_RMS_APPINFO config begnin********************************  -->
+
+<select id="select" resultType="TRmsAppinfo"> 
+ SELECT APPID,ORGID,XTMS,XTMRSY,XTDQBB,KFWFR,DQBSLJ,YJLXFS,DHFS,CJSJ,CJR,XGR,XGSJ FROM  T_RMS_APPINFO 
+ WHERE   APPID=#{appid}
+</select>
+
+<select id="list" parameterType="TRmsAppinfo"  useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT APPID,ORGID,XTMS,XTMRSY,XTDQBB,KFWFR,DQBSLJ,YJLXFS,DHFS,CJSJ,CJR,XGR,XGSJ 
+ FROM  T_RMS_APPINFO 
+ WHERE 1 = 1
+ <if test="orgid != null and orgid != ''">
+ AND ORGID  LIKE '%' #{orgid} '%' 
+ </if>
+  <if test="xtms != null and xtms != ''">
+ AND XTMS  LIKE '%' #{xtms} '%' 
+ </if>
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="TRmsAppinfo" >
+ INSERT INTO T_RMS_APPINFO   ( APPID,ORGID,XTMS,XTMRSY,XTDQBB,KFWFR,DQBSLJ,YJLXFS,DHFS,CJSJ,CJR,XGR,XGSJ)
+  VALUES ( #{appid},#{orgid},#{xtms},#{xtmrsy},#{xtdqbb},#{kfwfr},#{dqbslj},#{yjlxfs},#{dhfs},#{cjsj},#{cjr},#{xgr},#{xgsj} )
+</insert>
+
+ <update id="update" parameterType="TRmsAppinfo" >
+ UPDATE T_RMS_APPINFO SET  APPID=#{appid},ORGID=#{orgid},XTMS=#{xtms},XTMRSY=#{xtmrsy},XTDQBB=#{xtdqbb},KFWFR=#{kfwfr},DQBSLJ=#{dqbslj},YJLXFS=#{yjlxfs},DHFS=#{dhfs},CJSJ=#{cjsj},CJR=#{cjr},XGR=#{xgr},XGSJ=#{xgsj} 
+ WHERE  APPID=#{appid}
+</update>
+
+ <delete id="delete" parameterType="TRmsAppinfo" >
+   DELETE FROM T_RMS_APPINFO WHERE   APPID=#{appid}
+</delete>
+
+<!--  ********************************T_RMS_APPINFO config end********************************  -->
+
+</mapper>

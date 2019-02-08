@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.school.areaOfStructure.mapper.QasDAreaofstructureMapper">
+<!--  ********************************QAS_D_AREAOFSTRUCTURE config begnin********************************  -->
+
+<select id="select" resultType="QasDAreaofstructure"> 
+ SELECT ID,AREACOVERED,CONSTRUCTIONAREA,SCHOOLBUILDINGAREA,SCHOOLADDBUILDING,NONSCHOOLPROPERTYAREA,RESEARCHANDAUXILIARY,CLASSROOM,LIBRARY,LABORATORYANDPRACTICE,SPECIALRESEARCH,STADIUM,HALL,OFFICE,LIVINGROOM,STUDENTDORMITORY,STUDENTCANTEEN,EMPLOYEEDORMITORY,EMPLOYEECANTEEN,WELFAREHOUSE,FACULTYRESIDENCE,OTHERRESIDENCE,INTEGRATEDCLASSROOM,ACREAGE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_AREAOFSTRUCTURE 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDAreaofstructure" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,AREACOVERED,CONSTRUCTIONAREA,SCHOOLBUILDINGAREA,SCHOOLADDBUILDING,NONSCHOOLPROPERTYAREA,RESEARCHANDAUXILIARY,CLASSROOM,LIBRARY,LABORATORYANDPRACTICE,SPECIALRESEARCH,STADIUM,HALL,OFFICE,LIVINGROOM,STUDENTDORMITORY,STUDENTCANTEEN,EMPLOYEEDORMITORY,EMPLOYEECANTEEN,WELFAREHOUSE,FACULTYRESIDENCE,OTHERRESIDENCE,INTEGRATEDCLASSROOM,ACREAGE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_AREAOFSTRUCTURE 
+ WHERE  1 = 1
+ 
+  <if test="minareacoveredScope != null and maxareacoveredScope !=null">
+	 	AND AreaCovered between #{minareacoveredScope} and #{maxareacoveredScope}
+  </if>
+    <if test="minofficeScope != null and maxofficeScope !=null">
+	 	AND Office between #{minofficeScope} and #{maxofficeScope}
+  </if>
+    <if test="minlivingroomScope != null and maxlivingroomScope !=null">
+	 	AND LivingRoom between #{minlivingroomScope} and #{maxlivingroomScope}
+  </if>
+  
+    <if test="areacoveredScope != null">
+	 	AND AreaCovered >= #{areacoveredScope}
+  </if>
+    <if test="officeScope != null ">
+	 	AND Office >= #{officeScope}
+  </if>
+    <if test="livingroomScope != null">
+	 	AND LivingRoom >= #{livingroomScope}
+  </if>
+  
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDAreaofstructure">
+ INSERT INTO QAS_D_AREAOFSTRUCTURE   ( ID,AREACOVERED,CONSTRUCTIONAREA,SCHOOLBUILDINGAREA,SCHOOLADDBUILDING,NONSCHOOLPROPERTYAREA,RESEARCHANDAUXILIARY,CLASSROOM,LIBRARY,LABORATORYANDPRACTICE,SPECIALRESEARCH,STADIUM,HALL,OFFICE,LIVINGROOM,STUDENTDORMITORY,STUDENTCANTEEN,EMPLOYEEDORMITORY,EMPLOYEECANTEEN,WELFAREHOUSE,FACULTYRESIDENCE,OTHERRESIDENCE,INTEGRATEDCLASSROOM,ACREAGE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{areacovered},#{constructionarea},#{schoolbuildingarea},#{schooladdbuilding},#{nonschoolpropertyarea},#{researchandauxiliary},#{classroom},#{library},#{laboratoryandpractice},#{specialresearch},#{stadium},#{hall},#{office},#{livingroom},#{studentdormitory},#{studentcanteen},#{employeedormitory},#{employeecanteen},#{welfarehouse},#{facultyresidence},#{otherresidence},#{integratedclassroom},#{acreage},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDAreaofstructure">
+ UPDATE QAS_D_AREAOFSTRUCTURE SET  ID=#{id},AREACOVERED=#{areacovered},CONSTRUCTIONAREA=#{constructionarea},SCHOOLBUILDINGAREA=#{schoolbuildingarea},SCHOOLADDBUILDING=#{schooladdbuilding},NONSCHOOLPROPERTYAREA=#{nonschoolpropertyarea},RESEARCHANDAUXILIARY=#{researchandauxiliary},CLASSROOM=#{classroom},LIBRARY=#{library},LABORATORYANDPRACTICE=#{laboratoryandpractice},SPECIALRESEARCH=#{specialresearch},STADIUM=#{stadium},HALL=#{hall},OFFICE=#{office},LIVINGROOM=#{livingroom},STUDENTDORMITORY=#{studentdormitory},STUDENTCANTEEN=#{studentcanteen},EMPLOYEEDORMITORY=#{employeedormitory},EMPLOYEECANTEEN=#{employeecanteen},WELFAREHOUSE=#{welfarehouse},FACULTYRESIDENCE=#{facultyresidence},OTHERRESIDENCE=#{otherresidence},INTEGRATEDCLASSROOM=#{integratedclassroom},ACREAGE=#{acreage},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_AREAOFSTRUCTURE WHERE   ID=#{id}
+</delete>
+
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_AREAOFSTRUCTURE WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDAreaofstructure">
+ UPDATE QAS_D_AREAOFSTRUCTURE 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="areacovered != null">  AREACOVERED = #{areacovered},</if>
+<if test="constructionarea != null">  CONSTRUCTIONAREA = #{constructionarea},</if>
+<if test="schoolbuildingarea != null">  SCHOOLBUILDINGAREA = #{schoolbuildingarea},</if>
+<if test="schooladdbuilding != null">  SCHOOLADDBUILDING = #{schooladdbuilding},</if>
+<if test="nonschoolpropertyarea != null">  NONSCHOOLPROPERTYAREA = #{nonschoolpropertyarea},</if>
+<if test="researchandauxiliary != null">  RESEARCHANDAUXILIARY = #{researchandauxiliary},</if>
+<if test="classroom != null">  CLASSROOM = #{classroom},</if>
+<if test="library != null">  LIBRARY = #{library},</if>
+<if test="laboratoryandpractice != null">  LABORATORYANDPRACTICE = #{laboratoryandpractice},</if>
+<if test="specialresearch != null">  SPECIALRESEARCH = #{specialresearch},</if>
+<if test="stadium != null">  STADIUM = #{stadium},</if>
+<if test="hall != null">  HALL = #{hall},</if>
+<if test="office != null">  OFFICE = #{office},</if>
+<if test="livingroom != null">  LIVINGROOM = #{livingroom},</if>
+<if test="studentdormitory != null">  STUDENTDORMITORY = #{studentdormitory},</if>
+<if test="studentcanteen != null">  STUDENTCANTEEN = #{studentcanteen},</if>
+<if test="employeedormitory != null">  EMPLOYEEDORMITORY = #{employeedormitory},</if>
+<if test="employeecanteen != null">  EMPLOYEECANTEEN = #{employeecanteen},</if>
+<if test="welfarehouse != null">  WELFAREHOUSE = #{welfarehouse},</if>
+<if test="facultyresidence != null">  FACULTYRESIDENCE = #{facultyresidence},</if>
+<if test="otherresidence != null">  OTHERRESIDENCE = #{otherresidence},</if>
+<if test="integratedclassroom != null">  INTEGRATEDCLASSROOM = #{integratedclassroom},</if>
+<if test="acreage != null">  ACREAGE = #{acreage},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_AREAOFSTRUCTURE config end********************************  -->
+
+</mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.diagnosereport.analy.mapper.QasTDiagnosticprojectMapper">
+<!--  ********************************QAS_T_DIAGNOSTICPROJECT config begnin********************************  -->
+
+<select id="select" resultType="QasTDiagnosticproject"> 
+ SELECT ID,INDICATORCATALOGID,INDICATORCATALOGUNIQUEID,PROJECTNAME,OVERVIEW,PROBLEMS,SUGGESTIONS,CONCLUSION,TENANTID,WEIGHT,SORT FROM  QAS_T_DIAGNOSTICPROJECT 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasTDiagnosticproject" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,INDICATORCATALOGID,INDICATORCATALOGUNIQUEID,PROJECTNAME,OVERVIEW,PROBLEMS,SUGGESTIONS,CONCLUSION,TENANTID,WEIGHT,SORT FROM  QAS_T_DIAGNOSTICPROJECT 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasTDiagnosticproject">
+ INSERT INTO QAS_T_DIAGNOSTICPROJECT   ( ID,INDICATORCATALOGID,INDICATORCATALOGUNIQUEID,PROJECTNAME,OVERVIEW,PROBLEMS,SUGGESTIONS,CONCLUSION,TENANTID,WEIGHT,SORT)
+  VALUES ( #{id},#{indicatorcatalogid},#{indicatorcataloguniqueid},#{projectname},#{overview},#{problems},#{suggestions},#{conclusion},#{tenantid},#{weight},#{sort} )
+</insert>
+
+ <update id="update" parameterType="QasTDiagnosticproject">
+ UPDATE QAS_T_DIAGNOSTICPROJECT SET  ID=#{id},INDICATORCATALOGID=#{indicatorcatalogid},INDICATORCATALOGUNIQUEID=#{indicatorcataloguniqueid},PROJECTNAME=#{projectname},OVERVIEW=#{overview},PROBLEMS=#{problems},SUGGESTIONS=#{suggestions},CONCLUSION=#{conclusion},TENANTID=#{tenantid},WEIGHT=#{weight},SORT=#{sort} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_T_DIAGNOSTICPROJECT WHERE   ID=#{id}
+</delete>
+
+<!--动态进行更新 如果有需要请开启，否则请删除
+ <update id="updateWithDyna" parameterType="QasTDiagnosticproject">
+ UPDATE QAS_T_DIAGNOSTICPROJECT 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="indicatorcatalogid != null">  INDICATORCATALOGID = #{indicatorcatalogid},</if>
+<if test="indicatorcataloguniqueid != null">  INDICATORCATALOGUNIQUEID = #{indicatorcataloguniqueid},</if>
+<if test="projectname != null">  PROJECTNAME = #{projectname},</if>
+<if test="overview != null">  OVERVIEW = #{overview},</if>
+<if test="problems != null">  PROBLEMS = #{problems},</if>
+<if test="suggestions != null">  SUGGESTIONS = #{suggestions},</if>
+<if test="conclusion != null">  CONCLUSION = #{conclusion},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="weight != null">  WEIGHT = #{weight},</if>
+<if test="sort != null">  SORT = #{sort},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+-->
+<!--  ********************************QAS_T_DIAGNOSTICPROJECT config end********************************  -->
+
+</mapper>

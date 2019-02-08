@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_TEACHERPARTTIMEWORK config end********************************  -->
+
+<package name="QasDTeacherparttimework" extends="default"
+		namespace="/data/teacher/teacherPartTimeWork">
+		
+		<action name="queryInfo" class="qasDTeacherparttimeworkAction" method="queryInfo">
+			<result name="select">/pages/data/teacher/teacherPartTimeWork/QasDTeacherparttimeworkInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDTeacherparttimeworkAction" method="queryList">
+			<result name="list">/pages/data/teacher/teacherPartTimeWork/QasDTeacherparttimeworkList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDTeacherparttimeworkAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDTeacherparttimeworkAction" method="toEdit">
+			<result name="toEdit">/pages/data/teacher/teacherPartTimeWork/QasDTeacherparttimeworkEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDTeacherparttimeworkAction" method="save">
+			<result name="save" type="redirect">
+			/data/teacher/teacherPartTimeWork/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_TEACHERPARTTIMEWORK config end********************************  -->
+</struts>

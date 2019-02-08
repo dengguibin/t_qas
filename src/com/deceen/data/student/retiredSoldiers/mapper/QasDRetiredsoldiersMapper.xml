@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.student.retiredSoldiers.mapper.QasDRetiredsoldiersMapper">
+<!--  ********************************QAS_D_RETIREDSOLDIERS config begnin********************************  -->
+
+<select id="select" resultType="QasDRetiredsoldiers"> 
+ SELECT STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME,ID,ENROLLTOTAL,ENROLLARMYMEN,ENROLLRETIREDSOLDIER,INSCHOOLTOTAL,INSCHOOLARMYMEN,INSCHOOLRETIREDSOLDIER,SOCIETYTRAININGTOTAL,SOCIETYTRAININGARMYMEN,SOCIETYTRAININGRETIREDSOLDIER FROM  QAS_D_RETIREDSOLDIERS 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="java.util.HashMap" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME,ID,ENROLLTOTAL,ENROLLARMYMEN,ENROLLRETIREDSOLDIER,INSCHOOLTOTAL,INSCHOOLARMYMEN,INSCHOOLRETIREDSOLDIER,SOCIETYTRAININGTOTAL,SOCIETYTRAININGARMYMEN,SOCIETYTRAININGRETIREDSOLDIER FROM  QAS_D_RETIREDSOLDIERS 
+ WHERE  1 = 1
+
+  <if test="minenrolltotalScope != null and maxenrolltotalScope !=null">
+	 	AND ENROLLTOTAL between #{minenrolltotalScope} and #{maxenrolltotalScope}
+  </if>
+  
+<if test="enrolltotalScope != null">
+		AND ENROLLTOTAL >= #{enrolltotalScope}
+</if>
+  
+    <if test="minenrollarmymenScope != null and maxenrollarmymenScope !=null">
+	 	AND ENROLLARMYMEN between #{minenrollarmymenScope} and #{maxenrollarmymenScope}
+</if>
+  
+<if test="enrollarmymenScope != null">
+		AND ENROLLARMYMEN >= #{enrollarmymenScope}
+</if>
+  
+  <if test="minenrollretiredsoldierScope != null and maxenrollretiredsoldierScope !=null">
+	 	AND ENROLLRETIREDSOLDIER between #{minenrollretiredsoldierScope} and #{maxenrollretiredsoldierScope}
+  </if>
+  
+<if test="enrollretiredsoldierScope != null">
+		AND ENROLLRETIREDSOLDIER >= #{enrollretiredsoldierScope}
+</if>
+  
+    <if test="mininschooltotalScope != null and maxinschooltotalScope !=null">
+	 	AND INSCHOOLTOTAL between #{mininschooltotalScope} and #{maxinschooltotalScope}
+  </if>
+  
+<if test="inschooltotalScope != null">
+		AND INSCHOOLTOTAL >= #{inschooltotalScope}
+</if>
+  
+<if test="mininschoolarmymenScope != null and maxinschoolarmymenScope !=null">
+	 	AND INSCHOOLARMYMEN between #{mininschoolarmymenScope} and #{maxinschoolarmymenScope}
+</if>
+  
+<if test="inschoolarmymenScope != null">
+		AND INSCHOOLARMYMEN >= #{inschoolarmymenScope}
+</if>
+  
+  <if test="mininschoolretiredsoldierScope != null and maxinschoolretiredsoldierScope !=null">
+	 	AND INSCHOOLRETIREDSOLDIER between #{mininschoolretiredsoldierScope} and #{maxinschoolretiredsoldierScope}
+  </if>
+  
+<if test="inschoolretiredsoldierScope != null">
+		AND INSCHOOLRETIREDSOLDIER >= #{inschoolretiredsoldierScope}
+</if>
+  
+    <if test="minsocietytrainingtotalScope != null and maxsocietytrainingtotalScope !=null">
+	 	AND SOCIETYTRAININGTOTAL between #{minsocietytrainingtotalScope} and #{maxsocietytrainingtotalScope}
+  </if>
+  
+<if test="societytrainingtotalScope != null">
+		AND SOCIETYTRAININGTOTAL >= #{societytrainingtotalScope}
+</if>
+  
+    <if test="minsocietytrainingarmymenScope != null and maxsocietytrainingarmymenScope !=null">
+	 	AND SOCIETYTRAININGARMYMEN between #{minsocietytrainingarmymenScope} and #{maxsocietytrainingarmymenScope}
+</if>
+  
+<if test="societytrainingarmymenScope != null">
+		AND SOCIETYTRAININGARMYMEN >= #{societytrainingarmymenScope}
+</if>
+  
+  <if test="minsocietytrainingretiredsoldierScope != null and maxsocietytrainingretiredsoldierScope !=null">
+	 	AND SOCIETYTRAININGRETIREDSOLDIER between #{minsocietytrainingretiredsoldierScope} and #{maxsocietytrainingretiredsoldierScope}
+  </if>
+  
+<if test="societytrainingretiredsoldierScope != null">
+		AND SOCIETYTRAININGRETIREDSOLDIER >= #{societytrainingretiredsoldierScope}
+</if>
+  
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDRetiredsoldiers">
+ INSERT INTO QAS_D_RETIREDSOLDIERS   ( STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME,ID,ENROLLTOTAL,ENROLLARMYMEN,ENROLLRETIREDSOLDIER,INSCHOOLTOTAL,INSCHOOLARMYMEN,INSCHOOLRETIREDSOLDIER,SOCIETYTRAININGTOTAL,SOCIETYTRAININGARMYMEN,SOCIETYTRAININGRETIREDSOLDIER)
+  VALUES ( #{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime},#{id},#{enrolltotal},#{enrollarmymen},#{enrollretiredsoldier},#{inschooltotal},#{inschoolarmymen},#{inschoolretiredsoldier},#{societytrainingtotal},#{societytrainingarmymen},#{societytrainingretiredsoldier} )
+</insert>
+
+ <update id="update" parameterType="QasDRetiredsoldiers">
+ UPDATE QAS_D_RETIREDSOLDIERS SET  STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime},ID=#{id},ENROLLTOTAL=#{enrolltotal},ENROLLARMYMEN=#{enrollarmymen},ENROLLRETIREDSOLDIER=#{enrollretiredsoldier},INSCHOOLTOTAL=#{inschooltotal},INSCHOOLARMYMEN=#{inschoolarmymen},INSCHOOLRETIREDSOLDIER=#{inschoolretiredsoldier},SOCIETYTRAININGTOTAL=#{societytrainingtotal},SOCIETYTRAININGARMYMEN=#{societytrainingarmymen},SOCIETYTRAININGRETIREDSOLDIER=#{societytrainingretiredsoldier} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_RETIREDSOLDIERS WHERE   ID=#{id}
+</delete>
+
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_RETIREDSOLDIERS WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDRetiredsoldiers">
+ UPDATE QAS_D_RETIREDSOLDIERS 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+<if test="id != null">  ID = #{id},</if>
+<if test="enrolltotal != null">  ENROLLTOTAL = #{enrolltotal},</if>
+<if test="enrollarmymen != null">  ENROLLARMYMEN = #{enrollarmymen},</if>
+<if test="enrollretiredsoldier != null">  ENROLLRETIREDSOLDIER = #{enrollretiredsoldier},</if>
+<if test="inschooltotal != null">  INSCHOOLTOTAL = #{inschooltotal},</if>
+<if test="inschoolarmymen != null">  INSCHOOLARMYMEN = #{inschoolarmymen},</if>
+<if test="inschoolretiredsoldier != null">  INSCHOOLRETIREDSOLDIER = #{inschoolretiredsoldier},</if>
+<if test="societytrainingtotal != null">  SOCIETYTRAININGTOTAL = #{societytrainingtotal},</if>
+<if test="societytrainingarmymen != null">  SOCIETYTRAININGARMYMEN = #{societytrainingarmymen},</if>
+<if test="societytrainingretiredsoldier != null">  SOCIETYTRAININGRETIREDSOLDIER = #{societytrainingretiredsoldier},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_RETIREDSOLDIERS config end********************************  -->
+
+</mapper>

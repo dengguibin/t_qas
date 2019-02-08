@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_INFORMATIONCONSTRUCTION config end********************************  -->
+
+<package name="QasDInformationconstruction" extends="default"
+		namespace="/data/school/informationConstruction">
+		
+		<action name="queryInfo" class="qasDInformationconstructionAction" method="queryInfo">
+			<result name="select">/pages/data/school/informationConstruction/QasDInformationconstructionInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDInformationconstructionAction" method="queryList">
+			<result name="list">/pages/data/school/informationConstruction/QasDInformationconstructionList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDInformationconstructionAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDInformationconstructionAction" method="toEdit">
+			<result name="toEdit">/pages/data/school/informationConstruction/QasDInformationconstructionEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDInformationconstructionAction" method="save">
+			<result name="save" type="redirect">
+			/data/school/informationConstruction/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_INFORMATIONCONSTRUCTION config end********************************  -->
+</struts>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--  ********************************T_RMS_USER config begnin********************************  -->
+<mapper namespace="com.upath.plat.auth.mapper.TRmsDeptmentMapper">
+<cache />
+<!--  ********************************T_RMS_DEPTMENT config begnin********************************  -->
+<select id="select" resultType="TRmsDeptment"> 
+ SELECT BMID,FBMID,BMBH,BMMC,PXH,BMHJR,BMMS,CJ,CJSJ,CJR,XGSJ,XGR,UNIT_TYPE,STYLE,FDNCODE FROM  T_RMS_DEPTMENT 
+ WHERE   BMID=#{bmid}
+</select>
+
+<select id="list" parameterType="TRmsDeptment" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT BMID,FBMID,BMBH,BMMC,PXH,BMHJR,BMMS,CJ,UNIT_TYPE,STYLE,FDNCODE  FROM  T_RMS_DEPTMENT 
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+<select id="listSubDepts" parameterType="TRmsDeptment" useCache="false"   resultType ="hashmap" >  
+ SELECT BMID,FBMID,BMBH,BMMC,PXH,BMHJR,BMMS,CJ,UNIT_TYPE,STYLE,FDNCODE  
+ FROM  T_RMS_DEPTMENT 
+  WHERE   BMID=#{bmid} 
+  OR FDNCODE LIKE '%' #{bmid} '|%'
+  ORDER BY CJ 
+</select>
+
+ <insert id="insert" parameterType="TRmsDeptment">
+ INSERT INTO T_RMS_DEPTMENT   ( BMID,FBMID,BMBH,BMMC,PXH,BMHJR,BMMS,CJ,CJSJ,CJR,XGSJ,XGR,UNIT_TYPE,STYLE,FDNCODE )
+  VALUES ( #{bmid},#{fbmid},#{bmbh},#{bmmc},#{pxh},#{bmhjr},#{bmms},#{cj},#{cjsj},#{cjr},#{xgsj},#{xgr},#{unit_type },#{style},#{fdncode } )
+</insert>
+
+ <update id="update" parameterType="TRmsDeptment">
+ UPDATE T_RMS_DEPTMENT SET UNIT_TYPE=#{unit_type } ,FBMID=#{fbmid},BMBH=#{bmbh},BMMC=#{bmmc},PXH=#{pxh},BMHJR=#{bmhjr},BMMS=#{bmms},CJ=#{cj},XGSJ=#{xgsj},XGR=#{xgr},STYLE=#{style},FDNCODE=#{fdncode} 
+ WHERE  BMID=#{bmid}
+</update>
+
+ <delete id="delete" parameterType="TRmsDeptment">
+   DELETE FROM T_RMS_DEPTMENT WHERE   BMID=#{bmid}
+</delete>
+
+<!--  ********************************T_RMS_DEPTMENT config end********************************  -->
+
+</mapper>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.diagnoseformat.task.mapper.QasTDiagnosetasklevelMapper">
+<!--  ********************************QAS_T_DIAGNOSETASKLEVEL config begnin********************************  -->
+
+<select id="select" resultType="QasTDiagnosetasklevel"> 
+ SELECT ID,DIAGNOSETASKID,LEFTVALUE,RIGHTVALUE,TASKLEVEL,FORMULA,SORT,TENANTID FROM  QAS_T_DIAGNOSETASKLEVEL 
+ WHERE   DIAGNOSETASKID=#{id} ORDER BY SORT ASC
+</select>
+
+<select id="list" parameterType="QasTDiagnosetasklevel" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,DIAGNOSETASKID,LEFTVALUE,RIGHTVALUE,TASKLEVEL,FORMULA,SORT,TENANTID FROM  QAS_T_DIAGNOSETASKLEVEL 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasTDiagnosetasklevel">
+ INSERT INTO QAS_T_DIAGNOSETASKLEVEL   ( ID,DIAGNOSETASKID,LEFTVALUE,RIGHTVALUE,TASKLEVEL,FORMULA,SORT,TENANTID)
+  VALUES ( #{id},#{diagnosetaskid},#{leftvalue},#{rightvalue},#{tasklevel},#{formula},#{sort},#{tenantid} )
+</insert>
+
+ <update id="update" parameterType="QasTDiagnosetasklevel">
+ UPDATE QAS_T_DIAGNOSETASKLEVEL SET  ID=#{id},DIAGNOSETASKID=#{diagnosetaskid},LEFTVALUE=#{leftvalue},RIGHTVALUE=#{rightvalue},TASKLEVEL=#{tasklevel},FORMULA=#{formula},SORT=#{sort},TENANTID=#{tenantid} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_T_DIAGNOSETASKLEVEL WHERE   DIAGNOSETASKID=#{id}
+</delete>
+
+<!--动态进行更新 如果有需要请开启，否则请删除
+ <update id="updateWithDyna" parameterType="QasTDiagnosetasklevel">
+ UPDATE QAS_T_DIAGNOSETASKLEVEL 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="diagnosetaskid != null">  DIAGNOSETASKID = #{diagnosetaskid},</if>
+<if test="leftvalue != null">  LEFTVALUE = #{leftvalue},</if>
+<if test="rightvalue != null">  RIGHTVALUE = #{rightvalue},</if>
+<if test="tasklevel != null">  TASKLEVEL = #{tasklevel},</if>
+<if test="formula != null">  FORMULA = #{formula},</if>
+<if test="sort != null">  SORT = #{sort},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+-->
+
+<update id="updateBatch" parameterType="java.util.List">
+	<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+		UPDATE QAS_T_DIAGNOSETASKLEVEL 
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="item.id != null">  ID = #{id},</if>
+			<if test="item.diagnosetaskid != null">  DIAGNOSETASKID = #{item.diagnosetaskid},</if>
+			<if test="item.leftvalue != null">  LEFTVALUE = #{item.leftvalue},</if>
+			<if test="item.rightvalue != null">  RIGHTVALUE = #{item.rightvalue},</if>
+			<if test="item.tasklevel != null">  TASKLEVEL = #{item.tasklevel},</if>
+			<if test="item.formula != null">  FORMULA = #{item.formula},</if>
+			<if test="item.sort != null">  SORT = #{item.sort},</if>
+			<if test="item.tenantid != null">  TENANTID = #{item.tenantid},</if>
+		</trim>  
+ 			WHERE  ID=#{id}
+	</foreach>
+</update>
+
+ <insert id="batchInsert" parameterType="QasTDiagnosetasklevel">
+ INSERT INTO QAS_T_DIAGNOSETASKLEVEL   ( ID,DIAGNOSETASKID,LEFTVALUE,RIGHTVALUE,TASKLEVEL,FORMULA,SORT,TENANTID)
+  VALUES 
+  <foreach collection="list" item="d" separator=",">
+	  ( #{d.id},#{d.diagnosetaskid},#{d.leftvalue},#{d.rightvalue},#{d.tasklevel},#{d.formula},#{d.sort},#{d.tenantid} )
+  </foreach>
+</insert>
+
+<!--  ********************************QAS_T_DIAGNOSETASKLEVEL config end********************************  -->
+</mapper>

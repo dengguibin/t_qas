@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_STUDENT config end********************************  -->
+
+<package name="QasDStudent" extends="default"
+		namespace="/data/base/student">
+		
+		<action name="queryInfo" class="qasDStudentAction" method="queryInfo">
+			<result name="select">/pages/data/base/student/QasDStudentInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDStudentAction" method="queryList">
+			<result name="list">/pages/data/base/student/QasDStudentList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDStudentAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDStudentAction" method="toEdit">
+			<result name="toEdit">/pages/data/base/student/QasDStudentEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDStudentAction" method="save">
+			<result name="save" type="redirect">
+			/data/base/student/student/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_STUDENT config end********************************  -->
+</struts>

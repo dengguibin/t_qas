@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_DROPOUTLIST config end********************************  -->
+
+<package name="QasDDropoutlist" extends="default"
+		namespace="/data/student/dropoutList">
+		
+		<action name="queryInfo" class="qasDDropoutlistAction" method="queryInfo">
+			<result name="select">/pages/data/student/dropoutList/QasDDropoutlistInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDDropoutlistAction" method="queryList">
+			<result name="list">/pages/data/student/dropoutList/QasDDropoutlistList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDDropoutlistAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDDropoutlistAction" method="toEdit">
+			<result name="toEdit">/pages/data/student/dropoutList/QasDDropoutlistEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDDropoutlistAction" method="save">
+			<result name="save" type="redirect">
+	 		/data/student/dropoutList/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_DROPOUTLIST config end********************************  -->
+</struts>

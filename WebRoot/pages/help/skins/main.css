@@ -1,0 +1,33 @@
+@charset "utf-8";
+body{
+	font-size:12px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	background:#fff ;
+	margin:10px;
+}
+a{ color:#0e86db;text-decoration:underline;}
+a:hover{color:#ff0000}
+h3{font:14px;font-weight:bold;padding:8px 12px;color:#000;border-bottom:3px double #5c6e7d;}
+dl{border:0px solid #ccc}
+dt{font:12px;font-weight:bold ;background:#fdfdfd url(images/tree/comment.gif) no-repeat 4px;padding:4px 24px;border-bottom:1px solid #eee;border-top:1px solid #eee;color:#666;behavior:url(../skins/help.htc);}
+
+
+.off {color:#999;}
+dd{font:12px;margin:0;padding:12px;}
+dd li{
+line-height:200%;
+list-style-type: decimal;
+}
+dd .pic{
+width:600px; 
+float:left; 
+margin-right:30px;
+}
+dd .olPic{ margin-top:15px;}
+dd .olPic li{
+font:12px;
+line-height:170%;
+list-style-type: upper-alpha;
+}
+.clear{clear:both;}
+.gray{ color:#666;}

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.system.organization.mapper.QasEOrganizationMapper">
+<!--  ********************************QAS_E_ORGANIZATION config begnin********************************  -->
+
+<select id="select" resultType="QasEOrganization"> 
+  SELECT  ID AS ID,PARENTID AS PARENTID,ORGNAME AS ORGNAME FROM QAS_E_ORGANIZATION WHERE  ID=#{id}
+   UNION
+   SELECT  ID AS ID,ORGANIZATIONID AS PARENTID,MAJORNAME AS ORGNAME FROM QAS_D_MAJOR WHERE  ID=#{id}
+</select>
+
+<select id="queryByParentId" resultType="QasEOrganization"> 
+ SELECT O.ID,O.PARENTID,O.TYPEID,O.ORGCODE,O.ORGNAME,O.ABBREVIATION,O.JIANPIN,O.ADDRESS,O.SORT,O.ISPHYSICAL,O.LAYER,O.REMARK,O.STATUS,O.CREATEDBY,O.CREATEDTIME,
+ O.UPDATEDBY,O.UPDATEDTIME,O.TENANTID,M.MAJORNAME,M.ID AS MID FROM  QAS_E_ORGANIZATION O LEFT JOIN QAS_D_MAJOR M 
+ ON O.ID = M.ORGANIZATIONID
+ WHERE  O.PARENTID=#{O.id}
+</select>
+
+<select id="list" parameterType="QasEOrganization" useCache="false"   resultType ="QasEOrganization" >  
+  SELECT  ID AS ID,PARENTID AS PARENTID,ORGNAME AS ORGNAME FROM QAS_E_ORGANIZATION WHERE  status = #{STATUS}
+   UNION
+   SELECT  ID AS ID,ORGANIZATIONID AS PARENTID,MAJORNAME AS ORGNAME FROM QAS_D_MAJOR WHERE status = #{STATUS}
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+</select>
+
+<select id="listAll" parameterType="QasEOrganization" useCache="false"   resultType ="QasEOrganization" >  
+  SELECT  ID AS ID,PARENTID AS PARENTID,ORGNAME AS ORGNAME FROM QAS_E_ORGANIZATION
+   UNION
+   SELECT  ID AS ID,ORGANIZATIONID AS PARENTID,MAJORNAME AS ORGNAME FROM QAS_D_MAJOR
+</select>
+
+<select id="selectTree" resultType ="QasEOrganization">  
+   SELECT  ID AS ID,PARENTID AS PARENTID,ORGNAME AS ORGNAME FROM QAS_E_ORGANIZATION  WHERE ORGNAME LIKE CONCAT(CONCAT('%',#{orgname}),'%')
+   UNION
+   SELECT  ID AS ID,ORGANIZATIONID AS PARENTID,MAJORNAME AS ORGNAME FROM QAS_D_MAJOR  WHERE MAJORNAME LIKE CONCAT(CONCAT('%',#{orgname}),'%')
+</select>
+
+ <insert id="insert" parameterType="QasEOrganization">
+ INSERT INTO QAS_E_ORGANIZATION   ( ID,PARENTID,TYPEID,ORGCODE,ORGNAME,ABBREVIATION,JIANPIN,ADDRESS,SORT,ISPHYSICAL,LAYER,REMARK,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID)
+  VALUES ( #{id},#{parentid},#{typeid},#{orgcode},#{orgname},#{abbreviation},#{jianpin},#{address},#{sort},#{isphysical},#{layer},#{remark},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid} )
+</insert>
+
+ <update id="update" parameterType="QasEOrganization">
+ UPDATE QAS_E_ORGANIZATION SET  ID=#{id},PARENTID=#{parentid},TYPEID=#{typeid},ORGCODE=#{orgcode},ORGNAME=#{orgname},ABBREVIATION=#{abbreviation},JIANPIN=#{jianpin},ADDRESS=#{address},SORT=#{sort},ISPHYSICAL=#{isphysical},LAYER=#{layer},REMARK=#{remark},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_E_ORGANIZATION WHERE   ID=#{id}
+</delete>
+
+
+ <update id="updateWithDyna" parameterType="QasEOrganization">
+ UPDATE QAS_E_ORGANIZATION 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="parentid != null">  PARENTID = #{parentid},</if>
+<if test="typeid != null">  TYPEID = #{typeid},</if>
+<if test="orgcode != null">  ORGCODE = #{orgcode},</if>
+<if test="orgname != null">  ORGNAME = #{orgname},</if>
+<if test="abbreviation != null">  ABBREVIATION = #{abbreviation},</if>
+<if test="jianpin != null">  JIANPIN = #{jianpin},</if>
+<if test="address != null">  ADDRESS = #{address},</if>
+<if test="sort != null">  SORT = #{sort},</if>
+<if test="isphysical != null">  ISPHYSICAL = #{isphysical},</if>
+<if test="layer != null">  LAYER = #{layer},</if>
+<if test="remark != null">  REMARK = #{remark},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_E_ORGANIZATION config end********************************  -->
+
+</mapper>

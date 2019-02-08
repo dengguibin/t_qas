@@ -1,0 +1,60 @@
+@charset "utf-8";
+/*editBlock*/
+.editBlock {
+	padding:8px;
+	background:#fff;
+}
+.editBlock table {
+	width:100%;
+}
+.editBlock table th{
+	height:26px;
+	text-align:right;
+	font-weight:normal;
+	padding:4px;
+	padding-top:8px;
+	border:1px solid #d9e7f2;
+	background:#f5f8fa;
+	vertical-align:top;
+	width: 200px;
+}
+.editBlock .th{background:#f5f8fa;}
+.editBlock table td {
+	height:26px;
+	border:1px solid #d9e7f2;
+	padding:2px 4px;
+	background:#fff
+}
+.editBlock table .subtitle, .editBlock table .subtitleClose {
+	text-align:left;
+	height:26px;
+	padding:0 30px;
+	cursor:pointer;
+}
+.editBlock table .subtitle {
+	height:34px;
+	background:#f5f8fa url(images/arrow_up.gif) no-repeat 1px 8px;
+	color:#165e9e;
+}
+.editBlock table .subtitleClose {
+	height:34px;
+	background:#f5f8fa url(images/arrow_down.gif) no-repeat 1px 8px;
+	color:#165e9e;
+}
+.editBlock table td.toolbar{
+	float:none;
+	text-align: center;
+	background:#f5f8fa;
+}
+  
+.editBlock .uew-select-value{
+ 	margin-bottom: 0px;
+ } 
+  
+.Validform_error {
+background-color: #FFE7E7!important;
+background-image:none!important;
+}
+
+.editBlock a{color: #056dae;}
+   

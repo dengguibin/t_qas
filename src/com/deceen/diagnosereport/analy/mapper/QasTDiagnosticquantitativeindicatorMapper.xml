@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.diagnosereport.analy.mapper.QasTDiagnosticquantitativeindicatorMapper">
+<!--  ********************************QAS_T_DIAGNOSTICQUANTITATIVEINDICATOR config begnin********************************  -->
+
+<select id="select" resultType="QasTDiagnosticquantitativeindicator"> 
+ SELECT ID,DIAGNOSTICELEMENTID,INDICATORCONTENTID,INDICATORCONTENTUNIQUEID,INDICATORNAME,INDICATORDATATYPE,OVERVIEW,QUALIFIEDSCORE,DIAGNOSTICSCORE,DIAGNOSTICVALUE,INDICATORSTATE,CLASSIFICATION,QUALIFIEDDEFINED,WARNDEFINED,CHARTSTYPE,NOQUALIFIEDDEFINED,TENANTID,INDICATORTOTALSCORE,RETURNTYPE,SORT FROM  QAS_T_DIAGNOSTICQUANTITATIVEINDICATOR 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasTDiagnosticquantitativeindicator" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,DIAGNOSTICELEMENTID,INDICATORCONTENTID,INDICATORCONTENTUNIQUEID,INDICATORNAME,INDICATORDATATYPE,OVERVIEW,QUALIFIEDSCORE,DIAGNOSTICSCORE,DIAGNOSTICVALUE,INDICATORSTATE,CLASSIFICATION,QUALIFIEDDEFINED,WARNDEFINED,CHARTSTYPE,NOQUALIFIEDDEFINED,TENANTID,INDICATORTOTALSCORE,RETURNTYPE,SORT FROM  QAS_T_DIAGNOSTICQUANTITATIVEINDICATOR 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasTDiagnosticquantitativeindicator">
+ INSERT INTO QAS_T_DIAGNOSTICQUANTITATIVEINDICATOR   ( ID,DIAGNOSTICELEMENTID,INDICATORCONTENTID,INDICATORCONTENTUNIQUEID,INDICATORNAME,INDICATORDATATYPE,OVERVIEW,QUALIFIEDSCORE,DIAGNOSTICSCORE,DIAGNOSTICVALUE,INDICATORSTATE,CLASSIFICATION,QUALIFIEDDEFINED,WARNDEFINED,CHARTSTYPE,NOQUALIFIEDDEFINED,TENANTID,INDICATORTOTALSCORE,RETURNTYPE,SORT)
+  VALUES ( #{id},#{diagnosticelementid},#{indicatorcontentid},#{indicatorcontentuniqueid},#{indicatorname},#{indicatordatatype},#{overview},#{qualifiedscore},#{diagnosticscore},#{diagnosticvalue},#{indicatorstate},#{classification},#{qualifieddefined},#{warndefined},#{chartstype},#{noqualifieddefined},#{tenantid},#{indicatortotalscore},#{returntype},#{sort} )
+</insert>
+
+<insert id="insertBatch">
+	 INSERT INTO QAS_T_DIAGNOSTICQUANTITATIVEINDICATOR   ( ID,DIAGNOSTICELEMENTID,INDICATORCONTENTID,INDICATORCONTENTUNIQUEID,INDICATORNAME,INDICATORDATATYPE,OVERVIEW,QUALIFIEDSCORE,DIAGNOSTICSCORE,DIAGNOSTICVALUE,INDICATORSTATE,CLASSIFICATION,QUALIFIEDDEFINED,WARNDEFINED,CHARTSTYPE,NOQUALIFIEDDEFINED,TENANTID,INDICATORTOTALSCORE,RETURNTYPE,SORT)
+  VALUES
+	 <foreach collection="list" item="d" separator=",">
+	  ( #{d.id},#{d.diagnosticelementid},#{d.indicatorcontentid},#{d.indicatorcontentuniqueid},#{d.indicatorname},#{d.indicatordatatype},#{d.overview},#{d.qualifiedscore},#{d.diagnosticscore},#{d.diagnosticvalue},#{d.indicatorstate},#{d.classification},#{d.qualifieddefined},#{d.warndefined},#{d.chartstype},#{d.noqualifieddefined},#{d.tenantid},#{d.indicatortotalscore},#{d.returntype},#{d.sort} )
+</foreach>
+</insert>
+
+ <update id="update" parameterType="QasTDiagnosticquantitativeindicator">
+ UPDATE QAS_T_DIAGNOSTICQUANTITATIVEINDICATOR SET  ID=#{id},DIAGNOSTICELEMENTID=#{diagnosticelementid},INDICATORCONTENTID=#{indicatorcontentid},INDICATORCONTENTUNIQUEID=#{indicatorcontentuniqueid},INDICATORNAME=#{indicatorname},INDICATORDATATYPE=#{indicatordatatype},OVERVIEW=#{overview},QUALIFIEDSCORE=#{qualifiedscore},DIAGNOSTICSCORE=#{diagnosticscore},DIAGNOSTICVALUE=#{diagnosticvalue},INDICATORSTATE=#{indicatorstate},CLASSIFICATION=#{classification},QUALIFIEDDEFINED=#{qualifieddefined},WARNDEFINED=#{warndefined},CHARTSTYPE=#{chartstype},NOQUALIFIEDDEFINED=#{noqualifieddefined},TENANTID=#{tenantid},INDICATORTOTALSCORE=#{indicatortotalscore},RETURNTYPE=#{returntype},SORT=#{sort} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_T_DIAGNOSTICQUANTITATIVEINDICATOR WHERE   ID=#{id}
+</delete>
+
+<!--动态进行更新 如果有需要请开启，否则请删除
+ <update id="updateWithDyna" parameterType="QasTDiagnosticquantitativeindicator">
+ UPDATE QAS_T_DIAGNOSTICQUANTITATIVEINDICATOR 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="diagnosticelementid != null">  DIAGNOSTICELEMENTID = #{diagnosticelementid},</if>
+<if test="indicatorcontentid != null">  INDICATORCONTENTID = #{indicatorcontentid},</if>
+<if test="indicatorcontentuniqueid != null">  INDICATORCONTENTUNIQUEID = #{indicatorcontentuniqueid},</if>
+<if test="indicatorname != null">  INDICATORNAME = #{indicatorname},</if>
+<if test="indicatordatatype != null">  INDICATORDATATYPE = #{indicatordatatype},</if>
+<if test="overview != null">  OVERVIEW = #{overview},</if>
+<if test="qualifiedscore != null">  QUALIFIEDSCORE = #{qualifiedscore},</if>
+<if test="diagnosticscore != null">  DIAGNOSTICSCORE = #{diagnosticscore},</if>
+<if test="diagnosticvalue != null">  DIAGNOSTICVALUE = #{diagnosticvalue},</if>
+<if test="indicatorstate != null">  INDICATORSTATE = #{indicatorstate},</if>
+<if test="classification != null">  CLASSIFICATION = #{classification},</if>
+<if test="qualifieddefined != null">  QUALIFIEDDEFINED = #{qualifieddefined},</if>
+<if test="warndefined != null">  WARNDEFINED = #{warndefined},</if>
+<if test="chartstype != null">  CHARTSTYPE = #{chartstype},</if>
+<if test="noqualifieddefined != null">  NOQUALIFIEDDEFINED = #{noqualifieddefined},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="indicatortotalscore != null">  INDICATORTOTALSCORE = #{indicatortotalscore},</if>
+<if test="returntype != null">  RETURNTYPE = #{returntype},</if>
+<if test="sort != null">  SORT = #{sort},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+-->
+<!--  ********************************QAS_T_DIAGNOSTICQUANTITATIVEINDICATOR config end********************************  -->
+
+</mapper>

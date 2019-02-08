@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.quartz.mapper.TCommonSchedulingMapper">
+<!--  ********************************T_COMMON_SCHEDULING config begnin********************************  -->
+
+<select id="select" resultType="TCommonScheduling"> 
+ SELECT TASKID,TASKNAME,ISTMED,JOBCLASS,VALID,TYPE,CRON,STATES,PARAMS,SEQ,DES,RUNTIMES,CREATOR,CDATE,UDATE,UPDATOR FROM  T_COMMON_SCHEDULING 
+ WHERE   TASKID=#{taskid}
+</select>
+
+<select id="list" parameterType="TCommonScheduling" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT TASKID,TASKNAME,ISTMED,JOBCLASS,VALID,TYPE,CRON,STATES,PARAMS,SEQ,DES,RUNTIMES,CREATOR,CDATE,UDATE,UPDATOR FROM  T_COMMON_SCHEDULING 
+ WHERE  1 = 1
+ <if test="taskname != null and taskname != ''">
+ 	AND TASKNAME LIKE '%' #{taskname}  '%'
+ </if>
+ <if test="states != null and states != ''">
+ 	AND STATES = #{states}
+ </if>
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+<select id="querylist" parameterType="TCommonScheduling" useCache="false"   resultType ="TCommonScheduling" >  
+ SELECT taskid,taskname,istmed,jobclass,valid,type,cron,states,params,seq,des,runtimes,creator,cdate,udate,updator FROM  T_COMMON_SCHEDULING 
+ WHERE  1 = 1
+ <if test="taskname != null and taskname != ''">
+ 	AND TASKNAME LIKE '%' #{taskname}  '%'
+ </if>
+ <if test="states != null and states != ''">
+ 	AND STATES = #{states}
+ </if>
+</select>
+
+ <insert id="insert" parameterType="TCommonScheduling">
+ INSERT INTO T_COMMON_SCHEDULING   ( TASKID,TASKNAME,ISTMED,JOBCLASS,VALID,TYPE,CRON,STATES,PARAMS,SEQ,DES,RUNTIMES,CREATOR,CDATE,UDATE,UPDATOR)
+  VALUES ( #{taskid},#{taskname},#{istmed},#{jobclass},#{valid},#{type},#{cron},#{states},#{params},#{seq},#{des},#{runtimes},#{creator},#{cdate},#{udate},#{updator} )
+</insert>
+
+ <update id="update" parameterType="TCommonScheduling">
+ UPDATE T_COMMON_SCHEDULING SET  TASKID=#{taskid},TASKNAME=#{taskname},ISTMED=#{istmed},JOBCLASS=#{jobclass},VALID=#{valid},TYPE=#{type},CRON=#{cron},STATES=#{states},PARAMS=#{params},SEQ=#{seq},DES=#{des},RUNTIMES=#{runtimes},CREATOR=#{creator},CDATE=#{cdate},UDATE=#{udate},UPDATOR=#{updator} 
+ WHERE  TASKID=#{taskid}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM T_COMMON_SCHEDULING WHERE   TASKID=#{taskid}
+</delete>
+
+ <update id="updateWithDyna" parameterType="TCommonScheduling">
+ UPDATE T_COMMON_SCHEDULING 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="taskid != null">  TASKID = #{taskid},</if>
+<if test="taskname != null">  TASKNAME = #{taskname},</if>
+<if test="istmed != null">  ISTMED = #{istmed},</if>
+<if test="jobclass != null">  JOBCLASS = #{jobclass},</if>
+<if test="valid != null">  VALID = #{valid},</if>
+<if test="type != null">  TYPE = #{type},</if>
+<if test="cron != null">  CRON = #{cron},</if>
+<if test="states != null">  STATES = #{states},</if>
+<if test="params != null">  PARAMS = #{params},</if>
+<if test="seq != null">  SEQ = #{seq},</if>
+<if test="des != null">  DES = #{des},</if>
+<if test="runtimes != null">  RUNTIMES = #{runtimes},</if>
+<if test="creator != null">  CREATOR = #{creator},</if>
+<if test="cdate != null">  CDATE = #{cdate},</if>
+<if test="udate != null">  UDATE = #{udate},</if>
+<if test="updator != null">  UPDATOR = #{updator},</if>
+
+ </trim>  
+ WHERE  TASKID=#{taskid}
+</update>
+<!--  ********************************T_COMMON_SCHEDULING config end********************************  -->
+
+<!--修改调度的任务状态-->
+<update id="updateQuartzStatus" parameterType="Map">
+UPDATE T_COMMON_SCHEDULING SET STATES = #{status},VALID=${valid}
+WHERE PARAMS =#{id}
+</update>
+
+
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_FILESOFTEACHINGMANAGEMENT config end********************************  -->
+
+<package name="QasDFilesofteachingmanagement" extends="default"
+		namespace="/data/teaching/filesOfTeachingManageMent">
+		
+		<action name="queryInfo" class="qasDFilesofteachingmanagementAction" method="queryInfo">
+			<result name="select">/pages/data/teaching/filesOfTeachingManageMent/QasDFilesofteachingmanagementInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDFilesofteachingmanagementAction" method="queryList">
+			<result name="list">/pages/data/teaching/filesOfTeachingManageMent/QasDFilesofteachingmanagementList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDFilesofteachingmanagementAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDFilesofteachingmanagementAction" method="toEdit">
+			<result name="toEdit">/pages/data/teaching/filesOfTeachingManageMent/QasDFilesofteachingmanagementEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDFilesofteachingmanagementAction" method="save">
+			<result name="save" type="redirect">
+			/data/teaching/filesOfTeachingManageMent/filesofteachingmanagement/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_FILESOFTEACHINGMANAGEMENT config end********************************  -->
+</struts>

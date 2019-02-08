@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="t_qas"
+  id="myeclipse.1509349567265"
+  context-root="/t_qas"
+  j2ee-spec="6.0"
+  archive="t_qas.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

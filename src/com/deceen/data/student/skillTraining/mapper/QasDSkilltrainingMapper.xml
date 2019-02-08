@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.student.skillTraining.mapper.QasDSkilltrainingMapper">
+<!--  ********************************QAS_D_SKILLTRAINING config begnin********************************  -->
+
+<select id="select" resultType="QasDSkilltraining"> 
+ SELECT ID,DIRECTIONID,GRADNUM,JUNIORNUM,MIDNUM,HIGHNUM,NOGRADENUM,TRAININGNUM,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_SKILLTRAINING 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDSkilltraining" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,DIRECTIONID,GRADNUM,JUNIORNUM,MIDNUM,HIGHNUM,NOGRADENUM,TRAININGNUM,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_SKILLTRAINING 
+ WHERE  1 = 1
+
+<if test="directionid != null and directionid != ''">
+	 	AND DIRECTIONID LIKE concat('%',#{directionid},'%')
+</if>
+
+  <if test="mingradnumScope != null and maxgradnumScope !=null">
+	 	AND GRADNUM between #{mingradnumScope} and #{maxgradnumScope}
+  </if>
+  
+<if test="gradnumScope != null">
+		AND GRADNUM >= #{gradnumScope}
+</if>
+  
+  <if test="minjuniornumScope != null and maxjuniornumScope !=null">
+	 	AND JUNIORNUM between #{minjuniornumScope} and #{maxjuniornumScope}
+  </if>
+  
+<if test="juniornumScope != null">
+		AND JUNIORNUM >= #{juniornumScope}
+</if>
+
+  <if test="minmidnumScope != null and maxmidnumScope !=null">
+	 	AND MIDNUM between #{minmidnumScope} and #{maxmidnumScope}
+  </if>
+  
+<if test="midnumScope != null">
+		AND MIDNUM >= #{midnumScope}
+</if>
+  
+  <if test="minhighnumScope != null and maxhighnumScope !=null">
+	 	AND HIGHNUM between #{minhighnumScope} and #{maxhighnumScope}
+  </if>
+  
+<if test="highnumScope != null">
+		AND HIGHNUM >= #{highnumScope}
+</if>
+  
+  <if test="minnogradenumScope != null and maxnogradenumScope !=null">
+	 	AND NOGRADENUM between #{minnogradenumScope} and #{maxnogradenumScope}
+  </if>
+  
+<if test="nogradenumScope != null">
+		AND NOGRADENUM >= #{nogradenumScope}
+</if>
+  
+  <if test="mintrainingnumScope != null and maxtrainingnumScope !=null">
+	 	AND TRAININGNUM between #{mintrainingnumScope} and #{maxtrainingnumScope}
+  </if>
+  
+<if test="trainingnumScope != null">
+		AND TRAININGNUM >= #{trainingnumScope}
+</if>
+  
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDSkilltraining">
+ INSERT INTO QAS_D_SKILLTRAINING   ( ID,DIRECTIONID,GRADNUM,JUNIORNUM,MIDNUM,HIGHNUM,NOGRADENUM,TRAININGNUM,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{directionid},#{gradnum},#{juniornum},#{midnum},#{highnum},#{nogradenum},#{trainingnum},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDSkilltraining">
+ UPDATE QAS_D_SKILLTRAINING SET  ID=#{id},DIRECTIONID=#{directionid},GRADNUM=#{gradnum},JUNIORNUM=#{juniornum},MIDNUM=#{midnum},HIGHNUM=#{highnum},NOGRADENUM=#{nogradenum},TRAININGNUM=#{trainingnum},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_SKILLTRAINING WHERE   ID=#{id}
+</delete>
+
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_SKILLTRAINING WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDSkilltraining">
+ UPDATE QAS_D_SKILLTRAINING 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="directionid != null">  DIRECTIONID = #{directionid},</if>
+<if test="gradnum != null">  GRADNUM = #{gradnum},</if>
+<if test="juniornum != null">  JUNIORNUM = #{juniornum},</if>
+<if test="midnum != null">  MIDNUM = #{midnum},</if>
+<if test="highnum != null">  HIGHNUM = #{highnum},</if>
+<if test="nogradenum != null">  NOGRADENUM = #{nogradenum},</if>
+<if test="trainingnum != null">  TRAININGNUM = #{trainingnum},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_SKILLTRAINING config end********************************  -->
+
+</mapper>

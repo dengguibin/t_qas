@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.teacher.teacherResearch.mapper.QasDTeacherresearchMapper">
+<!--  ********************************QAS_D_TEACHERRESEARCH config begnin********************************  -->
+
+<select id="select" resultType="QasDTeacherresearch"> 
+ SELECT ID,EMPLOYEEID,RESEARCHNATURE,RESEARCHTYPE,RESEARCHNAME,RESEARCHISHORIZONTALISSUE,RESEARCHLEVEL,RESEARCHESTABLISHDATE,RESEARCHFUND,RESEARCHAMOUNTRECEIVED,RESEARCHCOMPLETEORDER,RESEARCHSOURCE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_TEACHERRESEARCH 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDTeacherresearch" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,EMPLOYEEID,RESEARCHNATURE,RESEARCHTYPE,RESEARCHNAME,RESEARCHISHORIZONTALISSUE,RESEARCHLEVEL,RESEARCHESTABLISHDATE,RESEARCHFUND,RESEARCHAMOUNTRECEIVED,RESEARCHCOMPLETEORDER,RESEARCHSOURCE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_TEACHERRESEARCH 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDTeacherresearch">
+ INSERT INTO QAS_D_TEACHERRESEARCH   ( ID,EMPLOYEEID,RESEARCHNATURE,RESEARCHTYPE,RESEARCHNAME,RESEARCHISHORIZONTALISSUE,RESEARCHLEVEL,RESEARCHESTABLISHDATE,RESEARCHFUND,RESEARCHAMOUNTRECEIVED,RESEARCHCOMPLETEORDER,RESEARCHSOURCE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{employeeid},#{researchnature},#{researchtype},#{researchname},#{researchishorizontalissue},#{researchlevel},#{researchestablishdate},#{researchfund},#{researchamountreceived},#{researchcompleteorder},#{researchsource},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDTeacherresearch">
+ UPDATE QAS_D_TEACHERRESEARCH SET  ID=#{id},EMPLOYEEID=#{employeeid},RESEARCHNATURE=#{researchnature},RESEARCHTYPE=#{researchtype},RESEARCHNAME=#{researchname},RESEARCHISHORIZONTALISSUE=#{researchishorizontalissue},RESEARCHLEVEL=#{researchlevel},RESEARCHESTABLISHDATE=#{researchestablishdate},RESEARCHFUND=#{researchfund},RESEARCHAMOUNTRECEIVED=#{researchamountreceived},RESEARCHCOMPLETEORDER=#{researchcompleteorder},RESEARCHSOURCE=#{researchsource},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_TEACHERRESEARCH WHERE   ID=#{id}
+</delete>
+
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_TEACHERRESEARCH WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDTeacherresearch">
+ UPDATE QAS_D_TEACHERRESEARCH 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="employeeid != null">  EMPLOYEEID = #{employeeid},</if>
+<if test="researchnature != null">  RESEARCHNATURE = #{researchnature},</if>
+<if test="researchtype != null">  RESEARCHTYPE = #{researchtype},</if>
+<if test="researchname != null">  RESEARCHNAME = #{researchname},</if>
+<if test="researchishorizontalissue != null">  RESEARCHISHORIZONTALISSUE = #{researchishorizontalissue},</if>
+<if test="researchlevel != null">  RESEARCHLEVEL = #{researchlevel},</if>
+<if test="researchestablishdate != null">  RESEARCHESTABLISHDATE = #{researchestablishdate},</if>
+<if test="researchfund != null">  RESEARCHFUND = #{researchfund},</if>
+<if test="researchamountreceived != null">  RESEARCHAMOUNTRECEIVED = #{researchamountreceived},</if>
+<if test="researchcompleteorder != null">  RESEARCHCOMPLETEORDER = #{researchcompleteorder},</if>
+<if test="researchsource != null">  RESEARCHSOURCE = #{researchsource},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_TEACHERRESEARCH config end********************************  -->
+
+</mapper>

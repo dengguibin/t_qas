@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_RECRUIT config end********************************  -->
+
+<package name="QasDRecruit" extends="default"
+		namespace="/data/major/recruit">
+		
+		<action name="queryInfo" class="qasDRecruitAction" method="queryInfo">
+			<result name="select">/pages/data/major/recruit/QasDRecruitInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDRecruitAction" method="queryList">
+			<result name="list">/pages/data/major/recruit/QasDRecruitList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDRecruitAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDRecruitAction" method="toEdit">
+			<result name="toEdit">/pages/data/major/recruit/QasDRecruitEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDRecruitAction" method="save">
+			<result name="save" type="redirect">
+			/data/major/recruit/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_RECRUIT config end********************************  -->
+</struts>

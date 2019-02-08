@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.teacher.teacherAward.mapper.QasDTeacherawardMapper">
+<!--  ********************************QAS_D_TEACHERAWARD config begnin********************************  -->
+
+<select id="select" resultType="QasDTeacheraward"> 
+ SELECT ID,EMPLOYEEID,AWARDDATE,AWARDNAME,AWARDGRADE,AWARDINGUNIT,AWARDISHOST,AWARDTYPE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_TEACHERAWARD 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDTeacheraward" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,EMPLOYEEID,AWARDDATE,AWARDNAME,AWARDGRADE,AWARDINGUNIT,AWARDISHOST,AWARDTYPE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_TEACHERAWARD 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDTeacheraward">
+ INSERT INTO QAS_D_TEACHERAWARD   ( ID,EMPLOYEEID,AWARDDATE,AWARDNAME,AWARDGRADE,AWARDINGUNIT,AWARDISHOST,AWARDTYPE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{employeeid},#{awarddate},#{awardname},#{awardgrade},#{awardingunit},#{awardishost},#{awardtype},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDTeacheraward">
+ UPDATE QAS_D_TEACHERAWARD SET  ID=#{id},EMPLOYEEID=#{employeeid},AWARDDATE=#{awarddate},AWARDNAME=#{awardname},AWARDGRADE=#{awardgrade},AWARDINGUNIT=#{awardingunit},AWARDISHOST=#{awardishost},AWARDTYPE=#{awardtype},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_TEACHERAWARD WHERE   ID=#{id}
+</delete>
+
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_TEACHERAWARD WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDTeacheraward">
+ UPDATE QAS_D_TEACHERAWARD 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="employeeid != null">  EMPLOYEEID = #{employeeid},</if>
+<if test="awarddate != null">  AWARDDATE = #{awarddate},</if>
+<if test="awardname != null">  AWARDNAME = #{awardname},</if>
+<if test="awardgrade != null">  AWARDGRADE = #{awardgrade},</if>
+<if test="awardingunit != null">  AWARDINGUNIT = #{awardingunit},</if>
+<if test="awardishost != null">  AWARDISHOST = #{awardishost},</if>
+<if test="awardtype != null">  AWARDTYPE = #{awardtype},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_TEACHERAWARD config end********************************  -->
+
+</mapper>

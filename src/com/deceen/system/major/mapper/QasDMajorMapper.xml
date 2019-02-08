@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.system.major.mapper.QasDMajorMapper">
+<!--  ********************************QAS_D_MAJOR config begnin********************************  -->
+
+<select id="selectinfo" resultType="QasDMajor"> 
+  SELECT  ID AS ID,ORGANIZATIONID AS ORGANIZATIONID,MAJORNAME AS MAJORNAME FROM QAS_D_MAJOR WHERE ID=#{id}
+  UNION
+  SELECT  BMID AS ID,FBMID AS ORGANIZATIONID,BMMC AS MAJORNAME FROM T_RMS_DEPTMENT WHERE UNIT_TYPE != 3 AND BMID=#{id}
+</select>
+
+<select id="selectParentId" resultType="java.lang.String"> 
+select ORGANIZATIONID AS parentId from qas_d_major where id=#{id}
+union
+select FBMID AS parentId from T_RMS_DEPTMENT where UNIT_TYPE != 3 AND BMID=#{id}
+</select>
+
+<select id="selectParentName" resultType="java.lang.String"> 
+select  BMMC AS parentName from T_RMS_DEPTMENT where BMID=(select ORGANIZATIONID from qas_d_major where id=#{id})
+union
+select  BMMC AS parentName from T_RMS_DEPTMENT where BMID=(select FBMID from T_RMS_DEPTMENT where UNIT_TYPE != 3 AND  BMID=#{id})
+
+<!-- select  t1.BMMC AS parentName from T_RMS_DEPTMENT t1, T_RMS_DEPTMENT  t2 where t1.BMID=t2.FBMID
+ and t2.UNIT_TYPE != 3 AND  t2.BMID=#{id}-->
+</select>
+
+<select id="select" resultType="QasDMajor"> 
+ SELECT ID,ORGANIZATIONID,MAJORCODE,MAJORNAME,DIVISIONTYPE,ISENROLL,ENROLLDATE,NOTENROLLDATE,REVOKEMAJORCOUNT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_MAJOR 
+ WHERE   ID=#{id}
+</select>
+
+<select id="listselect" parameterType="QasDMajor" useCache="false"   resultType ="QasDMajor" >  
+  SELECT  BMID AS ID,FBMID AS ORGANIZATIONID,BMMC AS MAJORNAME FROM T_RMS_DEPTMENT WHERE UNIT_TYPE != 3
+</select>
+
+<select id="listAll" parameterType="QasDMajor" useCache="false"   resultType ="QasDMajor" >  
+<if test="status == 1">
+  SELECT  BMID AS ID,FBMID AS ORGANIZATIONID,BMMC AS MAJORNAME FROM T_RMS_DEPTMENT WHERE UNIT_TYPE != 3
+  UNION
+  SELECT  ID AS ID,ORGANIZATIONID AS ORGANIZATIONID,MAJORNAME AS MAJORNAME FROM QAS_D_MAJOR
+</if>
+<if test="status == 2">
+	SELECT  BMID AS ID,FBMID AS ORGANIZATIONID,BMMC AS MAJORNAME FROM T_RMS_DEPTMENT WHERE UNIT_TYPE != 3
+</if>
+</select>
+  
+ <!-- <if test="status == 1">  
+  SELECT DISTINCT * FROM
+(
+SELECT 'U' TYPE,M.MAJORNAME BMMC,M.ID BMID,M.ORGANIZATIONID FBMID,CASE WHEN O.ID IS NULL THEN 'FALSE' ELSE 'TRUE' END AS CHECKED,'' AS UNIT_TYPE FROM QAS_D_MAJOR M
+LEFT JOIN QAS_T_DIAGNOSETASKOBJ O ON M.ID = O.DIAGNOSEOBJID 
+<if test="DiagnoseTaskId !=null">AND O.DIAGNOSETASKID = #{DiagnoseTaskId}  </if>
+UNION ALL 
+SELECT 'D' TYPE,D.BMMC,D.BMID,D.FBMID,'FALSE' AS CHECKED,D.UNIT_TYPE FROM T_RMS_DEPTMENT D
+WHERE D.UNIT_TYPE = '2'
+) V
+</if>
+<if test="status == 2">
+SELECT DISTINCT * FROM (
+SELECT 'U' TYPE,D.BMMC,D.BMID,D.FBMID,CASE WHEN O.ID IS NULL THEN 'FALSE' ELSE 'TRUE' END AS CHECKED,'' AS UNIT_TYPE FROM T_RMS_DEPTMENT D 
+LEFT JOIN QAS_T_DIAGNOSETASKOBJ O ON D.BMID = O.DIAGNOSEOBJID 
+<if test="DiagnoseTaskId !=null">AND O.DIAGNOSETASKID = #{DiagnoseTaskId}  </if>
+WHERE D.UNIT_TYPE = '2'
+UNION ALL
+SELECT 'D' TYPE,D.BMMC,D.BMID,D.FBMID,'FALSE' AS CHECKED,D.UNIT_TYPE FROM T_RMS_DEPTMENT D
+WHERE D.UNIT_TYPE = '1'
+) Y 
+</if> -->
+ <!-- </select> -->
+  
+  
+
+
+<select id="list" parameterType="QasDMajor" useCache="false"   resultType ="hashmap" >  
+<!--  <include refid="plat.ORACLE_PAGE_HEADER" /> -->
+ SELECT DEPT.BMMC,ID,ORGANIZATIONID,MAJORCODE,MAJORNAME,DIVISIONTYPE,ISENROLL,ENROLLDATE,NOTENROLLDATE,REVOKEMAJORCOUNT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME
+ FROM  QAS_D_MAJOR  MA
+ LEFT JOIN T_RMS_DEPTMENT DEPT ON MA.ORGANIZATIONID = DEPT.BMID 
+ WHERE  1 = 1
+ <if test="organizationid != null and organizationid != ''">
+ 	AND MA.ORGANIZATIONID = #{organizationid}
+ </if>
+  <if test="majorname != null and majorname != ''">
+    AND MA.MAJORNAME LIKE '%' #{majorname} '%'
+  </if>
+  <if test="divisiontype != null and divisiontype != ''">
+    AND MA.DIVISIONTYPE = #{divisiontype}
+  </if>
+<!--  <include refid="plat.ORACLE_PAGE_FOOTER" /> -->
+</select>
+
+ <insert id="insert" parameterType="QasDMajor">
+ INSERT INTO QAS_D_MAJOR   ( ID,ORGANIZATIONID,MAJORCODE,MAJORNAME,DIVISIONTYPE,ISENROLL,ENROLLDATE,NOTENROLLDATE,REVOKEMAJORCOUNT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{organizationid},#{majorcode},#{majorname},#{divisiontype},#{isenroll},#{enrolldate},#{notenrolldate},#{revokemajorcount},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDMajor">
+ UPDATE QAS_D_MAJOR SET  ID=#{id},ORGANIZATIONID=#{organizationid},MAJORCODE=#{majorcode},MAJORNAME=#{majorname},DIVISIONTYPE=#{divisiontype},ISENROLL=#{isenroll},ENROLLDATE=#{enrolldate},NOTENROLLDATE=#{notenrolldate},REVOKEMAJORCOUNT=#{revokemajorcount},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_MAJOR WHERE   ID=#{id}
+</delete>
+
+
+ <update id="updateWithDyna" parameterType="QasDMajor">
+ UPDATE QAS_D_MAJOR 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="organizationid != null">  ORGANIZATIONID = #{organizationid},</if>
+<if test="majorcode != null">  MAJORCODE = #{majorcode},</if>
+<if test="majorname != null">  MAJORNAME = #{majorname},</if>
+<if test="divisiontype != null">  DIVISIONTYPE = #{divisiontype},</if>
+<if test="isenroll != null">  ISENROLL = #{isenroll},</if>
+<if test="enrolldate != null">  ENROLLDATE = #{enrolldate},</if>
+<if test="notenrolldate != null">  NOTENROLLDATE = #{notenrolldate},</if>
+<if test="revokemajorcount != null">  REVOKEMAJORCOUNT = #{revokemajorcount},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<select id="listByDwid" parameterType="QasDMajor" useCache="false"   resultType ="hashmap" >  
+ SELECT DEPT.BMMC,ID,ORGANIZATIONID,MAJORCODE,MAJORNAME,DIVISIONTYPE,ISENROLL,ENROLLDATE,NOTENROLLDATE,REVOKEMAJORCOUNT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME
+ FROM  QAS_D_MAJOR  MA
+ LEFT JOIN T_RMS_DEPTMENT DEPT ON MA.ORGANIZATIONID = DEPT.BMID 
+ WHERE  1 = 1
+ <if test="organizationid != null and organizationid != ''">
+ 	AND MA.ORGANIZATIONID = #{organizationid}
+ </if>
+  <if test="majorname != null and majorname != ''">
+    AND MA.MAJORNAME LIKE '%' #{majorname} '%'
+  </if>
+  <if test="divisiontype != null and divisiontype != ''">
+    AND MA.DIVISIONTYPE = #{divisiontype}
+  </if>
+</select>
+
+
+
+<!--  ********************************QAS_D_MAJOR config end********************************  -->
+
+</mapper>

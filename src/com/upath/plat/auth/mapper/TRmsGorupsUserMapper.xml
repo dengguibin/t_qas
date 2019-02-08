@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.auth.mapper.TRmsGorupsUserMapper">
+<!--  ********************************T_RMS_GROUPS_USER config begnin********************************  -->
+
+<select id="select" resultType="TRmsGorupsUser"> 
+ SELECT YHZYHGXID,YHZID,YHID FROM  T_RMS_GROUPS_USER 
+ WHERE   YHZYHGXID=#{yhzyhgxid}
+</select>
+
+<select id="list" parameterType="TRmsGorupsUser" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT YHZYHGXID,YHZID,YHID FROM  T_RMS_GROUPS_USER 
+ WHERE   YHZYHGXID=#{yhzyhgxid}
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="TRmsGorupsUser">
+ INSERT INTO T_RMS_GROUPS_USER   ( YHZYHGXID,YHZID,YHID)
+  VALUES ( #{yhzyhgxid},#{yhzid},#{yhid} )
+</insert>
+
+ <update id="update" parameterType="TRmsGorupsUser">
+ UPDATE T_RMS_GROUPS_USER SET  YHZYHGXID=#{yhzyhgxid},YHZID=#{yhzid},YHID=#{yhid} 
+ WHERE  YHZYHGXID=#{yhzyhgxid}
+</update>
+
+ <delete id="delete" parameterType="TRmsGorupsUser">
+   DELETE FROM T_RMS_GROUPS_USER WHERE   YHZID=#{yhzid}
+   <if test="yhid != null">
+    AND YHID=#{yhid}
+   </if>
+</delete>
+
+<!--  ********************************T_RMS_GROUPS_USER config end********************************  -->
+
+</mapper>

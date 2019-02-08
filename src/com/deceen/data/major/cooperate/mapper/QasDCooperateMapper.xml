@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.major.cooperate.mapper.QasDCooperateMapper">
+<!--  ********************************QAS_D_COOPERATE config begnin********************************  -->
+
+<select id="select" resultType="QasDCooperate"> 
+ SELECT ID,DIRECTIONID,COMPANIES,ORDERCOUNT,TEACHCOURSE,TEACHMATERIAL,PARTTIMETCH,PRACTICESTUD,DONATEDEVVAL,READYDONATEVAL,ACCESSWORK,SERVICEVALUE,TRAINCOUNT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_COOPERATE 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDCooperate" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,DIRECTIONID,COMPANIES,ORDERCOUNT,TEACHCOURSE,TEACHMATERIAL,PARTTIMETCH,PRACTICESTUD,DONATEDEVVAL,READYDONATEVAL,ACCESSWORK,SERVICEVALUE,TRAINCOUNT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_COOPERATE 
+ WHERE  1 = 1
+<if test="directionid != null and directionid != ''">
+ AND DIRECTIONID LIKE '%' #{directionid}  '%'
+ </if>
+  <if test="updatedtime != null and updatedtime != ''">
+      	<![CDATA[  AND  #{updatedtime} >= DATE_FORMAT(UPDATEDTIME,'%Y-%m-%d')]]>
+  </if>
+
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDCooperate">
+ INSERT INTO QAS_D_COOPERATE   ( ID,DIRECTIONID,COMPANIES,ORDERCOUNT,TEACHCOURSE,TEACHMATERIAL,PARTTIMETCH,PRACTICESTUD,DONATEDEVVAL,READYDONATEVAL,ACCESSWORK,SERVICEVALUE,TRAINCOUNT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{directionid},#{companies},#{ordercount},#{teachcourse},#{teachmaterial},#{parttimetch},#{practicestud},#{donatedevval},#{readydonateval},#{accesswork},#{servicevalue},#{traincount},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDCooperate">
+ UPDATE QAS_D_COOPERATE SET  ID=#{id},DIRECTIONID=#{directionid},COMPANIES=#{companies},ORDERCOUNT=#{ordercount},TEACHCOURSE=#{teachcourse},TEACHMATERIAL=#{teachmaterial},PARTTIMETCH=#{parttimetch},PRACTICESTUD=#{practicestud},DONATEDEVVAL=#{donatedevval},READYDONATEVAL=#{readydonateval},ACCESSWORK=#{accesswork},SERVICEVALUE=#{servicevalue},TRAINCOUNT=#{traincount},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_COOPERATE WHERE   ID=#{id}
+</delete>
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_COOPERATE WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDCooperate">
+ UPDATE QAS_D_COOPERATE 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="directionid != null">  DIRECTIONID = #{directionid},</if>
+<if test="companies != null">  COMPANIES = #{companies},</if>
+<if test="ordercount != null">  ORDERCOUNT = #{ordercount},</if>
+<if test="teachcourse != null">  TEACHCOURSE = #{teachcourse},</if>
+<if test="teachmaterial != null">  TEACHMATERIAL = #{teachmaterial},</if>
+<if test="parttimetch != null">  PARTTIMETCH = #{parttimetch},</if>
+<if test="practicestud != null">  PRACTICESTUD = #{practicestud},</if>
+<if test="donatedevval != null">  DONATEDEVVAL = #{donatedevval},</if>
+<if test="readydonateval != null">  READYDONATEVAL = #{readydonateval},</if>
+<if test="accesswork != null">  ACCESSWORK = #{accesswork},</if>
+<if test="servicevalue != null">  SERVICEVALUE = #{servicevalue},</if>
+<if test="traincount != null">  TRAINCOUNT = #{traincount},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_COOPERATE config end********************************  -->
+
+</mapper>

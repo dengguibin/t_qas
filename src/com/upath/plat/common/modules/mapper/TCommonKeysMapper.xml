@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.common.modules.mapper.TCommonKeysMapper">
+<!--  ********************************T_COMMON_KEYS config begnin********************************  -->
+
+<select id="select" resultType="TCommonKeys"> 
+ SELECT CODE,PCODE,CNAME,VALID,PNAME1,PNAME2,SEQ,DES,CJSJ,CJR,XGR,XGSJ FROM  T_COMMON_KEYS 
+ WHERE   CODE=#{code}
+</select>
+
+<select id="list" parameterType="TCommonKeys" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT CODE,PCODE,CNAME,VALID,PNAME1,PNAME2,SEQ,DES,CJSJ,CJR,XGR,XGSJ FROM  T_COMMON_KEYS 
+ <if test="code != null">
+  WHERE   CODE=#{code}
+ </if>
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="TCommonKeys">
+ INSERT INTO T_COMMON_KEYS   ( CODE,PCODE,CNAME,VALID,PNAME1,PNAME2,SEQ,DES,CJSJ,CJR,XGR,XGSJ)
+  VALUES ( #{code},#{pcode},#{cname},#{valid},#{pname1},#{pname2},#{seq},#{des},#{cjsj},#{cjr},#{xgr},#{xgsj} )
+</insert>
+
+ <update id="update" parameterType="TCommonKeys">
+ UPDATE T_COMMON_KEYS SET  CODE=#{code},PCODE=#{pcode},CNAME=#{cname},VALID=#{valid},PNAME1=#{pname1},PNAME2=#{pname2},SEQ=#{seq},DES=#{des},CJSJ=#{cjsj},CJR=#{cjr},XGR=#{xgr},XGSJ=#{xgsj} 
+ WHERE  CODE=#{code}
+</update>
+
+<delete id="delete" parameterType="TCommonKeys">
+   DELETE FROM T_COMMON_KEYS WHERE   CODE=#{code}
+</delete>
+
+<!--  ********************************T_COMMON_KEYS config end********************************  -->
+
+</mapper>

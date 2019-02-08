@@ -1,0 +1,41 @@
+<modules>
+
+
+	<module id="auto">
+		<name>标准项目代码自动向导</name>
+		<encoding>UTF-8</encoding>
+		<path>/template_gd/paths.ftl</path>
+		<description>配置模板，一键生成 action、service serivceImp , configs, javabean ,jsp</description>
+	</module>
+	
+	<module id="auto">
+		<name>标准项目生成查看页面</name>
+		<encoding>UTF-8</encoding>
+		<path>/template_gd/paths2.ftl</path>
+		<description>配置模板，生成查看页面</description>
+	</module>
+	
+
+
+	<module id="auto">
+		<name>代码自动向导</name>
+		<encoding>UTF-8</encoding>
+		<path>/template/paths.ftl</path>
+		<description>配置模板，一键生成 action、service serivceImp , configs, javabean ,jsp</description>
+	</module>
+	<module id="jsp">
+		<name>生成JSP文件</name>
+		<encoding>UTF-8</encoding>
+		<path>/template/paths.ftl</path>
+		<description>生成增加和列表JSP文件</description>
+	</module>
+	
+	<module id="workflow">
+		<name>生成选择表的查询列表SQL</name>
+		<encoding>UTF-8</encoding>
+		<path>/template/paths.ftl</path>
+		<description>生成增加和列表JSP文件</description>
+	</module>
+	
+	
+</modules>

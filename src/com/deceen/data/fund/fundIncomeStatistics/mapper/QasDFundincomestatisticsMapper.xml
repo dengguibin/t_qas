@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.deceen.data.fund.fundIncomeStatistics.mapper.QasDFundincomestatisticsMapper">
+	<!-- ********************************QAS_D_FUNDINCOMESTATISTICS config begnin******************************** -->
+
+	<select id="select" resultType="QasDFundincomestatistics">
+		SELECT
+		ID,SCHOOLINCOME,TUITIONTOTAL,FINANCIALAIDTOTAL,SPECIALINVESTMENTTOTAL,SOCIALDONATION,OTHERS,LOANAMOUNT,LOANBALANCE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME
+		FROM QAS_D_FUNDINCOMESTATISTICS
+		WHERE ID=#{id}
+	</select>
+
+	<select id="list" parameterType="java.util.HashMap"
+		useCache="false" resultType="hashmap">
+		<include refid="plat.ORACLE_PAGE_HEADER" />
+		SELECT
+		ID,SCHOOLINCOME,TUITIONTOTAL,FINANCIALAIDTOTAL,SPECIALINVESTMENTTOTAL,SOCIALDONATION,OTHERS,LOANAMOUNT,LOANBALANCE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME
+		FROM QAS_D_FUNDINCOMESTATISTICS
+		WHERE 1 = 1
+		
+		  <if test="minScope != null and maxScope !=null">
+	 			AND SCHOOLINCOME between #{minScope} and #{maxScope}
+		  </if>
+		   <if test="getSchoolincomeScope != null">
+	 			AND SCHOOLINCOME >=#{getSchoolincomeScope}
+		  </if>
+		   <if test="tenantid != null and tenantid != ''">
+			 	AND TENANTID LIKE concat('%',#{tenantid},'%')
+		  </if>
+		   <if test="createdby != null and createdby != ''">
+			 	AND CREATEDBY LIKE concat('%',#{createdby},'%')
+		  </if>
+		   <if test="updatedby != null and updatedby != ''">
+			 	AND UPDATEDBY LIKE concat('%',#{updatedby},'%')
+		  </if>
+		   <if test="createdtime != null">
+			 	<![CDATA[  AND  DATE_FORMAT(CREATEDTIME,'%Y-%m-%d')=DATE_FORMAT(#{createdtime},'%Y-%m-%d')]]>
+		  </if>
+		   <if test="updatedtime != null">
+			 	<![CDATA[  AND  DATE_FORMAT(UPDATEDTIME,'%Y-%m-%d')=DATE_FORMAT(#{updatedtime},'%Y-%m-%d')]]>
+		  </if>
+  
+		<include refid="plat.ORACLE_PAGE_FOOTER" />
+	</select>
+
+	<insert id="insert" parameterType="QasDFundincomestatistics">
+		INSERT INTO QAS_D_FUNDINCOMESTATISTICS (
+		ID,SCHOOLINCOME,TUITIONTOTAL,FINANCIALAIDTOTAL,SPECIALINVESTMENTTOTAL,SOCIALDONATION,OTHERS,LOANAMOUNT,LOANBALANCE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+		VALUES (
+		#{id},#{schoolincome},#{tuitiontotal},#{financialaidtotal},#{specialinvestmenttotal},#{socialdonation},#{others},#{loanamount},#{loanbalance},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime}
+		)
+	</insert>
+
+	<update id="update" parameterType="QasDFundincomestatistics">
+		UPDATE QAS_D_FUNDINCOMESTATISTICS SET
+		ID=#{id},SCHOOLINCOME=#{schoolincome},TUITIONTOTAL=#{tuitiontotal},FINANCIALAIDTOTAL=#{financialaidtotal},SPECIALINVESTMENTTOTAL=#{specialinvestmenttotal},SOCIALDONATION=#{socialdonation},OTHERS=#{others},LOANAMOUNT=#{loanamount},LOANBALANCE=#{loanbalance},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime}
+		WHERE ID=#{id}
+	</update>
+
+
+	<delete id="delete">
+		DELETE FROM QAS_D_FUNDINCOMESTATISTICS WHERE ID=#{id}
+	</delete>
+	<!-- 批量删除 -->
+	<delete id="batchDelete">
+		DELETE FROM QAS_D_FUNDINCOMESTATISTICS WHERE ID IN
+		<foreach collection="array" item="id" separator="," open="("
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+	<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+	<update id="updateWithDyna" parameterType="QasDFundincomestatistics">
+		UPDATE QAS_D_FUNDINCOMESTATISTICS
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="id != null"> ID = #{id},</if>
+			<if test="schoolincome != null"> SCHOOLINCOME = #{schoolincome},</if>
+			<if test="tuitiontotal != null"> TUITIONTOTAL = #{tuitiontotal},</if>
+			<if test="financialaidtotal != null"> FINANCIALAIDTOTAL = #{financialaidtotal},</if>
+			<if test="specialinvestmenttotal != null"> SPECIALINVESTMENTTOTAL = #{specialinvestmenttotal},</if>
+			<if test="socialdonation != null"> SOCIALDONATION = #{socialdonation},</if>
+			<if test="others != null"> OTHERS = #{others},</if>
+			<if test="loanamount != null"> LOANAMOUNT = #{loanamount},</if>
+			<if test="loanbalance != null"> LOANBALANCE = #{loanbalance},</if>
+			<if test="status != null"> STATUS = #{status},</if>
+			<if test="createdby != null"> CREATEDBY = #{createdby},</if>
+			<if test="createdtime != null"> CREATEDTIME = #{createdtime},</if>
+			<if test="updatedby != null"> UPDATEDBY = #{updatedby},</if>
+			<if test="updatedtime != null"> UPDATEDTIME = #{updatedtime},</if>
+			<if test="tenantid != null"> TENANTID = #{tenantid},</if>
+			<if test="storagetime != null"> STORAGETIME = #{storagetime},</if>
+
+		</trim>
+		WHERE ID=#{id}
+	</update>
+
+	<!-- ********************************QAS_D_FUNDINCOMESTATISTICS config end******************************** -->
+
+</mapper>

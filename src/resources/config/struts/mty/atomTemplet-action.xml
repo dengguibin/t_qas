@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************T_MTY_ATOMTEMPLET config end********************************  -->
+
+<package name="TMtyAtomtemplet" extends="default"
+		namespace="/mty/atomTemplet">
+		
+		<action name="queryInfo" class="tMtyAtomtempletAction" method="queryInfo">
+			<result name="select">/pages/mty/atomTemplet/TMtyAtomtempletInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="tMtyAtomtempletAction" method="queryList">
+			<result name="list">/pages/mty/atomTemplet/TMtyAtomtempletList.jsp</result>
+		</action>
+		
+		<action name="remove" class="tMtyAtomtempletAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="tMtyAtomtempletAction" method="toEdit">
+			<result name="toEdit">/pages/mty/atomTemplet/TMtyAtomtempletEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="tMtyAtomtempletAction" method="save">
+			<result name="save" type="redirect">
+			/mty/atomTemplet/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************T_MTY_ATOMTEMPLET config end********************************  -->
+</struts>

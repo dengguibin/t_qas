@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>1.2</jsp-version>
+	<short-name>x</short-name>
+ 	 <uri>/upath-tags</uri>
+  	<display-name>x</display-name>
+	<tag>
+		<name>page</name>
+		<tag-class>com.upath.plat.common.taglib.PageTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>查询 mybatis 中的statement 对数据进行分页</description>
+		<attribute>
+		        <!-- 查询后数量绑定量 -->
+		        <name>var</name>
+		        <required>true</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+		<attribute>
+		        <!-- mybatis statement string -->
+		        <name>stmt</name>
+		        <required>true</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+		<attribute>
+		        <!-- 查询参数 -->
+		        <name>params</name>
+		        <required>false</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+		<attribute>
+		        <!-- 分页信息绑定变量 -->
+		        <name>pvar</name>
+		        <required>false</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+		<attribute>
+		        <!--引用 mybatis namespace 下面的如果不为空，标签会自动引用 statement  -->
+		        <name>mapperClass</name>
+		        <required>false</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+		<attribute>
+		        <!--spring 中配置 的 sqlSession bean 名称，标签默认使用sqlSession -->
+		        <name>sqlSession</name>
+		        <required>false</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+		<attribute>
+		        <!--数据绑定上下文件环境 ,默认绑定 到 pageScope环境当中 -->
+		        <name>scope</name>
+		        <required>false</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+	</tag>
+	
+	<tag>
+		<name>query</name>
+		<tag-class>com.upath.plat.common.taglib.QueryTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>使用数据库中的模板结合当前上下文进行数据查询</description>
+		<attribute>
+		        <!-- 查询后数量绑定量 -->
+		        <name>var</name>
+		        <required>true</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+		<attribute>
+		        <!-- mybatis statement string -->
+		        <name>stmt</name>
+		        <required>true</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+    	<attribute>
+		        <!--spring 中配置 的 sqlSession bean 名称，标签默认使用sqlSession -->
+		        <name>sqlSession</name>
+		        <required>false</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+		<attribute>
+		        <!--数据绑定上下文件环境 ,默认绑定 到 pageScope环境当中 -->
+		        <name>scope</name>
+		        <required>false</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+    	<attribute>
+		        <!-- 分页信息绑定变量 -->
+		        <name>pvar</name>
+		        <required>false</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+    	<attribute>
+		        <!-- 分页信息绑定变量 -->
+		        <name>page</name>
+		        <required>false</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+    	<attribute>
+		        <!-- 每页大小 -->
+		        <name>pageSize</name>
+		        <required>false</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+    	<attribute>
+		        <!-- 指定调用的这个查询有多少行 -->
+		        <name>rows</name>
+		        <required>false</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+    	<attribute>
+		        <!-- 指标是否进行分页 -->
+		        <name>paged</name>
+		        <required>false</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+    	<attribute>
+		        <!-- 使用Json 格式输出数据 -->
+		        <name>asJson</name>
+		        <required>false</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+    	<attribute>
+		        <!-- 点位符正则表达式 -->
+		        <name>placeHolder</name>
+		        <required>false</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+    	<attribute>
+		        <!-- 指定数据源进行查询-->
+		        <name>dataSource</name>
+		        <required>false</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+    	<attribute>
+		        <!-- 增加设置分页模式,解决MYSQL的分页机制慢的问题，在十成数据以上时问题会非常突出-->
+		        <name>mode</name>
+		        <required>false</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+	</tag>
+	
+	<tag>
+	 <name>cache</name>
+	 <tag-class>com.upath.plat.common.taglib.CacheTag</tag-class>
+	 <body-content>JSP</body-content>
+	 <description>输出和调用系统缓存实现机制，字典缓存</description>
+    <attribute>
+      <!-- 打开字典的主目录 -->
+        <name>subject</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <name>key</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <name>option</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+        <type>boolean</type>
+    </attribute>
+    <attribute>
+        <name>selected</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <name>scope</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+        <type>String</type>
+        <description></description>
+    </attribute>
+   	<attribute>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>String</type>
+			<description>保存数据到request范围内</description>
+		</attribute>
+	</tag>
+	
+	<tag>
+	 <name>menu</name>
+	 <tag-class>com.upath.plat.common.taglib.MenuCacheTag</tag-class>
+	 <body-content>JSP</body-content>
+	 <description>加载系统中缓存的菜单</description>
+    <attribute>
+      <!-- 打开字典的主目录 -->
+        <name>menuId</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <name>scope</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+        <type>String</type>
+        <description></description>
+    </attribute>
+   	<attribute>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>String</type>
+			<description>保存数据到request范围内</description>
+	</attribute>
+	</tag>
+	
+	
+	
+	<tag>
+		<name>model</name>
+		<tag-class>com.upath.plat.common.taglib.ModelTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>调用缓存中的流程模型数据库信息</description>
+		<attribute>
+		        <!-- 查询后数量绑定量 -->
+		        <name>var</name>
+		        <required>true</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+		<attribute>
+		        <!-- mybatis statement string -->
+		        <name>modelId</name>
+		        <required>true</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+    	<attribute>
+		        <!--spring 中配置 的 sqlSession bean 名称，标签默认使用sqlSession -->
+		        <name>stepModelId</name>
+		        <required>false</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+		<attribute>
+		        <!--数据绑定上下文件环境 ,默认绑定 到 pageScope环境当中 -->
+		        <name>scope</name>
+		        <required>false</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+	</tag>
+	
+	
+		<tag>
+		<name>qx</name>
+		<tag-class>com.upath.plat.common.taglib.PermisssionTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>查询当前用户的权限信息</description>
+		<attribute>
+		        <!-- 查询后数量绑定量 -->
+		        <name>var</name>
+		        <required>true</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+		<attribute>
+		        <!-- 当前系统菜单ID -->
+		        <name>menuId</name>
+		        <required>false</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+		<attribute>
+		        <!-- 标签通过访问路径严格进行验证访问路径 -->
+		        <name>verify</name>
+		        <required>false</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+		<attribute>
+		        <!--数据绑定上下文件环境 ,默认绑定 到 pageScope环境当中 -->
+		        <name>scope</name>
+		        <required>false</required>
+		        <rtexprvalue>true</rtexprvalue>
+    	</attribute>
+	</tag>
+	
+	
+	<tag>
+	 <name>escape</name>
+	 <tag-class>com.upath.plat.common.taglib.EscapeTag</tag-class>
+	 <body-content>JSP</body-content>
+	 <description>对文本进行编码和解码的标签</description>
+    <attribute>
+        <name>scope</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+        <type>String</type>
+    </attribute>
+   	<attribute>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>String</type>
+	</attribute>
+	<attribute>
+			<name>escape</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+	</attribute>
+	<attribute>
+			<name>value</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+	</attribute>
+	</tag>
+	
+</taglib>

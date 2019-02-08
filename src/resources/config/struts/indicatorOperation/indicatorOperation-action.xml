@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="QasTIndicatorcatalogOperation" extends="default"
+		namespace="/indicatorOperation/indicatorcatalog">
+		
+		<action name="queryInfo" class="qasTIndicatorcatalogAction" method="queryInfo"/>
+		
+		<action name="indicatorcatalogList" class="qasTIndicatorcatalogAction" method="indicatorcatalogList">
+			<result name="list">/pages/indicatorOperation/diagnosis.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasTIndicatorcatalogAction" method="remove"/>
+		
+		<action name="getTree" class="qasTIndicatorcatalogAction" method="getTree"/>
+		
+		<action name="toEdit" class="qasTIndicatorcatalogAction" method="toEdit">
+			<result name="toEdit">/pages/indicatorOperation/QasTIndicatorcatalogEdit.jsp</result>
+		</action>
+		
+		<action name="frmAddOrEditCatalog" class="qasTIndicatorcatalogAction" method="addOrEditCatalog"/>
+		
+	</package>
+
+
+	<package name="QasTIndicatorcontentOperation" extends="default"
+		namespace="/indicatorOperation/indicatorcontent">
+		
+		<action name="queryInfo" class="qasTIndicatorcontentAction" method="queryInfo"/>
+		
+		<action name="queryList" class="qasTIndicatorcontentAction" method="queryList"/>
+		
+		<action name="remove" class="qasTIndicatorcontentAction" method="remove"/>
+		
+		<action name="toEdit" class="qasTIndicatorcontentAction" method="toEdit"/>
+		
+		<action name="frmAddOrEditContent" class="qasTIndicatorcontentAction" method="addOrEditContent"/>
+		
+	</package>
+
+</struts>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.auth.mapper.TRmsRoleMenuMapper">
+<!--  ********************************T_RMS_ROLE_MENU config begnin********************************  -->
+
+<select id="select" resultType="TRmsRoleMenu"> 
+ SELECT JSCDGXID,CDID,JSID,QX FROM  T_RMS_ROLE_MENU 
+ WHERE   JSCDGXID=#{jscdgxid}
+</select>
+
+<select id="list" parameterType="TRmsRoleMenu" useCache="false"   resultType ="TRmsRoleMenu" >  
+ SELECT JSCDGXID,CDID,JSID,QX FROM  T_RMS_ROLE_MENU 
+ WHERE   1 = 1 
+ 	<if test="jsid != null">
+ 	AND  JSID=#{jsid}
+ 	</if>
+ 	<if test="cdid != null">
+ 	AND  CDID=#{cdid}
+ 	</if>
+</select>
+
+ <insert id="insert" parameterType="TRmsRoleMenu">
+ INSERT INTO T_RMS_ROLE_MENU   ( JSCDGXID,CDID,JSID,QX)
+  VALUES ( #{jscdgxid},#{cdid},#{jsid},#{qx} )
+</insert>
+
+ <update id="update" parameterType="TRmsRoleMenu">
+ UPDATE T_RMS_ROLE_MENU SET  QX=#{qx}
+ WHERE  JSCDGXID=#{jscdgxid}
+</update>
+
+ <delete id="delete" parameterType="TRmsRoleMenu">
+   DELETE FROM T_RMS_ROLE_MENU WHERE   CDID=#{cdid} AND JSID=#{jsid}
+</delete>
+
+<!--  ********************************T_RMS_ROLE_MENU config end********************************  -->
+
+</mapper>

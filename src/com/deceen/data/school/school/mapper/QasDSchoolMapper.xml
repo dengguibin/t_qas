@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.school.school.mapper.QasDSchoolMapper">
+<!--  ********************************QAS_D_SCHOOL config begnin********************************  -->
+
+<select id="select" resultType="QasDSchool"> 
+ SELECT ID,CODE,NAME,LOCATION,NAMEUSEDDATE,BUILDEDDATE,BUILDEDBASE,CREATERNAME,CREATERNATURE,CREATERGRADE,GRADE,MOTTO,ADDRESS,POSTCODE,WEB,ISCOMMUNITYEDUDEMONSTRATION,EXAMPNATURE,EXAMPGRADE,EXAMPDEPARTMENT,EXAMPBUILDEDTIME,ESTIMATEFIRSTTIME,ESTIMATESECONDRESULT,ESTIMATENORUN,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_SCHOOL 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDSchool" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,CODE,NAME,LOCATION,NAMEUSEDDATE,BUILDEDDATE,BUILDEDBASE,CREATERNAME,CREATERNATURE,CREATERGRADE,GRADE,MOTTO,ADDRESS,POSTCODE,WEB,ISCOMMUNITYEDUDEMONSTRATION,EXAMPNATURE,EXAMPGRADE,EXAMPDEPARTMENT,EXAMPBUILDEDTIME,ESTIMATEFIRSTTIME,ESTIMATESECONDRESULT,ESTIMATENORUN,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_SCHOOL 
+ WHERE  1 = 1
+
+   <if test="code != null and code != ''">
+	 	AND CODE LIKE concat('%',#{code},'%')
+  </if>
+   
+   <if test="name != null and name != ''">
+	 	AND NAME LIKE concat('%',#{name},'%')
+  </if>
+  
+   <if test="location != null and location != ''">
+	 	AND LOCATION LIKE concat('%',#{location},'%')
+  </if>
+  
+     <if test="nameuseddate != null and nameuseddate != ''">
+	 	AND NAMEUSEDDATE=#{nameuseddate}
+  </if>
+   
+   <if test="buildeddate != null and buildeddate != ''">
+	 	AND BUILDEDDATE=#{buildeddate}
+  </if>
+  
+   <if test="buildedbase != null and buildedbase != ''">
+	 	AND BUILDEDBASE LIKE concat('%',#{buildedbase},'%')
+  </if>
+  
+     <if test="grade != null and grade != ''">
+	 	AND GRADE LIKE concat('%',#{grade},'%')
+  </if>
+   
+   <if test="address != null and address != ''">
+	 	AND ADDRESS LIKE concat('%',#{address},'%')
+  </if>
+  
+   <if test="postcode != null and postcode != ''">
+	 	AND POSTCODE LIKE concat('%',#{postcode},'%')
+  </if>
+    
+   <if test="web != null and web != ''">
+	 	AND WEB LIKE concat('%',#{web},'%')
+  </if>
+  
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDSchool">
+ INSERT INTO QAS_D_SCHOOL   ( ID,CODE,NAME,LOCATION,NAMEUSEDDATE,BUILDEDDATE,BUILDEDBASE,CREATERNAME,CREATERNATURE,CREATERGRADE,GRADE,MOTTO,ADDRESS,POSTCODE,WEB,ISCOMMUNITYEDUDEMONSTRATION,EXAMPNATURE,EXAMPGRADE,EXAMPDEPARTMENT,EXAMPBUILDEDTIME,ESTIMATEFIRSTTIME,ESTIMATESECONDRESULT,ESTIMATENORUN,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{code},#{name},#{location},#{nameuseddate},#{buildeddate},#{buildedbase},#{creatername},#{creaternature},#{creatergrade},#{grade},#{motto},#{address},#{postcode},#{web},#{iscommunityedudemonstration},#{exampnature},#{exampgrade},#{exampdepartment},#{exampbuildedtime},#{estimatefirsttime},#{estimatesecondresult},#{estimatenorun},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDSchool">
+ UPDATE QAS_D_SCHOOL SET  ID=#{id},CODE=#{code},NAME=#{name},LOCATION=#{location},NAMEUSEDDATE=#{nameuseddate},BUILDEDDATE=#{buildeddate},BUILDEDBASE=#{buildedbase},CREATERNAME=#{creatername},CREATERNATURE=#{creaternature},CREATERGRADE=#{creatergrade},GRADE=#{grade},MOTTO=#{motto},ADDRESS=#{address},POSTCODE=#{postcode},WEB=#{web},ISCOMMUNITYEDUDEMONSTRATION=#{iscommunityedudemonstration},EXAMPNATURE=#{exampnature},EXAMPGRADE=#{exampgrade},EXAMPDEPARTMENT=#{exampdepartment},EXAMPBUILDEDTIME=#{exampbuildedtime},ESTIMATEFIRSTTIME=#{estimatefirsttime},ESTIMATESECONDRESULT=#{estimatesecondresult},ESTIMATENORUN=#{estimatenorun},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_SCHOOL WHERE   ID=#{id}
+</delete>
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_SCHOOL WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDSchool">
+ UPDATE QAS_D_SCHOOL 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="code != null">  CODE = #{code},</if>
+<if test="name != null">  NAME = #{name},</if>
+<if test="location != null">  LOCATION = #{location},</if>
+<if test="nameuseddate != null">  NAMEUSEDDATE = #{nameuseddate},</if>
+<if test="buildeddate != null">  BUILDEDDATE = #{buildeddate},</if>
+<if test="buildedbase != null">  BUILDEDBASE = #{buildedbase},</if>
+<if test="creatername != null">  CREATERNAME = #{creatername},</if>
+<if test="creaternature != null">  CREATERNATURE = #{creaternature},</if>
+<if test="creatergrade != null">  CREATERGRADE = #{creatergrade},</if>
+<if test="grade != null">  GRADE = #{grade},</if>
+<if test="motto != null">  MOTTO = #{motto},</if>
+<if test="address != null">  ADDRESS = #{address},</if>
+<if test="postcode != null">  POSTCODE = #{postcode},</if>
+<if test="web != null">  WEB = #{web},</if>
+<if test="iscommunityedudemonstration != null">  ISCOMMUNITYEDUDEMONSTRATION = #{iscommunityedudemonstration},</if>
+<if test="exampnature != null">  EXAMPNATURE = #{exampnature},</if>
+<if test="exampgrade != null">  EXAMPGRADE = #{exampgrade},</if>
+<if test="exampdepartment != null">  EXAMPDEPARTMENT = #{exampdepartment},</if>
+<if test="exampbuildedtime != null">  EXAMPBUILDEDTIME = #{exampbuildedtime},</if>
+<if test="estimatefirsttime != null">  ESTIMATEFIRSTTIME = #{estimatefirsttime},</if>
+<if test="estimatesecondresult != null">  ESTIMATESECONDRESULT = #{estimatesecondresult},</if>
+<if test="estimatenorun != null">  ESTIMATENORUN = #{estimatenorun},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_SCHOOL config end********************************  -->
+
+</mapper>

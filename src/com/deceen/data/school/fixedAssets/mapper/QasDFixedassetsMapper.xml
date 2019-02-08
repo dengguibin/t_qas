@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.school.fixedAssets.mapper.QasDFixedassetsMapper">
+<!--  ********************************QAS_D_FIXEDASSETS config begnin********************************  -->
+
+<select id="select" resultType="QasDFixedassets"> 
+ SELECT ID,VALUEOFFIXEDASSET,VALUEOFRESEARCHEQUIPMENT,VALUEOFNEWRESEARCHEQUIPMENT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_FIXEDASSETS 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="java.util.HashMap" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,VALUEOFFIXEDASSET,VALUEOFRESEARCHEQUIPMENT,VALUEOFNEWRESEARCHEQUIPMENT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_FIXEDASSETS 
+ WHERE  1 = 1
+ 
+  <if test="minvalueoffixedassetScope != null and maxvalueoffixedassetScope !=null">
+	 	AND VALUEOFFIXEDASSET between #{minvalueoffixedassetScope} and #{maxvalueoffixedassetScope}
+  </if>
+   
+  <if test="minvalueofresearchequipmentScope != null and maxvalueofresearchequipmentScope !=null">
+	 	AND VALUEOFRESEARCHEQUIPMENT between #{minvalueofresearchequipmentScope} and #{maxvalueofresearchequipmentScope}
+  </if>
+   
+  <if test="minvalueofnewresearchequipmentScope != null and maxvalueofnewresearchequipmentScope !=null">
+	 	AND VALUEOFNEWRESEARCHEQUIPMENT between #{minvalueofnewresearchequipmentScope} and #{maxvalueofnewresearchequipmentScope}
+  </if>
+  
+   
+  <if test="valueoffixedassetScope != null">
+	 	AND VALUEOFFIXEDASSET >= #{valueoffixedassetScope}
+  </if>
+   
+  <if test="valueofresearchequipmentScope != null">
+	 	AND VALUEOFRESEARCHEQUIPMENT  >=  #{valueofresearchequipmentScope}
+  </if>
+   
+  <if test="valueofnewresearchequipmentScope != null">
+	 	AND VALUEOFNEWRESEARCHEQUIPMENT  >=  #{valueofnewresearchequipmentScope}
+  </if>
+
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDFixedassets">
+ INSERT INTO QAS_D_FIXEDASSETS   ( ID,VALUEOFFIXEDASSET,VALUEOFRESEARCHEQUIPMENT,VALUEOFNEWRESEARCHEQUIPMENT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{valueoffixedasset},#{valueofresearchequipment},#{valueofnewresearchequipment},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDFixedassets">
+ UPDATE QAS_D_FIXEDASSETS SET  ID=#{id},VALUEOFFIXEDASSET=#{valueoffixedasset},VALUEOFRESEARCHEQUIPMENT=#{valueofresearchequipment},VALUEOFNEWRESEARCHEQUIPMENT=#{valueofnewresearchequipment},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_FIXEDASSETS WHERE   ID=#{id}
+</delete>
+
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_FIXEDASSETS WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDFixedassets">
+ UPDATE QAS_D_FIXEDASSETS 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="valueoffixedasset != null">  VALUEOFFIXEDASSET = #{valueoffixedasset},</if>
+<if test="valueofresearchequipment != null">  VALUEOFRESEARCHEQUIPMENT = #{valueofresearchequipment},</if>
+<if test="valueofnewresearchequipment != null">  VALUEOFNEWRESEARCHEQUIPMENT = #{valueofnewresearchequipment},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_FIXEDASSETS config end********************************  -->
+
+</mapper>

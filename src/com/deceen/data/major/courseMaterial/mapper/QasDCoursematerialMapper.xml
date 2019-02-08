@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.major.courseMaterial.mapper.QasDCoursematerialMapper">
+<!--  ********************************QAS_D_COURSEMATERIAL config begnin********************************  -->
+
+<select id="select" resultType="QasDCoursematerial"> 
+ SELECT ID,COURSEID,BOOKNAME,BOOKYEAR,BOOKPULISH,BOOKAUTOR,BOOKNATURE,BOOKTYPE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_COURSEMATERIAL 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDCoursematerial" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,COURSEID,BOOKNAME,BOOKYEAR,BOOKPULISH,BOOKAUTOR,BOOKNATURE,BOOKTYPE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_COURSEMATERIAL 
+ WHERE  1 = 1
+ <if test="bookname != null and bookname != ''">
+ AND BOOKNAME LIKE '%' #{bookname}  '%'
+ </if>
+ <if test="booktype != null and booktype != ''">
+ AND BOOKTYPE = #{booktype}
+ </if>
+ <if test="bookyear != null and bookyear != ''">
+ AND BOOKYEAR = #{bookyear}
+ </if>
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDCoursematerial">
+ INSERT INTO QAS_D_COURSEMATERIAL   ( ID,COURSEID,BOOKNAME,BOOKYEAR,BOOKPULISH,BOOKAUTOR,BOOKNATURE,BOOKTYPE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{courseid},#{bookname},#{bookyear},#{bookpulish},#{bookautor},#{booknature},#{booktype},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDCoursematerial">
+ UPDATE QAS_D_COURSEMATERIAL SET  ID=#{id},COURSEID=#{courseid},BOOKNAME=#{bookname},BOOKYEAR=#{bookyear},BOOKPULISH=#{bookpulish},BOOKAUTOR=#{bookautor},BOOKNATURE=#{booknature},BOOKTYPE=#{booktype},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_COURSEMATERIAL WHERE   ID=#{id}
+</delete>
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_COURSEMATERIAL WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDCoursematerial">
+ UPDATE QAS_D_COURSEMATERIAL 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="courseid != null">  COURSEID = #{courseid},</if>
+<if test="bookname != null">  BOOKNAME = #{bookname},</if>
+<if test="bookyear != null">  BOOKYEAR = #{bookyear},</if>
+<if test="bookpulish != null">  BOOKPULISH = #{bookpulish},</if>
+<if test="bookautor != null">  BOOKAUTOR = #{bookautor},</if>
+<if test="booknature != null">  BOOKNATURE = #{booknature},</if>
+<if test="booktype != null">  BOOKTYPE = #{booktype},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_COURSEMATERIAL config end********************************  -->
+
+</mapper>

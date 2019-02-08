@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.school.informationConstruction.mapper.QasDInformationconstructionMapper">
+<!--  ********************************QAS_D_INFORMATIONCONSTRUCTION config begnin********************************  -->
+
+<select id="select" resultType="QasDInformationconstruction"> 
+ SELECT ID,EXPORTBANDWIDTH,CAMPUSNETWORK,NETWORKINFORMATIONPOINT,ACCOUNTOFMIS,EMAILUSERCOUNT,ONLINECOURSECOUNT,TOTALDIGITALRESOURCE,ELECTRONICBOOK,MULTIMEDIACAPACITY,NATIONALLEVELRESOURCE,PROVINCIALRESOURCE,ALLINONECARDUSAGE,WIRELESSCOVERAGE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_INFORMATIONCONSTRUCTION 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="java.util.HashMap" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,EXPORTBANDWIDTH,CAMPUSNETWORK,NETWORKINFORMATIONPOINT,ACCOUNTOFMIS,EMAILUSERCOUNT,ONLINECOURSECOUNT,TOTALDIGITALRESOURCE,ELECTRONICBOOK,MULTIMEDIACAPACITY,NATIONALLEVELRESOURCE,PROVINCIALRESOURCE,ALLINONECARDUSAGE,WIRELESSCOVERAGE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_INFORMATIONCONSTRUCTION 
+ WHERE  1 = 1
+ 
+  <if test="minexportbandwidthScope != null and maxexportbandwidthScope !=null">
+	 	AND EXPORTBANDWIDTH between #{minexportbandwidthScope} and #{maxexportbandwidthScope}
+  </if>
+   
+  <if test="mincampusnetworkScope != null and maxcampusnetworkScope !=null">
+	 	AND CAMPUSNETWORK between #{mincampusnetworkScope} and #{maxcampusnetworkScope}
+  </if>
+   
+  <if test="minnetworkinformationpointScope != null and maxnetworkinformationpointScope !=null">
+	 	AND NETWORKINFORMATIONPOINT between #{minnetworkinformationpointScope} and #{maxnetworkinformationpointScope}
+  </if>
+   
+  <if test="minaccountofmisScope != null and maxaccountofmisScope !=null">
+	 	AND ACCOUNTOFMIS between #{minaccountofmisScope} and #{maxaccountofmisScope}
+  </if>
+   
+  <if test="minemailusercountScope != null and maxemailusercountScope !=null">
+	 	AND EMAILUSERCOUNT between #{minemailusercountScope} and #{maxemailusercountScope}
+  </if>
+   
+  <if test="minonlinecoursecountScope != null and maxonlinecoursecountScope !=null">
+	 	AND ONLINECOURSECOUNT between #{minonlinecoursecountScope} and #{maxonlinecoursecountScope}
+  </if>
+   
+  <if test="mintotaldigitalresourceScope != null and maxtotaldigitalresourceScope !=null">
+	 	AND TOTALDIGITALRESOURCE between #{mintotaldigitalresourceScope} and #{maxtotaldigitalresourceScope}
+  </if>
+  
+   
+  <if test="exportbandwidthScope != null">
+	 	AND EXPORTBANDWIDTH >= #{exportbandwidthScope}
+  </if>
+   
+  <if test="campusnetworkScope != null">
+	 	AND CAMPUSNETWORK  >=  #{campusnetworkScope}
+  </if>
+   
+  <if test="networkinformationpointScope != null">
+	 	AND NETWORKINFORMATIONPOINT  >=  #{networkinformationpointScope}
+  </if>
+   
+  <if test="accountofmisScope != null">
+	 	AND ACCOUNTOFMIS  >=  #{accountofmisScope}
+  </if>
+   
+  <if test="emailusercountScope != null">
+	 	AND EMAILUSERCOUNT  >=  #{emailusercountScope}
+  </if>
+   
+  <if test="onlinecoursecountScope != null">
+	 	AND ONLINECOURSECOUNT  >=  #{onlinecoursecountScope}
+  </if>
+   
+  <if test="totaldigitalresourceScope != null">
+	 	AND TOTALDIGITALRESOURCE  >=  #{totaldigitalresourceScope}
+  </if>
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDInformationconstruction">
+ INSERT INTO QAS_D_INFORMATIONCONSTRUCTION   ( ID,EXPORTBANDWIDTH,CAMPUSNETWORK,NETWORKINFORMATIONPOINT,ACCOUNTOFMIS,EMAILUSERCOUNT,ONLINECOURSECOUNT,TOTALDIGITALRESOURCE,ELECTRONICBOOK,MULTIMEDIACAPACITY,NATIONALLEVELRESOURCE,PROVINCIALRESOURCE,ALLINONECARDUSAGE,WIRELESSCOVERAGE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{exportbandwidth},#{campusnetwork},#{networkinformationpoint},#{accountofmis},#{emailusercount},#{onlinecoursecount},#{totaldigitalresource},#{electronicbook},#{multimediacapacity},#{nationallevelresource},#{provincialresource},#{allinonecardusage},#{wirelesscoverage},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDInformationconstruction">
+ UPDATE QAS_D_INFORMATIONCONSTRUCTION SET  ID=#{id},EXPORTBANDWIDTH=#{exportbandwidth},CAMPUSNETWORK=#{campusnetwork},NETWORKINFORMATIONPOINT=#{networkinformationpoint},ACCOUNTOFMIS=#{accountofmis},EMAILUSERCOUNT=#{emailusercount},ONLINECOURSECOUNT=#{onlinecoursecount},TOTALDIGITALRESOURCE=#{totaldigitalresource},ELECTRONICBOOK=#{electronicbook},MULTIMEDIACAPACITY=#{multimediacapacity},NATIONALLEVELRESOURCE=#{nationallevelresource},PROVINCIALRESOURCE=#{provincialresource},ALLINONECARDUSAGE=#{allinonecardusage},WIRELESSCOVERAGE=#{wirelesscoverage},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_INFORMATIONCONSTRUCTION WHERE   ID=#{id}
+</delete>
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_INFORMATIONCONSTRUCTION WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDInformationconstruction">
+ UPDATE QAS_D_INFORMATIONCONSTRUCTION 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="exportbandwidth != null">  EXPORTBANDWIDTH = #{exportbandwidth},</if>
+<if test="campusnetwork != null">  CAMPUSNETWORK = #{campusnetwork},</if>
+<if test="networkinformationpoint != null">  NETWORKINFORMATIONPOINT = #{networkinformationpoint},</if>
+<if test="accountofmis != null">  ACCOUNTOFMIS = #{accountofmis},</if>
+<if test="emailusercount != null">  EMAILUSERCOUNT = #{emailusercount},</if>
+<if test="onlinecoursecount != null">  ONLINECOURSECOUNT = #{onlinecoursecount},</if>
+<if test="totaldigitalresource != null">  TOTALDIGITALRESOURCE = #{totaldigitalresource},</if>
+<if test="electronicbook != null">  ELECTRONICBOOK = #{electronicbook},</if>
+<if test="multimediacapacity != null">  MULTIMEDIACAPACITY = #{multimediacapacity},</if>
+<if test="nationallevelresource != null">  NATIONALLEVELRESOURCE = #{nationallevelresource},</if>
+<if test="provincialresource != null">  PROVINCIALRESOURCE = #{provincialresource},</if>
+<if test="allinonecardusage != null">  ALLINONECARDUSAGE = #{allinonecardusage},</if>
+<if test="wirelesscoverage != null">  WIRELESSCOVERAGE = #{wirelesscoverage},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_INFORMATIONCONSTRUCTION config end********************************  -->
+
+</mapper>

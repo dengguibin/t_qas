@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.diagnosereport.analy.mapper.QasTDiagnostictypeMapper">
+<!--  ********************************QAS_T_DIAGNOSTICTYPE config begnin********************************  -->
+
+<select id="select" resultType="QasTDiagnostictype"> 
+ SELECT ID,DIAGNOSTICINTERMEDIARYID,INDICATORCATALOGID,INDICATORCATALOGUNIQUEID,OVERVIEW,PROBLEMS,SUGGESTIONS,CONCLUSION,TENANTID,WEIGHT,SORT FROM  QAS_T_DIAGNOSTICTYPE 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasTDiagnostictype" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,DIAGNOSTICINTERMEDIARYID,INDICATORCATALOGID,INDICATORCATALOGUNIQUEID,OVERVIEW,PROBLEMS,SUGGESTIONS,CONCLUSION,TENANTID,WEIGHT,SORT FROM  QAS_T_DIAGNOSTICTYPE 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasTDiagnostictype">
+ INSERT INTO QAS_T_DIAGNOSTICTYPE   ( ID,DIAGNOSTICINTERMEDIARYID,INDICATORCATALOGID,INDICATORCATALOGUNIQUEID,OVERVIEW,PROBLEMS,SUGGESTIONS,CONCLUSION,TENANTID,WEIGHT,SORT)
+  VALUES ( #{id},#{diagnosticintermediaryid},#{indicatorcatalogid},#{indicatorcataloguniqueid},#{overview},#{problems},#{suggestions},#{conclusion},#{tenantid},#{weight},#{sort} )
+</insert>
+
+<insert id="insertBatch">
+	INSERT INTO QAS_T_DIAGNOSTICTYPE   ( ID,DIAGNOSTICINTERMEDIARYID,INDICATORCATALOGID,INDICATORCATALOGUNIQUEID,OVERVIEW,PROBLEMS,SUGGESTIONS,CONCLUSION,TENANTID,WEIGHT,SORT)
+  VALUES
+	 <foreach collection="list" item="d" separator=",">
+	 ( #{d.id},#{d.diagnosticintermediaryid},#{d.indicatorcatalogid},#{d.indicatorcataloguniqueid},#{d.overview},#{d.problems},#{d.suggestions},#{d.conclusion},#{d.tenantid},#{d.weight},#{d.sort} )
+  </foreach>
+</insert>
+
+ <update id="update" parameterType="QasTDiagnostictype">
+ UPDATE QAS_T_DIAGNOSTICTYPE SET  ID=#{id},DIAGNOSTICINTERMEDIARYID=#{diagnosticintermediaryid},INDICATORCATALOGID=#{indicatorcatalogid},INDICATORCATALOGUNIQUEID=#{indicatorcataloguniqueid},OVERVIEW=#{overview},PROBLEMS=#{problems},SUGGESTIONS=#{suggestions},CONCLUSION=#{conclusion},TENANTID=#{tenantid},WEIGHT=#{weight},SORT=#{sort} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_T_DIAGNOSTICTYPE WHERE   ID=#{id}
+</delete>
+
+<!--动态进行更新 如果有需要请开启，否则请删除
+ <update id="updateWithDyna" parameterType="QasTDiagnostictype">
+ UPDATE QAS_T_DIAGNOSTICTYPE 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="diagnosticintermediaryid != null">  DIAGNOSTICINTERMEDIARYID = #{diagnosticintermediaryid},</if>
+<if test="indicatorcatalogid != null">  INDICATORCATALOGID = #{indicatorcatalogid},</if>
+<if test="indicatorcataloguniqueid != null">  INDICATORCATALOGUNIQUEID = #{indicatorcataloguniqueid},</if>
+<if test="overview != null">  OVERVIEW = #{overview},</if>
+<if test="problems != null">  PROBLEMS = #{problems},</if>
+<if test="suggestions != null">  SUGGESTIONS = #{suggestions},</if>
+<if test="conclusion != null">  CONCLUSION = #{conclusion},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="weight != null">  WEIGHT = #{weight},</if>
+<if test="sort != null">  SORT = #{sort},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+-->
+<!--  ********************************QAS_T_DIAGNOSTICTYPE config end********************************  -->
+
+</mapper>

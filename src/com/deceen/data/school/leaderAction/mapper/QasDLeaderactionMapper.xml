@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.school.leaderAction.mapper.QasDLeaderactionMapper">
+<!--  ********************************QAS_D_LEADERACTION config begnin********************************  -->
+
+<select id="select" resultType="QasDLeaderaction"> 
+ SELECT ID,EMPLOYEEID,LECTURECOUNT,INTERVIEWCOUNT,PRACTICALSESSIONCOUNT,STUDENTASSOCIATIONCOUNT,PARTTIMECOUNT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_LEADERACTION 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="java.util.HashMap" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,EMPLOYEEID,LECTURECOUNT,INTERVIEWCOUNT,PRACTICALSESSIONCOUNT,STUDENTASSOCIATIONCOUNT,PARTTIMECOUNT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_LEADERACTION 
+ WHERE  1 = 1
+			
+   <if test="employeeid != null and employeeid != ''">
+	 	AND EMPLOYEEID LIKE concat('%',#{employeeid},'%')
+  </if>
+  
+  <if test="minlecturecountScope != null and maxlecturecountScope !=null">
+	 	AND LECTURECOUNT between #{minlecturecountScope} and #{maxlecturecountScope}
+  </if>
+  
+  <if test="mininterviewcountScope != null and maxinterviewcountScope !=null">
+	 	AND INTERVIEWCOUNT between #{mininterviewcountScope} and #{maxinterviewcountScope}
+  </if>
+  
+  <if test="minpracticalsessioncountScope != null and maxpracticalsessioncountScope !=null">
+	 	AND PRACTICALSESSIONCOUNT between #{minpracticalsessioncountScope} and #{maxpracticalsessioncountScope}
+  </if>
+    
+  <if test="minstudentassociationcountScope != null and maxstudentassociationcountScope !=null">
+	 	AND STUDENTASSOCIATIONCOUNT between #{minstudentassociationcountScope} and #{maxstudentassociationcountScope}
+  </if>
+    
+  <if test="minparttimecountScope != null and maxparttimecountScope !=null">
+	 	AND PARTTIMECOUNT between #{minparttimecountScope} and #{maxparttimecountScope}
+  </if>
+  
+   
+  <if test="lecturecountScope != null">
+	 	AND LECTURECOUNT >= #{lecturecountScope}
+  </if>
+  
+  <if test="interviewcountScope != null">
+	 	AND INTERVIEWCOUNT  >=  #{interviewcountScope}
+  </if>
+  
+  <if test="practicalsessioncountScope != null">
+	 	AND PRACTICALSESSIONCOUNT  >=  #{practicalsessioncountScope}
+  </if>
+    
+  <if test="studentassociationcountScope != null">
+	 	AND STUDENTASSOCIATIONCOUNT  >=  #{studentassociationcountScope}
+  </if>
+    
+  <if test="parttimecountScope != null">
+	 	AND PARTTIMECOUNT  >=  #{parttimecountScope}
+  </if>
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDLeaderaction">
+ INSERT INTO QAS_D_LEADERACTION   ( ID,EMPLOYEEID,LECTURECOUNT,INTERVIEWCOUNT,PRACTICALSESSIONCOUNT,STUDENTASSOCIATIONCOUNT,PARTTIMECOUNT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{employeeid},#{lecturecount},#{interviewcount},#{practicalsessioncount},#{studentassociationcount},#{parttimecount},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDLeaderaction">
+ UPDATE QAS_D_LEADERACTION SET  ID=#{id},EMPLOYEEID=#{employeeid},LECTURECOUNT=#{lecturecount},INTERVIEWCOUNT=#{interviewcount},PRACTICALSESSIONCOUNT=#{practicalsessioncount},STUDENTASSOCIATIONCOUNT=#{studentassociationcount},PARTTIMECOUNT=#{parttimecount},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_LEADERACTION WHERE   ID=#{id}
+</delete>
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_LEADERACTION WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDLeaderaction">
+ UPDATE QAS_D_LEADERACTION 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="employeeid != null">  EMPLOYEEID = #{employeeid},</if>
+<if test="lecturecount != null">  LECTURECOUNT = #{lecturecount},</if>
+<if test="interviewcount != null">  INTERVIEWCOUNT = #{interviewcount},</if>
+<if test="practicalsessioncount != null">  PRACTICALSESSIONCOUNT = #{practicalsessioncount},</if>
+<if test="studentassociationcount != null">  STUDENTASSOCIATIONCOUNT = #{studentassociationcount},</if>
+<if test="parttimecount != null">  PARTTIMECOUNT = #{parttimecount},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_LEADERACTION config end********************************  -->
+
+</mapper>

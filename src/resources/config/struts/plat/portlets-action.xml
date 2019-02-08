@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************T_RMS_ROLE_PORTLETS config end********************************  -->
+
+<package name="TRmsRolePortlets" extends="default" namespace="/auth/rolePortlets" >
+		
+		<action name="queryInfo" class="trmsRolePortletsAction" method="queryInfo">
+			<result name="select">/pages/plat/auth/portlets/TRmsRolePortletsInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="trmsRolePortletsAction" method="queryList">
+			<result name="list">/pages/plat/auth/portlets/TRmsRolePortletsList.jsp</result>
+		</action>
+		
+		<action name="findDefaultPortlets" class="trmsRolePortletsAction" method="findDefaultPortlets">
+			<result name="list">/pages/plat/auth/portlets/findDefaultPortlets.jsp</result>
+		</action>
+		
+		<action name="showDefaultPortlets" class="trmsRolePortletsAction" method="showDefaultPortlets">
+			<result name="list">/pages/plat/auth/portlets/showDefaultPortlets.jsp</result>
+		</action>
+		<action name="findUserPortlets" class="trmsRolePortletsAction" method="findUserPortlets">
+			<result name="list">/pages/plat/auth/portlets/findUserPortlets.jsp</result>
+		</action>
+		<action name="findUserDevPortlets" class="trmsRolePortletsAction" method="findUserDevPortlets">
+			<result name="list">/pages/plat/auth/portlets/findUserDevPortlets.jsp</result>
+		</action>
+		<action name="userPortlets" class="trmsRolePortletsAction" method="findUserDevPortlets">
+			<result name="list">/pages/plat/auth/portlets/userPortlets.jsp</result>
+		</action>
+		<action name="findUserRowList" class="trmsRolePortletsAction" method="findUserRowList">
+			<result name="list">/pages/plat/auth/portlets/findUserRowList.jsp</result>
+		</action>
+		<action name="showTable" class="trmsRolePortletsAction" method="showTable">
+			<result name="list">/pages/plat/auth/portlets/table1.jsp</result>
+		</action>
+		
+		<action name="remove" class="trmsRolePortletsAction" method="remove">
+		</action>
+		<action name="saveRolePortlets" class="trmsRolePortletsAction" method="saveRolePortlets">
+			<result name="save" type="redirect">
+				/auth/rolePortlets/findDefaultPortlets.action?menuId=${menuId}&amp;proId=${proId}&amp;code=${code}
+			</result>
+		</action>
+		<action name="saveUserDevPortlets" class="trmsRolePortletsAction" method="saveUserDevPortlets">
+			<result name="save" type="redirect">
+				/auth/rolePortlets/findUserDevPortlets.action?menuId=${menuId}&amp;proId=${proId}
+			</result>
+		</action>
+		<action name="updateUserPortlets" class="trmsRolePortletsAction" method="updateUserPortlets">
+			<result name="save" type="redirect">
+				/auth/rolePortlets/findUserDevPortlets.action?menuId=${menuId}&amp;proId=${proId}
+			</result>
+		</action>
+		<action name="todefaultUserPortlets" class="trmsRolePortletsAction" method="todefaultUserPortlets">
+			<result name="save" type="redirect">
+				/auth/rolePortlets/findUserDevPortlets.action?menuId=${menuId}&amp;proId=${proId}
+			</result>
+		</action>
+		<action name="hiddenUserPortlets" class="trmsRolePortletsAction" method="hiddenUserPortlets">
+		</action>
+		
+		<action name="toEdit" class="trmsRolePortletsAction" method="toEdit">
+			<result name="toEdit">/pages/plat/auth/portlets/TRmsRolePortletsEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="trmsRolePortletsAction" method="save">
+			<result name="save" type="redirect">
+			/rolePortlets/portlets/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************T_RMS_ROLE_PORTLETS config end********************************  -->
+<!--  ********************************T_RMS_USER_PORTLETS config end********************************  -->
+
+<package name="TRmsUserPortlets" extends="default"
+		namespace="/portlets/userPortlets">
+		
+		<action name="queryInfo" class="tRmsUserPortletsAction" method="queryInfo">
+			<result name="select">/pages/plat/auth/portlets/TRmsUserPortletsInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="tRmsUserPortletsAction" method="queryList">
+			<result name="list">/pages/plat/auth/portlets/TRmsUserPortletsList.jsp</result>
+		</action>
+		
+		<action name="remove" class="tRmsUserPortletsAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="tRmsUserPortletsAction" method="toEdit">
+			<result name="toEdit">/pages/plat/auth/portlets/TRmsUserPortletsEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="tRmsUserPortletsAction" method="save">
+			<result name="save" type="redirect">
+			/userPortlets/portlets/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************T_RMS_USER_PORTLETS config end********************************  -->
+</struts>

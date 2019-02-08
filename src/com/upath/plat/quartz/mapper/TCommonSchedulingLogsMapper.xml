@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.quartz.mapper.TCommonSchedulingLogsMapper">
+<!--  ********************************T_COMMON_SCHEDULING_LOGS config begnin********************************  -->
+
+<select id="select" resultType="TCommonSchedulingLogs"> 
+ SELECT T1.LOGID,T2.TASKNAME,T1.TASKID TASKID,T1.STATES,T1.MARKS,T1.WORKER,T1.WORKIP,T1.MAC,T1.DES,T1.RUNDATE,T1.CDATE FROM  T_COMMON_SCHEDULING_LOGS T1
+  LEFT JOIN T_COMMON_SCHEDULING T2 ON (T1.TASKID = T2.TASKID)
+ WHERE   T1.LOGID=#{logid}
+</select>
+
+<select id="list" parameterType="TCommonSchedulingLogs" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT T1.LOGID,T2.TASKNAME,T1.TASKID TASKID,T1.STATES,T1.MARKS,T1.WORKER,T1.WORKIP,T1.MAC,T1.DES,T1.RUNDATE,T1.CDATE FROM  T_COMMON_SCHEDULING_LOGS T1
+  LEFT JOIN T_COMMON_SCHEDULING T2 ON (T1.TASKID = T2.TASKID)
+ WHERE  1 = 1
+ <if test="taskname != null and taskname != ''">
+ 	AND T2.TASKNAME LIKE '%' #{taskname}  '%'
+ </if>
+ <if test="states != null and states != ''">
+ 	AND T1.STATES = #{states}
+ </if>
+ ORDER BY T1.CDATE DESC
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="TCommonSchedulingLogs">
+ INSERT INTO T_COMMON_SCHEDULING_LOGS   ( LOGID,TASKID,STATES,MARKS,WORKER,WORKIP,MAC,DES,RUNDATE,CDATE)
+  VALUES ( #{logid},#{taskid},#{states},#{marks},#{worker},#{workip},#{mac},#{des},#{rundate},#{cdate} )
+</insert>
+
+ <update id="update" parameterType="TCommonSchedulingLogs">
+ UPDATE T_COMMON_SCHEDULING_LOGS SET  LOGID=#{logid},TASKID=#{taskid},STATES=#{states},MARKS=#{marks},WORKER=#{worker},WORKIP=#{workip},MAC=#{mac},DES=#{des},RUNDATE=#{rundate},CDATE=#{cdate} 
+ WHERE  LOGID=#{logid}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM T_COMMON_SCHEDULING_LOGS WHERE   LOGID=#{logid}
+</delete>
+
+<!--动态进行更新 如果有需要请开启，否则请删除
+ <update id="updateWithDyna" parameterType="TCommonSchedulingLogs">
+ UPDATE T_COMMON_SCHEDULING_LOGS 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="logid != null">  LOGID = #{logid},</if>
+<if test="taskid != null">  TASKID = #{taskid},</if>
+<if test="states != null">  STATES = #{states},</if>
+<if test="marks != null">  MARKS = #{marks},</if>
+<if test="worker != null">  WORKER = #{worker},</if>
+<if test="workip != null">  WORKIP = #{workip},</if>
+<if test="mac != null">  MAC = #{mac},</if>
+<if test="des != null">  DES = #{des},</if>
+<if test="rundate != null">  RUNDATE = #{rundate},</if>
+<if test="cdate != null">  CDATE = #{cdate},</if>
+
+ </trim>  
+ WHERE  LOGID=#{logid}
+</update>
+-->
+<!--  ********************************T_COMMON_SCHEDULING_LOGS config end********************************  -->
+
+</mapper>

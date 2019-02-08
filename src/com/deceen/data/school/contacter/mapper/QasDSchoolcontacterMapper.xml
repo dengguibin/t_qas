@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.school.contacter.mapper.QasDSchoolcontacterMapper">
+<!--  ********************************QAS_D_SCHOOLCONTACTER config begnin********************************  -->
+
+<select id="select" resultType="QasDSchoolcontacter"> 
+ SELECT ID,CONTACTNAME,CONTACTDUTY,CONTACTPHONE,CONTACTFAX,CONTACTMOBILE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_SCHOOLCONTACTER 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDSchoolcontacter" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,CONTACTNAME,CONTACTDUTY,CONTACTPHONE,CONTACTFAX,CONTACTMOBILE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_SCHOOLCONTACTER 
+ WHERE  1 = 1
+
+   <if test="contactname != null and contactname != ''">
+	 	AND ContactName LIKE concat('%',#{contactname},'%')
+  </if>
+  
+  <if test="contactduty != null and contactduty != ''">
+	 	AND ContactDuty LIKE concat('%',#{contactduty},'%')
+  </if>
+  
+  <if test="contactphone != null and contactphone != ''">
+	 	AND ContactPhone LIKE concat('%',#{contactphone},'%')
+  </if>
+  
+     <if test="contactfax != null and contactfax != ''">
+	 	AND ContactFax LIKE concat('%',#{contactfax},'%')
+  </if>
+
+   <if test="contactmobile != null and contactmobile != ''">
+	 	AND ContactMobile LIKE concat('%',#{contactmobile},'%')
+  </if>
+  
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDSchoolcontacter">
+ INSERT INTO QAS_D_SCHOOLCONTACTER   ( ID,CONTACTNAME,CONTACTDUTY,CONTACTPHONE,CONTACTFAX,CONTACTMOBILE,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{contactname},#{contactduty},#{contactphone},#{contactfax},#{contactmobile},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDSchoolcontacter">
+ UPDATE QAS_D_SCHOOLCONTACTER SET  ID=#{id},CONTACTNAME=#{contactname},CONTACTDUTY=#{contactduty},CONTACTPHONE=#{contactphone},CONTACTFAX=#{contactfax},CONTACTMOBILE=#{contactmobile},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_SCHOOLCONTACTER WHERE   ID=#{id}
+</delete>
+
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_SCHOOLCONTACTER WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDSchoolcontacter">
+ UPDATE QAS_D_SCHOOLCONTACTER 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="contactname != null">  CONTACTNAME = #{contactname},</if>
+<if test="contactduty != null">  CONTACTDUTY = #{contactduty},</if>
+<if test="contactphone != null">  CONTACTPHONE = #{contactphone},</if>
+<if test="contactfax != null">  CONTACTFAX = #{contactfax},</if>
+<if test="contactmobile != null">  CONTACTMOBILE = #{contactmobile},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_SCHOOLCONTACTER config end********************************  -->
+
+</mapper>

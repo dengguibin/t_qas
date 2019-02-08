@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.common.modules.mapper.TRmsLogininfoMapper">
+<!--  ********************************T_RMS_LOGININFO config begnin********************************  -->
+
+<select id="select" resultType="TRmsLogininfo"> 
+ SELECT LOGID,SID,PLATID,ACCOUNT,OPRESULT,CONTENTS,LOGTIME,ADDR,NUMS,URL,PARAMS,SFYX,CJSJ FROM  T_RMS_LOGININFO 
+ WHERE   LOGID=#{logid}
+</select>
+
+
+<select id="queryLogCountByAddr" resultType="int"> 
+<![CDATA[
+SELECT COUNT(1) FROM T_RMS_LOGININFO L WHERE L.LOGTIME >
+(
+SELECT CASE WHEN MAX(T.LOGTIME) IS NULL 
+THEN #{logtime} ELSE  MAX(T.LOGTIME) END L  FROM  T_RMS_LOGININFO T
+WHERE ADDR = #{addr} AND OPRESULT = 1
+) AND L.LOGTIME > #{logtime}
+AND L.OPRESULT <> 1]]>
+</select>
+
+<select id="list" parameterType="TRmsLogininfo" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT LOGID,SID,PLATID,ACCOUNT,OPRESULT,CONTENTS,LOGTIME,ADDR,NUMS,URL,PARAMS,SFYX,CJSJ FROM  T_RMS_LOGININFO 
+ WHERE   LOGID=#{logid}
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="TRmsLogininfo">
+ INSERT INTO T_RMS_LOGININFO   ( LOGID,SID,PLATID,ACCOUNT,OPRESULT,CONTENTS,LOGTIME,ADDR,NUMS,URL,PARAMS,SFYX,CJSJ)
+  VALUES ( #{logid},#{sid},#{platid},#{account},#{opresult},#{contents},#{logtime},#{addr},#{nums},#{url},#{params},#{sfyx},#{cjsj} )
+</insert>
+
+ <update id="update" parameterType="TRmsLogininfo">
+ UPDATE T_RMS_LOGININFO SET OUTTIME =  #{outtime},OUTSTATE = #{outstate}
+ WHERE  LOGID=#{logid}
+</update>
+
+ <delete id="delete" parameterType="TRmsLogininfo">
+   DELETE FROM T_RMS_LOGININFO WHERE   LOGID=#{logid}
+</delete>
+
+<!--  ********************************T_RMS_LOGININFO config end********************************  -->
+
+</mapper>

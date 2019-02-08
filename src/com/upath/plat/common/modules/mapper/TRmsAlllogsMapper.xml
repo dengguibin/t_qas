@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.common.modules.mapper.TRmsAlllogsMapper">
+<!--  ********************************T_RMS_ALLLOGS config begnin********************************  -->
+
+<select id="select"> 
+ SELECT LOGID,SID,PLATID,WORKER,WORKIP,MAC,ACCOUNT,OPRESULT,ERRORS,CONTENTS,LOGTIME,ADDR,URL,PARAMS,SFYX,STATUS,CJSJ,XGSJ,DESCR,MENU FROM  T_RMS_ALLLOGS 
+ WHERE   LOGID=#{logid}
+</select>
+
+<select id="list" parameterType="TRmsAlllogs" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT LOGID,ACCOUNT,OPRESULT,LOGTIME,ADDR,DESCR,MENU FROM  T_RMS_ALLLOGS 
+ WHERE    STATUS = 1
+  <if test="account != null and account != ''">
+  	AND ( ACCOUNT LIKE '%' #{account} '%' OR   ADDR LIKE '%' #{account} '%' )
+  </if>
+  <if test="opresult != null">
+  	AND OPRESULT = #{opresult}
+  </if>
+   <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(LOGTIME,'%Y-%m-%d')]]>
+   </if>
+   <if test="startTime != null and startTime != ''">
+      	<![CDATA[  AND   #{startTime} <= DATE_FORMAT(LOGTIME,'%Y-%m-%d')]]>
+   </if>
+ ORDER BY LOGTIME DESC 
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+<select id="listParseLogs" useCache="false"   resultType ="TRmsAlllogs" >  
+ SELECT LOGID,URL,S.CONTENTS,S.STATUS FROM  T_RMS_ALLLOGS S
+	 WHERE STATUS = 0
+	 ORDER BY LOGTIME ASC 
+	 LIMIT 0, #{rows}
+</select>
+
+ <insert id="insert" parameterType="TRmsAlllogs">
+ INSERT INTO T_RMS_ALLLOGS   ( LOGID,SID,PLATID,WORKER,WORKIP,MAC,ACCOUNT,OPRESULT,ERRORS,CONTENTS,LOGTIME,ADDR,URL,PARAMS,SFYX,STATUS,CJSJ)
+  VALUES ( #{logid},#{sid},#{platid},#{worker},#{workip},#{mac},#{account},#{opresult},#{errors},#{contents},#{logtime},#{addr},#{url},#{params},#{sfyx},#{status},#{cjsj} )
+</insert>
+
+ <update id="update" parameterType="TRmsAlllogs">
+ UPDATE T_RMS_ALLLOGS SET SFYX=#{sfyx},STATUS=#{status},XGSJ=#{xgsj},DESCR=#{descr},MENU=#{menu} 
+ WHERE  LOGID=#{logid}
+</update>
+
+ <delete id="delete">
+   DELETE FROM T_RMS_ALLLOGS WHERE   LOGID=#{logid}
+</delete>
+
+<!--  ********************************T_RMS_ALLLOGS config end********************************  -->
+
+</mapper>

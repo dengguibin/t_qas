@@ -1,0 +1,37 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="skins/index.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+<title>系统帮助中心</title>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<table id="indexContainer">
+  <tr>
+    <td height="1"><table id="topLogo">
+        <tr>
+          <td class="logo"><span id="btBack" title="后退"><img src="skins/images/back.gif" /></span><span id="btForward" title="前进"><img src="skins/images/forward.gif" /></span><span id="btHomepage" title="帮助首页"><img src="skins/images/home.gif" /></span><span id="showIcon" title="显示目录"><img src="skins/images/showIcon.gif" /></span></td>
+          <td class="topRight"></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table id="mainContent" height="100%">
+        <tr>
+          <td width="25%" id="leftBar"><table width="100%" height="100%" >
+              <tr>
+                <td height="20"	class="title">目录<span id="toggleMenu" title="关闭目录"><img src="skins/images/x.gif" ></span></td>
+              </tr>
+              <tr>
+                <td><iframe name="helpLeftFrame" id="helpLeftFrame" height="100%" frameborder="0" width="100%" src="left.html" ></iframe></td>
+              </tr>
+          </table></td>
+          <td width="80%" id="mFrame"><iframe name="helpMainFrame" id="helpMainFrame" height="100%" frameborder="0" width="100%" src="welcome.html" scrolling="yes"></iframe></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</body>
+</html>

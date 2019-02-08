@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!--  ********************************QAS_D_BASEINFOOFTEACHINGRESEARCHER config end********************************  -->
+
+<package name="QasDBaseinfoofteachingresearcher" extends="default"
+		namespace="/data/teaching/baseInfoOfTeachingResearcher">
+		
+		<action name="queryInfo" class="qasDBaseinfoofteachingresearcherAction" method="queryInfo">
+			<result name="select">/pages/data/teaching/baseInfoOfTeachingResearcher/QasDBaseinfoofteachingresearcherInfo.jsp</result>
+		</action>
+		
+		<action name="queryList" class="qasDBaseinfoofteachingresearcherAction" method="queryList">
+			<result name="list">/pages/data/teaching/baseInfoOfTeachingResearcher/QasDBaseinfoofteachingresearcherList.jsp</result>
+		</action>
+		
+		<action name="remove" class="qasDBaseinfoofteachingresearcherAction" method="remove">
+		</action>
+		
+		<action name="toEdit" class="qasDBaseinfoofteachingresearcherAction" method="toEdit">
+			<result name="toEdit">/pages/data/teaching/baseInfoOfTeachingResearcher/QasDBaseinfoofteachingresearcherEdit.jsp</result>
+		</action>
+		
+		<action name="save" class="qasDBaseinfoofteachingresearcherAction" method="save">
+			<result name="save" type="redirect">
+			/data/teaching/baseInfoOfTeachingResearcher/queryList.action?menuId=${menuId}
+			</result>
+		</action>
+	</package>
+<!--  ********************************QAS_D_BASEINFOOFTEACHINGRESEARCHER config end********************************  -->
+</struts>

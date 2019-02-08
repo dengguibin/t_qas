@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.data.major.lastYearEmployment.mapper.QasDLastyearemploymentMapper">
+<!--  ********************************QAS_D_LASTYEAREMPLOYMENT config begnin********************************  -->
+
+<select id="select" resultType="QasDLastyearemployment"> 
+ SELECT ID,DIRECTIONID,GRADNUM,EMPNUM,PROMOTION,TRANWORK,SATISFIED,NOMAL,DISSATISFIED,SATISFIEDWITHTEACHING,SATISFIEDWITHCOLLEGE,WORKANDCAREEREXPECTATIONSMATCH,SATISFIEDWITHWORKABILITY,SATISFIEDWITHCOREKNOWLEDGE,SATISFIEDWITHEMPLOYMENT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_LASTYEAREMPLOYMENT 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasDLastyearemployment" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,DIRECTIONID,GRADNUM,EMPNUM,PROMOTION,TRANWORK,SATISFIED,NOMAL,DISSATISFIED,SATISFIEDWITHTEACHING,SATISFIEDWITHCOLLEGE,WORKANDCAREEREXPECTATIONSMATCH,SATISFIEDWITHWORKABILITY,SATISFIEDWITHCOREKNOWLEDGE,SATISFIEDWITHEMPLOYMENT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME FROM  QAS_D_LASTYEAREMPLOYMENT 
+ WHERE  1 = 1
+ <if test="directionid != null and directionid != ''">
+ AND DIRECTIONID LIKE '%' #{directionid}  '%'
+ </if>
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasDLastyearemployment">
+ INSERT INTO QAS_D_LASTYEAREMPLOYMENT   ( ID,DIRECTIONID,GRADNUM,EMPNUM,PROMOTION,TRANWORK,SATISFIED,NOMAL,DISSATISFIED,SATISFIEDWITHTEACHING,SATISFIEDWITHCOLLEGE,WORKANDCAREEREXPECTATIONSMATCH,SATISFIEDWITHWORKABILITY,SATISFIEDWITHCOREKNOWLEDGE,SATISFIEDWITHEMPLOYMENT,STATUS,CREATEDBY,CREATEDTIME,UPDATEDBY,UPDATEDTIME,TENANTID,STORAGETIME)
+  VALUES ( #{id},#{directionid},#{gradnum},#{empnum},#{promotion},#{tranwork},#{satisfied},#{nomal},#{dissatisfied},#{satisfiedwithteaching},#{satisfiedwithcollege},#{workandcareerexpectationsmatch},#{satisfiedwithworkability},#{satisfiedwithcoreknowledge},#{satisfiedwithemployment},#{status},#{createdby},#{createdtime},#{updatedby},#{updatedtime},#{tenantid},#{storagetime} )
+</insert>
+
+ <update id="update" parameterType="QasDLastyearemployment">
+ UPDATE QAS_D_LASTYEAREMPLOYMENT SET  ID=#{id},DIRECTIONID=#{directionid},GRADNUM=#{gradnum},EMPNUM=#{empnum},PROMOTION=#{promotion},TRANWORK=#{tranwork},SATISFIED=#{satisfied},NOMAL=#{nomal},DISSATISFIED=#{dissatisfied},SATISFIEDWITHTEACHING=#{satisfiedwithteaching},SATISFIEDWITHCOLLEGE=#{satisfiedwithcollege},WORKANDCAREEREXPECTATIONSMATCH=#{workandcareerexpectationsmatch},SATISFIEDWITHWORKABILITY=#{satisfiedwithworkability},SATISFIEDWITHCOREKNOWLEDGE=#{satisfiedwithcoreknowledge},SATISFIEDWITHEMPLOYMENT=#{satisfiedwithemployment},STATUS=#{status},CREATEDBY=#{createdby},CREATEDTIME=#{createdtime},UPDATEDBY=#{updatedby},UPDATEDTIME=#{updatedtime},TENANTID=#{tenantid},STORAGETIME=#{storagetime} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_D_LASTYEAREMPLOYMENT WHERE   ID=#{id}
+</delete>
+<!-- 批量删除  -->
+    <delete id="batchDelete">
+         DELETE FROM QAS_D_LASTYEAREMPLOYMENT WHERE ID IN
+         <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+<!-- 动态进行更新 如果有需要请开启，否则请删除 -->
+ <update id="updateWithDyna" parameterType="QasDLastyearemployment">
+ UPDATE QAS_D_LASTYEAREMPLOYMENT 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="directionid != null">  DIRECTIONID = #{directionid},</if>
+<if test="gradnum != null">  GRADNUM = #{gradnum},</if>
+<if test="empnum != null">  EMPNUM = #{empnum},</if>
+<if test="promotion != null">  PROMOTION = #{promotion},</if>
+<if test="tranwork != null">  TRANWORK = #{tranwork},</if>
+<if test="satisfied != null">  SATISFIED = #{satisfied},</if>
+<if test="nomal != null">  NOMAL = #{nomal},</if>
+<if test="dissatisfied != null">  DISSATISFIED = #{dissatisfied},</if>
+<if test="satisfiedwithteaching != null">  SATISFIEDWITHTEACHING = #{satisfiedwithteaching},</if>
+<if test="satisfiedwithcollege != null">  SATISFIEDWITHCOLLEGE = #{satisfiedwithcollege},</if>
+<if test="workandcareerexpectationsmatch != null">  WORKANDCAREEREXPECTATIONSMATCH = #{workandcareerexpectationsmatch},</if>
+<if test="satisfiedwithworkability != null">  SATISFIEDWITHWORKABILITY = #{satisfiedwithworkability},</if>
+<if test="satisfiedwithcoreknowledge != null">  SATISFIEDWITHCOREKNOWLEDGE = #{satisfiedwithcoreknowledge},</if>
+<if test="satisfiedwithemployment != null">  SATISFIEDWITHEMPLOYMENT = #{satisfiedwithemployment},</if>
+<if test="status != null">  STATUS = #{status},</if>
+<if test="createdby != null">  CREATEDBY = #{createdby},</if>
+<if test="createdtime != null">  CREATEDTIME = #{createdtime},</if>
+<if test="updatedby != null">  UPDATEDBY = #{updatedby},</if>
+<if test="updatedtime != null">  UPDATEDTIME = #{updatedtime},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="storagetime != null">  STORAGETIME = #{storagetime},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+
+<!--  ********************************QAS_D_LASTYEAREMPLOYMENT config end********************************  -->
+
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deceen.diagnosereport.analy.mapper.QasTDiagnosticelementMapper">
+<!--  ********************************QAS_T_DIAGNOSTICELEMENT config begnin********************************  -->
+
+<select id="select" resultType="QasTDiagnosticelement"> 
+ SELECT ID,DIAGNOSTICPROJECTID,INDICATORCATALOGID,INDICATORCATALOGUNIQUEID,ELEMENTNAME,ELEMENTSTATE,TENANTID,WEIGHT,SORT FROM  QAS_T_DIAGNOSTICELEMENT 
+ WHERE   ID=#{id}
+</select>
+
+<select id="list" parameterType="QasTDiagnosticelement" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT ID,DIAGNOSTICPROJECTID,INDICATORCATALOGID,INDICATORCATALOGUNIQUEID,ELEMENTNAME,ELEMENTSTATE,TENANTID,WEIGHT,SORT FROM  QAS_T_DIAGNOSTICELEMENT 
+ WHERE  1 = 1
+ <!-- 
+   ## 这里为查询的样例 修改完必须删除此些内容
+ <if test="filed != null and filed != ''">
+ AND COLUMN LIKE '%' #{filed}  '%'
+ </if>
+  <if test="endTime != null and endTime != ''">
+      	<![CDATA[  AND  #{endTime} >= DATE_FORMAT(COLUMN,'%Y-%m-%d')]]>
+  </if>
+ -->
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="QasTDiagnosticelement">
+ INSERT INTO QAS_T_DIAGNOSTICELEMENT   ( ID,DIAGNOSTICPROJECTID,INDICATORCATALOGID,INDICATORCATALOGUNIQUEID,ELEMENTNAME,ELEMENTSTATE,TENANTID,WEIGHT,SORT)
+  VALUES ( #{id},#{diagnosticprojectid},#{indicatorcatalogid},#{indicatorcataloguniqueid},#{elementname},#{elementstate},#{tenantid},#{weight},#{sort} )
+</insert>
+
+<insert id="insertBatch">
+	INSERT INTO QAS_T_DIAGNOSTICELEMENT   ( ID,DIAGNOSTICPROJECTID,INDICATORCATALOGID,INDICATORCATALOGUNIQUEID,ELEMENTNAME,ELEMENTSTATE,TENANTID,WEIGHT,SORT)
+  VALUES
+	 <foreach collection="list" item="d" separator=",">
+	  ( #{d.id},#{d.diagnosticprojectid},#{d.indicatorcatalogid},#{d.indicatorcataloguniqueid},#{d.elementname},#{d.elementstate},#{d.tenantid},#{d.weight},#{d.sort} )
+</foreach>
+</insert>
+
+ <update id="update" parameterType="QasTDiagnosticelement">
+ UPDATE QAS_T_DIAGNOSTICELEMENT SET  ID=#{id},DIAGNOSTICPROJECTID=#{diagnosticprojectid},INDICATORCATALOGID=#{indicatorcatalogid},INDICATORCATALOGUNIQUEID=#{indicatorcataloguniqueid},ELEMENTNAME=#{elementname},ELEMENTSTATE=#{elementstate},TENANTID=#{tenantid},WEIGHT=#{weight},SORT=#{sort} 
+ WHERE  ID=#{id}
+</update>
+
+
+ <delete id="delete">
+   DELETE FROM QAS_T_DIAGNOSTICELEMENT WHERE   ID=#{id}
+</delete>
+
+<!--动态进行更新 如果有需要请开启，否则请删除
+ <update id="updateWithDyna" parameterType="QasTDiagnosticelement">
+ UPDATE QAS_T_DIAGNOSTICELEMENT 
+ <trim prefix="SET" suffixOverrides=",">
+ <if test="id != null">  ID = #{id},</if>
+<if test="diagnosticprojectid != null">  DIAGNOSTICPROJECTID = #{diagnosticprojectid},</if>
+<if test="indicatorcatalogid != null">  INDICATORCATALOGID = #{indicatorcatalogid},</if>
+<if test="indicatorcataloguniqueid != null">  INDICATORCATALOGUNIQUEID = #{indicatorcataloguniqueid},</if>
+<if test="elementname != null">  ELEMENTNAME = #{elementname},</if>
+<if test="elementstate != null">  ELEMENTSTATE = #{elementstate},</if>
+<if test="tenantid != null">  TENANTID = #{tenantid},</if>
+<if test="weight != null">  WEIGHT = #{weight},</if>
+<if test="sort != null">  SORT = #{sort},</if>
+
+ </trim>  
+ WHERE  ID=#{id}
+</update>
+-->
+<!--  ********************************QAS_T_DIAGNOSTICELEMENT config end********************************  -->
+
+</mapper>

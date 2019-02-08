@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.auth.mapper.TRmsPermissionsinfoMapper">
+<!--  ********************************T_RMS_PERMISSIONSINFO config begnin********************************  -->
+
+<select id="select" resultType="TRmsPermissionsinfo"> 
+ SELECT QXID,QXMC,QXMS,PXH,SFYX,CJSJ,CJR,XGSJ,XGR FROM  T_RMS_PERMISSIONSINFO 
+ WHERE   QXID=#{qxid}
+</select>
+
+<select id="list" parameterType="TRmsPermissionsinfo" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT QXID,QXMC,QXMS,PXH,SFYX FROM  T_RMS_PERMISSIONSINFO 
+ WHERE 1 = 1 
+ 	<if test="qxid != null">
+ 		AND QXID LIKE '%' #{qxid} '%'
+ 	</if>
+ 	<if test="qxmc != null">
+ 		AND QXMC LIKE '%' #{qxmc} '%'
+ 	</if>
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="TRmsPermissionsinfo">
+ INSERT INTO T_RMS_PERMISSIONSINFO   ( QXID,QXMC,QXMS,PXH,SFYX,CJSJ,CJR,XGSJ,XGR)
+  VALUES ( #{qxid},#{qxmc},#{qxms},#{pxh},#{sfyx},#{cjsj},#{cjr},#{xgsj},#{xgr} )
+</insert>
+
+ <update id="update" parameterType="TRmsPermissionsinfo">
+ UPDATE T_RMS_PERMISSIONSINFO SET  QXMC=#{qxmc},QXMS=#{qxms},PXH=#{pxh},SFYX=#{sfyx},XGSJ=#{xgsj},XGR=#{xgr} 
+ WHERE  QXID=#{qxid}
+</update>
+
+ <delete id="delete" parameterType="TRmsPermissionsinfo">
+   DELETE FROM T_RMS_PERMISSIONSINFO WHERE   QXID=#{qxid}
+</delete>
+
+<!--  ********************************T_RMS_PERMISSIONSINFO config end********************************  -->
+
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.upath.plat.common.modules.mapper.TCommonOnlineMapper">
+<!--  ********************************T_COMMON_ONLINE config begnin********************************  -->
+
+<select id="select" resultType="TCommonOnline"> 
+ SELECT TID,SESSIONID,LOGINTIME,LOGOUTTIME,STATUS,ONLINE,USERID,CIP,CJSJ,CJR,XGSJ,XGR FROM  T_COMMON_ONLINE 
+ WHERE   TID=#{tid}
+</select>
+
+<select id="list" parameterType="TCommonOnline" useCache="false"   resultType ="hashmap" >  
+ <include refid="plat.ORACLE_PAGE_HEADER" />
+ SELECT TID,SESSIONID,LOGINTIME,LOGOUTTIME,STATUS,ONLINE,USERID,CIP,CJSJ,CJR,XGSJ,XGR FROM  T_COMMON_ONLINE 
+ WHERE   TID=#{tid}
+ <include refid="plat.ORACLE_PAGE_FOOTER" />
+</select>
+
+ <insert id="insert" parameterType="TCommonOnline">
+ INSERT INTO T_COMMON_ONLINE   ( TID,SESSIONID,LOGINTIME,LOGOUTTIME,STATUS,ONLINE,USERID,CIP,CJSJ,CJR,XGSJ,XGR)
+  VALUES ( #{tid},#{sessionid},#{logintime},#{logouttime},#{status},#{online},#{userid},#{cip},#{cjsj},#{cjr},#{xgsj},#{xgr} )
+</insert>
+
+ <update id="update" parameterType="TCommonOnline">
+ UPDATE T_COMMON_ONLINE SET  TID=#{tid},SESSIONID=#{sessionid},LOGINTIME=#{logintime},LOGOUTTIME=#{logouttime},STATUS=#{status},ONLINE=#{online},USERID=#{userid},CIP=#{cip},CJSJ=#{cjsj},CJR=#{cjr},XGSJ=#{xgsj},XGR=#{xgr} 
+ WHERE  TID=#{tid}
+</update>
+
+ <delete id="delete" parameterType="TCommonOnline">
+   DELETE FROM T_COMMON_ONLINE WHERE   TID=#{tid}
+</delete>
+
+<!--  ********************************T_COMMON_ONLINE config end********************************  -->
+
+</mapper>
